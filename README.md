@@ -1,7 +1,7 @@
 # Yii2 Shop
 
-[![Latest Stable Version](https://poser.pugx.org/zakharov-andrew/yii2-settings/v/stable)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
-[![License](https://poser.pugx.org/zakharov-andrew/yii2-settings/license)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
+[![Latest Stable Version](https://poser.pugx.org/zakharov-andrew/yii2-shop/v/stable)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
+[![License](https://poser.pugx.org/zakharov-andrew/yii2-shop/license)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
 Yii2 shop module.
