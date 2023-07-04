@@ -30,3 +30,41 @@ Subsequently, run
 ```
 
 in order to create the settings table in your database.
+
+Or add to console config
+
+```php
+return [
+    // ...
+    'controllerMap' => [
+        // ...
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => [
+                '@console/migrations', // Default migration folder
+                '@vendor/zakharov-andrew/yii2-shop/src/migrations'
+            ]
+        ]
+        // ...
+    ]
+    // ...
+];
+```
+
+## Usage
+
+Add this to your main configuration's modules array
+
+```
+    'modules' => [
+        'settings' => [
+            'class' => 'ZakharovAndrew\shop\Module',
+            'bootstrapVersion' => 5, // if use bootstrap 5
+        ],
+        // ...
+    ],
+```
+
+## License
+
+**yii2-shop** it is available under a MIT License. Detailed information can be found in the `LICENSE.md`.
