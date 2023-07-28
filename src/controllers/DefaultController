@@ -1,0 +1,16 @@
+<?php
+
+namespace ZakharovAndrew\shop\controllers;
+
+use Yii;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+
+/**
+ * DefaultController implements the CRUD actions for Shop.
+ * @author Andrew Zakharov https://github.com/ZakharovAndrew
+ */
+class DefaultController extends Controller
+{
+    
+}
