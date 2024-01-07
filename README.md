@@ -1,6 +1,7 @@
 # Yii2 Shop
 
 [![Latest Stable Version](https://poser.pugx.org/zakharov-andrew/yii2-shop/v/stable)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
+[![Total Downloads](https://poser.pugx.org/zakharov-andrew/yii2-shop/downloads)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![License](https://poser.pugx.org/zakharov-andrew/yii2-shop/license)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
@@ -57,12 +58,27 @@ Add this to your main configuration's modules array
 
 ```
     'modules' => [
-        'settings' => [
+        'shop' => [
             'class' => 'ZakharovAndrew\shop\Module',
             'bootstrapVersion' => 5, // if use bootstrap 5
         ],
         // ...
     ],
+```
+
+Add this to your main configuration's urlManager array
+
+```
+'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                // ...
+                'catalog/<url:[\w\-]+>' => 'shop/product-category/view',
+                'catalog' => 'shop/product-category/catalog',
+                // ...
+            ],
+        ],
 ```
 
 ## License
