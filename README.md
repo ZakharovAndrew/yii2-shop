@@ -74,6 +74,7 @@ Add this to your main configuration's modules array
         // ...
     ],
 ```
+**Note**: the maximum number of additional parameters is 3
 
 Add this to your main configuration's urlManager array
 
