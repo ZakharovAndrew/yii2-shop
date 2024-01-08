@@ -2,12 +2,22 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use ZakharovAndrew\shop\models\ProductCategory;
+use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
 /** @var app\models\ProductCategory $model */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Catalog', 'url' => ['catalog']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('Catalog'), 'url' => ['/shop/catalog/index']];
+
+// collecting a list of categories
+foreach (ProductCategory::getCategories($model->id) as $category) {
+    // exclude the current category
+    if ($category->id !== $model->id) {
+        $this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => ['/shop/product-category/view', 'url' => $category->url]];
+    }
+}
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Module::t('Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
     
     <div class="category-description"><?= $model->description ?></div>
