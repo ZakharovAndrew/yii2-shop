@@ -84,7 +84,7 @@ Add this to your main configuration's urlManager array
             'rules' => [
                 // ...
                 'catalog/<url:[\w\-]+>' => 'shop/product-category/view',
-                'catalog' => 'shop/product-category/catalog',
+                'catalog' => 'shop/catalog/index',
                 // ...
             ],
         ],
