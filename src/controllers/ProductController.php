@@ -55,8 +55,14 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        // increase the number of views
+        $model->count_views++;
+        $model->save();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
     
