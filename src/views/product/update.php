@@ -1,14 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
 /** @var app\models\Product $model */
 
-$this->title = 'Update Product: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->title = Module::t('Update Product') . ': ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Module::t('Products'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = Module::t('Update');
 ?>
 <div class="product-update">
 

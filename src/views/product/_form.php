@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\models\ProductCategory;
+use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\Product $model */
@@ -35,7 +36,7 @@ $appLanguage = Yii::$app->language;
     <?= $form->field($model, 'category_id')->dropDownList(ProductCategory::getDropdownGroups(), ['prompt' => '']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

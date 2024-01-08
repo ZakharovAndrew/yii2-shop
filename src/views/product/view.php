@@ -8,10 +8,11 @@ use ZakharovAndrew\shop\models\ProductCategory;
 /** @var app\models\Product $model */
 
 $this->title = $model->title;
-foreach (ProductCategory::getCategories($model->category_id) as $category) {
+$categories = ProductCategory::getCategories($model->category_id);
+foreach ($categories as $category) {
     $this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => ['/shop/product-category/view', 'url' => $category->url]];
 }
-$last_category = end(ProductCategory::getCategories($model->category_id));
+$last_category = end($categories);
 
 //$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
