@@ -59,6 +59,19 @@ class ProductController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    
+    /**
+     * Displays a single Product model by url.
+     * @param string $url link to product
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionViewByUrl($url)
+    {
+        return $this->render('view', [
+            'model' => $this->findModelByUrl($url),
+        ]);
+    }
 
     /**
      * Creates a new Product model.
@@ -94,7 +107,7 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'url' => $model->url]);
         }
 
         return $this->render('update', [
@@ -126,6 +139,15 @@ class ProductController extends Controller
     protected function findModel($id)
     {
         if (($model = Product::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    protected function findModelByUrl($url)
+    {
+        if (($model = Product::findOne(['url' => $url])) !== null) {
             return $model;
         }
 
