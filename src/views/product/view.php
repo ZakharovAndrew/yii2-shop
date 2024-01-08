@@ -7,12 +7,19 @@ use ZakharovAndrew\shop\models\ProductCategory;
 /** @var yii\web\View $this */
 /** @var app\models\Product $model */
 
+
+
 $this->title = $model->title;
 $categories = ProductCategory::getCategories($model->category_id);
 foreach ($categories as $category) {
     $this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => ['/shop/product-category/view', 'url' => $category->url]];
 }
 $last_category = end($categories);
+//SEO
+$this->registerMetaTag(['name' => 'description', 'content' => $last_category->title . ' '. $model->title]);
+$this->registerMetaTag(['name' => 'og:image', 'content' => $model->getFirstImage('big')]);
+$this->registerMetaTag(['name' => 'twitter:image', 'content' => $model->getFirstImage('big')]);
+$this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
 
 //$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
