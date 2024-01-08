@@ -60,7 +60,16 @@ Add this to your main configuration's modules array
     'modules' => [
         'shop' => [
             'class' => 'ZakharovAndrew\shop\Module',
+            'catalogTitle' => 'Catalog Title',
             'bootstrapVersion' => 5, // if use bootstrap 5
+            'params' => [
+                '1' => [
+                    'title' => [
+                        'en' => 'Weight',
+                        'ru' => 'Вес'
+                    ]
+                ]
+            ]
         ],
         // ...
     ],
