@@ -23,6 +23,8 @@ $appLanguage = Yii::$app->language;
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'cost')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'images')->textInput(['maxlength' => true]) ?>
     

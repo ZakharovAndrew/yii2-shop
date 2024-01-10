@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'url',
                 'format' => 'raw',
                 'content' => function ($model) {
-                    return '<a href="'.Url::toRoute(['view-by-url', 'url' => $model->url]).'">'.$model->url.'</a>';
+                    return '<a href="'.Url::toRoute(['view', 'url' => $model->url]).'">'.$model->url.'</a>';
                 }
             ],
             'images',

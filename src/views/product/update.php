@@ -8,7 +8,7 @@ use ZakharovAndrew\shop\Module;
 
 $this->title = Module::t('Update Product') . ': ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Module::t('Products'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'url' => $model->url]];
 $this->params['breadcrumbs'][] = Module::t('Update');
 ?>
 <div class="product-update">
