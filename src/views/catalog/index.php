@@ -12,7 +12,7 @@ use yii\grid\GridView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $module = Yii::$app->getModule('shop');
-//var_dump($module->catalogTitle);die();
+
 $this->title = $module->catalogTitle;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
