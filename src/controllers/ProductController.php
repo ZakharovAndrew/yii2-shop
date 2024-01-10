@@ -53,9 +53,9 @@ class ProductController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($url)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModelByUrl($url);
         
         // increase the number of views
         $model->count_views++;
@@ -66,18 +66,6 @@ class ProductController extends Controller
         ]);
     }
     
-    /**
-     * Displays a single Product model by url.
-     * @param string $url link to product
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionViewByUrl($url)
-    {
-        return $this->render('view', [
-            'model' => $this->findModelByUrl($url),
-        ]);
-    }
 
     /**
      * Creates a new Product model.

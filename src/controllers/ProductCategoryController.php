@@ -2,8 +2,10 @@
 
 namespace ZakharovAndrew\shop\controllers;
 
+use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\models\ProductCategorySearch;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,8 +57,26 @@ class ProductCategoryController extends Controller
      */
     public function actionView($url)
     {
+        $model = $this->findModelByUrl($url);
+        
+        $query = Product::find()->where(['category_id' => $model->id]);
+        //$products =>
+                
+        // делаем копию выборки
+        $countQuery = clone $query;
+        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 48]);
+        // приводим параметры в ссылке к ЧПУ
+        $pages->pageSizeParam = false;
+        $products = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            //->orderBy(Product::getSortby($sortby))
+            //->orderBy('datetime_at desc')
+            ->all();
+        
         return $this->render('view', [
-            'model' => $this->findModelByUrl($url),
+            'model' => $model,
+            'products' => $products
         ]);
     }
 
