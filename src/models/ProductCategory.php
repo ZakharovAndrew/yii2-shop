@@ -80,8 +80,8 @@ class ProductCategory extends \yii\db\ActiveRecord
     
     public static function getCategoryGroups()
     {
-        return Yii::$app->cache->getOrSet('list_category_group', function () {
-            $model = self::find()->all();
+        return Yii::$app->cache->getOrSet('list_category_group2', function () {
+            /*$model = self::find()->all();
             $result = [];
             foreach ($model as $category) {
                 if (empty($category->parent_id)) {
@@ -90,8 +90,65 @@ class ProductCategory extends \yii\db\ActiveRecord
                     $result[$category->parent_id]['child'][] = $category;
                 }
             }
-            
             return $result;
+             */
+            
+            $model = ProductCategory::find()->select(['id','title','parent_id'])->all();
+            $items = [];
+        
+            foreach ($model as $category) {
+                $items[$category->id]['data'] = $category;
+            }
+
+            foreach ($items as $row) {
+                $data = $row['data'];
+
+                $parentKey = !isset($data->parent_id) || empty($data->parent_id) ?
+                    0 : $data->parent_id;
+
+                $items[$parentKey]['items'][$data->id] = &$items[$data->id];
+            }
+        
+
+            return $this->getMenu($items[0]['items']);            
         }, 3600);
+    }
+    
+    public static function getMenuItems($items)
+    {
+        $result = [];
+        foreach ($items as $row) {
+            if (isset($row['items'])) {
+                $result[$row['data']->title] = static::getMenuItems($row['items']);
+            } else {
+                $result[$row['data']->title] = $row['data']->id;
+            }
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Get a list of categories 
+     */
+    public static function getCategories($category_id)
+    {
+        return Yii::$app->cache->getOrSet('list_product_categories_'.$category_id, function () use ($category_id) {
+            $result = [];
+            while ($category_id !== NULL) {
+                $category = ProductCategory::findOne(['id' => $category_id]);
+                $category_id = $category->parent_id;
+                $result[] = $category;
+            }
+
+            return array_reverse($result);
+        }, 60);
+    }
+    
+    public function afterSave($insert, $changedAttributes)
+    {
+        Yii::$app->cache->delete('list_category_group2');
+        return parent::afterSave($insert, $changedAttributes);
+        
     }
 }
