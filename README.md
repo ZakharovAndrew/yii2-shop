@@ -71,6 +71,10 @@ Add this to your main configuration's modules array
                 ]
             ]
         ],
+        'imageupload' => [
+            'class' => 'ZakharovAndrew\imageupload\Module',
+            'uploadDir' => '/path/to/upload/dir/',
+        ],
         // ...
     ],
 ```
