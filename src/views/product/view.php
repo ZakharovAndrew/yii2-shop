@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use ZakharovAndrew\shop\models\ProductCategory;
+use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
 /** @var app\models\Product $model */
@@ -25,6 +26,9 @@ $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_im
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+<style>
+    .product-view .product-price {font-size:32px;}
+</style>
 <div class="product-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -48,7 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <img src="<?= $model->images ?>" class="img-fluid">
         </div>
         <div class="col-12 col-md-6">
-            <p>Категория: <?= $last_category->title  ?></p>
+            <div class="product-price"><?= number_format($model->cost, 0, '', ' ' ) ?> ₽</div>
+            <p><?= Module::t('Category')?>: <?= $last_category->title ?></p>
             <?= $model->description ?>
         </div>
     </div>

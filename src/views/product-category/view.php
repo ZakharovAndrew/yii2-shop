@@ -45,11 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
         text-align: center;
     }
     .to-album button {
-        
         border-radius: 20px;
         background-color: #FFC42E;
-        border:none;
-        padding:10px 25px;
+        border:none;        
+        padding: 9px 25px;
+        font-family: 'Roboto Condensed', sans-serif;
     }
     .category-description {margin: 30px 0}
     
