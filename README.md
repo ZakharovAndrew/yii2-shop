@@ -69,7 +69,8 @@ Add this to your main configuration's modules array
                         'ru' => 'Вес'
                     ]
                 ]
-            ]
+            ],
+            'uploadWebDir' => '/web/path/to/upload/dir/'
         ],
         'imageupload' => [
             'class' => 'ZakharovAndrew\imageupload\Module',
