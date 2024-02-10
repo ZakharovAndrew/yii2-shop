@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\imageupload\ImageUploadWidget;
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\Product $model */
@@ -26,7 +27,7 @@ $appLanguage = Yii::$app->language;
     
     <?= $form->field($model, 'cost')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'images')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'images')->widget(ImageUploadWidget::class, ['url' => '123', 'id'=> 'product-images', 'form' => $form]); ?>
     
     <?php
     /* additional params */
@@ -42,5 +43,7 @@ $appLanguage = Yii::$app->language;
     </div>
 
     <?php ActiveForm::end(); ?>
+    
+    <?= ImageUploadWidget::afterForm() ?>
 
 </div>

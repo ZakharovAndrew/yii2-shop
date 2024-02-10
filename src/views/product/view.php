@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         
     
         <div class="col-12 col-md-6">
-            <img src="<?= $model->images ?>" class="img-fluid">
+            <img src="<?= $model->getFirstImage('big') ?>" class="img-fluid">
         </div>
         <div class="col-12 col-md-6">
             <div class="product-price"><?= number_format($model->cost, 0, '', ' ' ) ?> ₽</div>

@@ -53,10 +53,11 @@ class Product extends \yii\db\ActiveRecord
             'title' => Module::t('Title'),
             'description' => Module::t('Description'),
             'url' => Module::t('Url'),
-            'images' => 'Images',
+            'images' => Module::t('Images'),
             'category_id' => Module::t('Category'),
             'user_id' => 'User ID',
             'count_views' => Module::t('Count Views'),
+            'cost' => Module::t('Cost'),
             'created_at' => 'Created At',
         ];
     }
@@ -68,12 +69,13 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getFirstImage($size = 'medium')
     {
+        $module = Yii::$app->getModule('shop');
+        
         if ($this->images == '') {
             return '/img/no-photo.jpg';
         }
         
         $images = explode(',', $this->images);
-        //return '/uploaded_files/'. $images[0][$size].'_img_'.$size.'.jpg';
-        return $images[0];
+        return $module->uploadWebDir . $images[0].'_img_'.$size.'.jpg';
     }
 }

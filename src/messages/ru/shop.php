@@ -33,8 +33,13 @@ return [
     'Cost' => 'Цена',
     'Category' => 'Категория',
     'Products' => 'Товары',
+    'Images' => 'Изображения',
     'Update' => 'Обновить',
     'Count Views' => 'Количество просмотров',
     'Create Product' => 'Добавить товар',
-    'Update Product' => 'Обновить товар'
+    'Add Product' => 'Добавить товар',
+    'Update Product' => 'Обновить товар',
+    //category
+    'Product Categories' => 'Категории товаров',
+    'Create Product Category' => 'Создать категорию товаров'
 ];

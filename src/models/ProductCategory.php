@@ -3,6 +3,7 @@
 namespace ZakharovAndrew\shop\models;
 
 use Yii;
+use ZakharovAndrew\shop\Module;
 
 /**
  * This is the model class for table "product_category".
@@ -45,8 +46,8 @@ class ProductCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'url' => 'Url',
+            'title' => Module::t('Title'),
+            'url' => Module::t('Url'),
             'position' => 'Position',
             'parent_id' => 'Parent ID',
             'description' => 'Description',

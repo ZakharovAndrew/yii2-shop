@@ -20,6 +20,7 @@ class Module extends \yii\base\Module
 {    
     public $bootstrapVersion = '';
     public $catalogTitle = 'Catalog Title';
+    public $uploadWebDir = '';
  
     public $useTranslite = false;
     

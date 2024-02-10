@@ -25,7 +25,7 @@ class m240107_171311_create_product_category_table extends Migration
         // creates index for column `url`
         $this->createIndex(
             'idx-category-url',
-            'product_category',
+            'category',
             'url'
         );
     }

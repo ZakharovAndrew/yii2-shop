@@ -5,12 +5,13 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
 /** @var app\models\ProductCategorySearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Product Categories';
+$this->title = Module::t('Product Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-category-index">
@@ -18,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Product Category', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Create Product Category'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,11 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'title',
-            'url:url',
+            [
+                'attribute' => 'url',
+                'format' => 'raw',
+                'content' => function ($model) {
+                    return '<a href="'.Url::toRoute(['view', 'url' => $model->url]).'">'.$model->url.'</a>';
+                }
+            ],
             'position',
             'parent_id',
             //'description:ntext',
