@@ -78,4 +78,13 @@ class Product extends \yii\db\ActiveRecord
         $images = explode(',', $this->images);
         return $module->uploadWebDir . $images[0].'_img_'.$size.'.jpg';
     }
+    
+    public function getMoreProducts($count = 6)
+    {
+        return self::find()
+                ->where(['category_id' => $this->category_id])
+                ->andWhere(['!=', 'id', $this->id])
+                ->limit($count)
+                ->all();
+    }
 }

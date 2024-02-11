@@ -13,6 +13,17 @@ use ZakharovAndrew\imageupload\ImageUploadWidget;
 $module = Yii::$app->getModule('shop');
 // current language
 $appLanguage = Yii::$app->language;
+$this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js');
+$script = <<< JS
+   
+ClassicEditor
+    .create( document.querySelector( '#product-description' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+
+JS;
+$this->registerJs($script, yii\web\View::POS_READY);
 ?>
 
 <div class="product-form">

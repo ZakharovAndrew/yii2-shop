@@ -28,10 +28,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'title',           
+            [
+                'attribute' => 'images',
+                'format' => 'raw',
+
+                'content' => function ($model) {
+                    return '<img src="'.$model->getFirstImage('mini').'">';
+                }
+            ],
+            'title',
+            [
+                'attribute' => 'category_id',
+                'format' => 'raw',
+
+                'content' => function ($model) {
+                    return ZakharovAndrew\shop\models\ProductCategory::getCategoriesList()[$model->category_id]['title'] ?? $model->category_id;
+                }
+            ],
             [
                 'attribute' => 'description',
                 'format' => 'raw',
@@ -47,7 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return '<a href="'.Url::toRoute(['view', 'url' => $model->url]).'">'.$model->url.'</a>';
                 }
             ],
-            'images',
             //'category_id',
             //'user_id',
             //'count_views',

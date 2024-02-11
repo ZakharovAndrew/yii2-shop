@@ -12,6 +12,7 @@ use yii\grid\GridView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $module = Yii::$app->getModule('shop');
+$products = $dataProvider->getModels();
 
 $this->title = $module->catalogTitle;
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,5 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="catalog-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    
+    <?= $this->render('_product_list', [
+        'products' => $products
+    ]) ?>
 
 </div>

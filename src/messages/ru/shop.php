@@ -41,5 +41,7 @@ return [
     'Update Product' => 'Обновить товар',
     //category
     'Product Categories' => 'Категории товаров',
-    'Create Product Category' => 'Создать категорию товаров'
+    'Create Product Category' => 'Создать категорию товаров',
+    'Update Product Category' => 'Обновить категорию товаров',
+    'Description after goods' => 'Описание после товаров',
 ];

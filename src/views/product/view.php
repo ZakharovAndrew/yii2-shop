@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <style>
-    .product-view .product-price {font-size:32px;}
+    .product-description-block .product-price {font-size:32px;text-align:left}
 </style>
 <div class="product-view">
 
@@ -51,12 +51,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-12 col-md-6">
             <img src="<?= $model->getFirstImage('big') ?>" class="img-fluid">
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 product-description-block">
             <div class="product-price"><?= number_format($model->cost, 0, '', ' ' ) ?> ₽</div>
             <p><?= Module::t('Category')?>: <?= $last_category->title ?></p>
             <?= $model->description ?>
         </div>
     </div>
+    
+    <?= $this->render('../catalog/_product_list', [
+        'products' => $model->getMoreProducts(4),
+        'class' => 'col-md-3 col-12'
+    ]);?>
     
     
 

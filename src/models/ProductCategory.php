@@ -50,8 +50,8 @@ class ProductCategory extends \yii\db\ActiveRecord
             'url' => Module::t('Url'),
             'position' => 'Position',
             'parent_id' => 'Parent ID',
-            'description' => 'Description',
-            'description_after' => 'Description After',
+            'description' => Module::t('Description'),
+            'description_after' => Module::t('Description after goods'),
         ];
     }
     
@@ -146,9 +146,18 @@ class ProductCategory extends \yii\db\ActiveRecord
         }, 60);
     }
     
+    public static function getCategoriesList()
+    {
+        return Yii::$app->cache->getOrSet('list_product_categories', function () {
+            $category = ProductCategory::find()->asArray()->all();
+            return \yii\helpers\ArrayHelper::index($category, 'id');
+        }, 600);
+    }
+    
     public function afterSave($insert, $changedAttributes)
     {
         Yii::$app->cache->delete('list_category_group2');
+        Yii::$app->cache->delete('list_product_categories');
         return parent::afterSave($insert, $changedAttributes);
         
     }
