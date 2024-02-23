@@ -158,6 +158,7 @@ class ProductCategory extends \yii\db\ActiveRecord
     {
         Yii::$app->cache->delete('list_category_group2');
         Yii::$app->cache->delete('list_product_categories');
+        Yii::$app->cache->delete('list_categories_dropdown');
         return parent::afterSave($insert, $changedAttributes);
         
     }

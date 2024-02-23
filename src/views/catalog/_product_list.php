@@ -15,6 +15,7 @@
     }
     .product-title {
         text-align: center;
+        padding: 0 5px;
         font-size:20px;
     }
     .to-album {

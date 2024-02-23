@@ -63,7 +63,33 @@ class Product extends \yii\db\ActiveRecord
     }
     
     /**
-     * Получить первую картинку заданного размера
+     * Get a list of images
+     * @param string $size
+     * @return array
+     */
+    public function getImages($size = 'medium')
+    {
+        if ($this->images == '') {
+            return ['/img/no-photo.jpg'];
+        }
+        
+        $module = Yii::$app->getModule('shop');
+        
+        $result = [];
+        $arr = explode(',', $this->images);
+        
+        foreach ($arr as $item) {
+            if (!empty($item)) {
+                $result[] = $module->uploadWebDir . $item.'_img_'.$size.'.jpg';
+            }
+        }
+        
+        return $result;
+    }
+
+
+    /**
+     * Get the first image of a given size
      * @param string $size
      * @return type
      */
