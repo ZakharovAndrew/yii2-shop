@@ -113,4 +113,11 @@ class Product extends \yii\db\ActiveRecord
                 ->limit($count)
                 ->all();
     }
+    
+    public static function getPriceByID($id)
+    {
+        $product = static::findOne($id);
+        return $product ? $product->cost : null;
+  
+    }
 }
