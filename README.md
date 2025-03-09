@@ -65,7 +65,7 @@ Add this to your main configuration's modules array
             'params' => [
                 '1' => [
                     'title' => [
-                        'en' => 'Weight',
+                        'en-US' => 'Weight',
                         'ru' => 'Вес'
                     ]
                 ]
