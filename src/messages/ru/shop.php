@@ -57,4 +57,16 @@ return [
     'Address' => 'Адрес',
     'Created At' => 'Дата создания',
     'Updated At' => 'Дата обновления',
+    
+    // the list of order statuss
+    'Order not accepted yet' => 'Заказ еще не принят',
+    'Processing' => 'Принят в обработку',
+    'Rejected' => 'Отклонен',
+    'Отменен пользователем' => 'Canceled by user',
+    'Assembling' => 'На сборке',
+    'Awaiting payment' => 'Ожидает оплаты',
+    'Paid' => 'Оплачен',
+    'Assembled' => 'Собран',
+    'Shipped to customer' => 'Отправлен клиенту',
+    'Delivered to customer' => 'Получен клиентом',
 ];

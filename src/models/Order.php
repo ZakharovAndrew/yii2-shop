@@ -90,4 +90,25 @@ class Order extends ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+    
+    /**
+     * Returns the list of order statuses.
+     *
+     * @return array
+     */
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_NOT_ACCEPTED => Module::t('Order not accepted yet'),
+            self::STATUS_PROCESSING => Module::t('Processing'),
+            self::STATUS_REJECTED => Module::t('Rejected'),
+            self::STATUS_CANCELED_BY_USER => Module::t('Canceled by user'),
+            self::STATUS_ASSEMBLING => Module::t('Assembling'),
+            self::STATUS_AWAITING_PAYMENT => Module::t('Awaiting payment'),
+            self::STATUS_PAID => Module::t('Paid'),
+            self::STATUS_ASSEMBLED => Module::t('Assembled'),
+            self::STATUS_SHIPPED => Module::t('Shipped to customer'),
+            self::STATUS_DELIVERED => Module::t('Delivered to customer'),
+        ];
+    }
 }
