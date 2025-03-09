@@ -24,4 +24,9 @@ class Cart extends ActiveRecord
     {
         return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
+    
+    public function getUser ()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
 }
