@@ -44,4 +44,17 @@ return [
     'Create Product Category' => 'Создать категорию товаров',
     'Update Product Category' => 'Обновить категорию товаров',
     'Description after goods' => 'Описание после товаров',
+    
+    // order
+    'User ID' => 'ID пользователя',
+    'Delivery Method' => 'Способ доставки',
+    'First Name' => 'Имя',
+    'Last Name' => 'Фамилия',
+    'Middle Name' => 'Отчество',
+    'Phone' => 'Телефон',
+    'Postcode' => 'Почтовый индекс',
+    'City' => 'Город',
+    'Address' => 'Адрес',
+    'Created At' => 'Дата создания',
+    'Updated At' => 'Дата обновления',
 ];
