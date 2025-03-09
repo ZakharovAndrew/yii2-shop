@@ -25,6 +25,11 @@ class Module extends \yii\base\Module
     public $useTranslite = false;
     
     /**
+     * @var string Path to the default image for a product
+     */
+    public $defaultProductImage = '/img/no-photo.jpg';
+    
+    /**
      *
      * @var string source language for translation 
      */

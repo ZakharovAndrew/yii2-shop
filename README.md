@@ -70,6 +70,7 @@ Add this to your main configuration's modules array
                     ]
                 ]
             ],
+            'defaultProductImage' => '/images/default-product-image.jpg', // Path to the default image for a product
             'uploadWebDir' => '/web/path/to/upload/dir/'
         ],
         'imageupload' => [

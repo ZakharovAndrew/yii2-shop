@@ -69,11 +69,11 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getImages($size = 'medium')
     {
-        if ($this->images == '') {
-            return ['/img/no-photo.jpg'];
-        }
-        
         $module = Yii::$app->getModule('shop');
+        
+        if ($this->images == '') {
+            return [$module->defaultProductImage];
+        }
         
         $result = [];
         $arr = explode(',', $this->images);
@@ -98,7 +98,7 @@ class Product extends \yii\db\ActiveRecord
         $module = Yii::$app->getModule('shop');
         
         if ($this->images == '') {
-            return '/img/no-photo.jpg';
+            return $module->defaultProductImage;
         }
         
         $images = explode(',', $this->images);
