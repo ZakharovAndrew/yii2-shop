@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
             
         </div>
         <div class="col-12 col-md-6 product-description-block">
-            <div class="product-price"><?= number_format($model->cost, 0, '', ' ' ) ?> ₽</div>
+            <div class="product-price"><?= number_format($model->price, 0, '', ' ' ) ?> ₽</div>
             <p><?= Module::t('Category')?>: <?= $last_category->title ?></p>
             <?= $model->description ?>
             <div class="product-additional-params">
@@ -116,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     
-    <?php if ($more_products) { ?>
+    <?php if (isset($more_products)) { ?>
     <div class="more_products">
         <h3><?= Module::t('Similar products') ?></h3>
     <?= $this->render('../catalog/_product_list', [

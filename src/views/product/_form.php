@@ -36,7 +36,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'cost')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'images')->widget(ImageUploadWidget::class, ['url' => '123', 'id'=> 'product-images', 'form' => $form]); ?>
     
