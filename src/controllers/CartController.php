@@ -5,6 +5,8 @@ namespace ZakharovAndrew\shop\controllers;
 use Yii;
 use yii\web\Controller;
 use ZakharovAndrew\shop\models\Cart;
+use ZakharovAndrew\shop\models\Product;
+use yii\web\Response;
 
 class CartController extends Controller
 {
@@ -32,12 +34,12 @@ class CartController extends Controller
 
         // Добавляем товар в корзину
         $cart = new Cart();
-        $cart->addToCart($product, $quantity);
+        $cart->addToCart($product->id, $quantity);
 
         return [
             'success' => true,
             'message' => 'Product added to cart.',
-            'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
+            //'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
     }
 
@@ -74,6 +76,12 @@ class CartController extends Controller
             'message' => 'Product removed from cart.',
             'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
+    }
+    
+    public function actionClear()
+    {
+        Cart::clearCart();
+        return  $this->redirect('index');
     }
 
     /**

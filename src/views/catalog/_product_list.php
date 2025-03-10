@@ -1,3 +1,34 @@
+<?php $script = <<< JS
+function addToCart(productId, quantity) {
+    $.ajax({
+        url: '/shop/cart/add',
+        type: 'POST',
+        data: {
+            productId: productId,
+            quantity: quantity
+        },
+        success: function(response) {
+            if (response.success) {
+                alert('Товар добавлен в корзину!');
+                updateCartCount(response.cartCount);
+            } else {
+                alert('Ошибка: ' + response.message);
+            }
+        }
+    });
+}
+        
+$(".add-to-cart").on('click', function () {
+    let id = $(this).data('id');
+    addToCart(id,1);    
+});
+
+    
+JS;
+
+$this->registerJs($script, yii\web\View::POS_READY);
+?>
+
 <style>
     .shop-product-img img {
         width:100%;

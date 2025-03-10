@@ -97,7 +97,7 @@ class Cart extends ActiveRecord
         return Cart::find()->where(['user_id' => $userId])->with('product')->all();
     }
 
-    public function clearCart()
+    public static function clearCart()
     {
         if (Yii::$app->user->isGuest) {
             Yii::$app->session->remove($this->sessionKey);
