@@ -63,6 +63,7 @@ class ProductController extends Controller
 
         return $this->render('view', [
             'model' => $model,
+            'more_products' => $model->getMoreProducts(6)
         ]);
     }
     

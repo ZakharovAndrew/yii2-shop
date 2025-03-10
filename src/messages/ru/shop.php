@@ -40,6 +40,7 @@ return [
     'Create Product' => 'Добавить товар',
     'Add Product' => 'Добавить товар',
     'Update Product' => 'Обновить товар',
+    'Similar products' => 'Похожие товары',
     //category
     'Product Categories' => 'Категории товаров',
     'Create Product Category' => 'Создать категорию товаров',
