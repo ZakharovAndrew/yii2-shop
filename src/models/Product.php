@@ -16,7 +16,7 @@ use ZakharovAndrew\shop\Module;
  * @property int|null $category_id
  * @property int|null $user_id
  * @property int|null $count_views
- * @property int|null $cost
+ * @property int|null $price
  * @property string|null $created_at
  */
 class Product extends \yii\db\ActiveRecord
@@ -37,7 +37,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['title', 'url', 'images'], 'required'],
             [['description'], 'string'],
-            [['category_id', 'user_id', 'count_views', 'cost'], 'integer'],
+            [['category_id', 'user_id', 'count_views', 'price'], 'integer'],
             [['created_at'], 'safe'],
             [['title', 'url', 'images', 'param1', 'param2', 'param3'], 'string', 'max' => 255],
         ];
@@ -57,7 +57,7 @@ class Product extends \yii\db\ActiveRecord
             'category_id' => Module::t('Category'),
             'user_id' => 'User ID',
             'count_views' => Module::t('Count Views'),
-            'cost' => Module::t('Cost'),
+            'price' => Module::t('Price'),
             'created_at' => 'Created At',
         ];
     }
@@ -117,7 +117,7 @@ class Product extends \yii\db\ActiveRecord
     public static function getPriceByID($id)
     {
         $product = static::findOne($id);
-        return $product ? $product->cost : null;
+        return $product ? $product->price : null;
   
     }
 }
