@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Shop Cart
+ *  
+ * @link https://github.com/ZakharovAndrew/yii2-shop/
+ * @copyright Copyright (c) 2023-2025 Zakharov Andrew
+ */
+
 namespace ZakharovAndrew\shop\models;
 
 use Yii;

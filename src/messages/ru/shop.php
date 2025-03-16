@@ -26,6 +26,7 @@ return [
     'Status' => 'Статус',
     
     'Catalog' => 'Каталог',
+    'Total' => 'Итого',
     //Product
     'Title' => 'Название',
     'Description' => 'Описание',
