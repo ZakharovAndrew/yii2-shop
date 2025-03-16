@@ -6,7 +6,7 @@
  * Yii2 shop with database module with GUI manager supported.
  *  
  * @link https://github.com/ZakharovAndrew/yii2-shop/
- * @copyright Copyright (c) 2023 Zakharov Andrew
+ * @copyright Copyright (c) 2023-2025 Zakharov Andrew
  */
  
 namespace ZakharovAndrew\shop;

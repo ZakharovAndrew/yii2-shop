@@ -8,7 +8,7 @@ use yii\grid\GridView;
 use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
-/** @var app\models\ProductCategorySearch $searchModel */
+/** @var ZakharovAndrew\shop\models\ProductCategorySearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Module::t('Product Categories');
@@ -21,8 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Module::t('Create Product Category'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
