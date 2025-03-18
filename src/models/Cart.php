@@ -43,10 +43,10 @@ class Cart extends ActiveRecord
     public function addToCart($productId, $quantity = 1)
     {
         if (Yii::$app->user->isGuest) {
-            $this->addToSessionCart($productId, $quantity);
-        } else {
-            $this->addToDatabaseCart(Yii::$app->user->id, $productId, $quantity);
+            return $this->addToSessionCart($productId, $quantity);
         }
+        
+        return $this->addToDatabaseCart(Yii::$app->user->id, $productId, $quantity);
     }
 
     private function addToSessionCart($productId, $quantity)
@@ -58,6 +58,8 @@ class Cart extends ActiveRecord
             $cart[$productId] = $quantity;
         }
         Yii::$app->session->set($this->sessionKey, $cart);
+        
+        return $cart[$productId];
     }
     
     private function addToDatabaseCart($userId, $productId, $quantity)
@@ -72,6 +74,8 @@ class Cart extends ActiveRecord
             $cartItem->quantity = $quantity;
         }
         $cartItem->save();
+        
+        return $cartItem->quantity;
     }
 
     public function getCart()

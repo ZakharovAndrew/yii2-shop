@@ -34,11 +34,12 @@ class CartController extends Controller
 
         // Добавляем товар в корзину
         $cart = new Cart();
-        $cart->addToCart($product->id, $quantity);
+        $product_quantity = $cart->addToCart($product->id, $quantity);
 
         return [
             'success' => true,
             'message' => 'Product added to cart.',
+            'quantity' => $product_quantity,
             //'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
     }
