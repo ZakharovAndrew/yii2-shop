@@ -42,6 +42,7 @@ return [
     'Add Product' => 'Добавить товар',
     'Update Product' => 'Обновить товар',
     'Similar products' => 'Похожие товары',
+    'Cart' => 'Корзина',
     //category
     'Product Categories' => 'Категории товаров',
     'Create Product Category' => 'Создать категорию товаров',

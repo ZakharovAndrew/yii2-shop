@@ -3,66 +3,17 @@
 use yii\helpers\Html;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\shop\assets\ShopAssets;
+ShopAssets::register($this);
 
-$this->title = 'Корзина';
+$this->title = Module::t('Cart');
 $this->params['breadcrumbs'][] = $this->title;
+
+/* @var $this yii\web\View */
+/* @var $news ZakharovAndrew\news\models\News */
+/* @var $pagination yii\data\Pagination */
 ?>
-<style>
-    .img-cart {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        vertical-align: middle;
-        width: 4rem;
-        height: 4rem;
-        line-height: 4rem;
-    }
-    .count-buttons {
-        position: relative;
-        border: 1px solid #e5e5e5;
-        border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        box-sizing: border-box;
-        background-color: #fff;
-        width: fit-content;
-    }
-    .count-buttons__wrapper {
-        display: inline-block;
-        border-radius: 8px;
-        overflow: hidden;
-        cursor: pointer;
-    }
-    .count-buttons__button {
-        box-shadow: none;
-        color: #afafaf;
-        font-size: 18px;
-        font-weight: 400;
-        overflow: hidden;
-        padding: 0;
-        line-height: 1.5;
-        outline: none;
-        height: 100%;
-        width: 40px;
-        border: none;
-        background: rgba(0, 0, 0, 0);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .cart-product {
-        padding: 0 8px;
-    }
-    .cart-row {
-        border-top: 1px solid #dfe2e1;
-        padding-top: .75rem!important;
-        padding-bottom: .75rem!important;
-    }
-    .cart-product{
-        margin-left: .75rem !important;
-    }
-</style>
+
 <div class="cart-index">
     <h1><?= Html::encode($this->title) ?></h1>
 
