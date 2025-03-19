@@ -43,6 +43,32 @@ class CartController extends Controller
             //'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
     }
+    
+    public function actionDecrease()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $productId = Yii::$app->request->post('productId');
+
+        if (!$productId) {
+            return ['success' => false, 'message' => 'Product ID is required.'];
+        }
+
+        // Находим товар в базе данных
+        $product = Product::findOne($productId);
+        if (!$product) {
+            return ['success' => false, 'message' => 'Product not found.'];
+        }
+
+        // Добавляем товар в корзину
+        $cart = new Cart();
+        $product_quantity = $cart->addToCart($product->id, -1);
+
+        return [
+            'success' => true,
+            'quantity' => $product_quantity,
+        ];
+    }
 
     public function actionIndex()
     {

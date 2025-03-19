@@ -57,9 +57,14 @@ class Cart extends ActiveRecord
         } else {
             $cart[$productId] = $quantity;
         }
+        
+        if ($cart[$productId] == 0) {
+            unset($cart[$productId]);
+        }
+        
         Yii::$app->session->set($this->sessionKey, $cart);
         
-        return $cart[$productId];
+        return $cart[$productId] ?? 0;
     }
     
     private function addToDatabaseCart($userId, $productId, $quantity)
@@ -74,6 +79,12 @@ class Cart extends ActiveRecord
             $cartItem->quantity = $quantity;
         }
         $cartItem->save();
+        
+        if ($cartItem->quantity == 0) {
+            $cartItem->delete();
+            
+            return 0;
+        }
         
         return $cartItem->quantity;
     }

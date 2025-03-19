@@ -4,6 +4,7 @@ class ZaanShop {
     }
     
     addCart = (id, show_alert = true) => {
+        let self = this;
         $.ajax({
             url: '/shop/cart/add',
             type: 'POST',
@@ -20,26 +21,26 @@ class ZaanShop {
                         product_cost.innerHTML = (response.quantity * product_cost.dataset.cost) + ' ₽';
 
                         self.cartSumCount();
+                        
+                        if (show_alert) {
+                            alert('Товар добавлен в корзину!');
+                        }
                     } else {
                         console.log('Не нашел ' + 'product-counter-'+id);
                     }
-                    if (show_alert) {
-                        alert('Товар добавлен в корзину!');
-                    }
-                    updateCartCount(response.cartCount);
+                    
                 } else {
                     alert('Ошибка: ' + response.message);
                 }
             }
         });
-
     }
     
     cartSumCount = () => {
         let sumProducts = 0;
         let sumCosts = 0;
 
-        const products = document.querySelectorAll('.table-order .cart-product');
+        const products = document.querySelectorAll('.cart-product');
         products.forEach(product => {
             let id = product.dataset.id;
 
@@ -73,6 +74,57 @@ class ZaanShop {
                 this.cart();
             }
         }
+    }
+    
+    minusCart = (id) => {
+        let self = this;
+        $.ajax({
+            url: '/shop/cart/decrease',
+            type: 'POST',
+            data: {
+                productId: id,
+                quantity: 1
+            },
+            success: function(response) {
+                if (response.success) {
+                    let product_counter = document.getElementById('product-counter-'+id);
+                    if (product_counter) {
+                        product_counter.innerHTML = response.quantity;
+                        let product_cost = document.getElementById('product-cost-'+id);
+                        product_cost.innerHTML = (response.quantity * product_cost.dataset.cost) + ' ₽';
+
+                        if (response.quantity == 0) {
+                            console.log('clear row');
+                            document.querySelector('#cart-row-' + id).remove();
+                        }
+                        
+                        self.cartSumCount();
+                    } else {
+                        console.log('Не нашел ' + 'product-counter-'+id);
+                    }
+                } else {
+                    alert('Ошибка: ' + response.message);
+                }
+            }
+        });
+    }
+    
+    deleteProduct = (id) => {
+        $.ajax({
+            url: '/shop/cart/delete',
+            type: 'POST',
+            data: {
+                productId: id,
+            },
+            success: function(response) {
+                if (response.success) {
+                    document.querySelector('#cart-row-' + id).remove();
+                    self.cartSumCount();
+                } else {
+                    alert('Ошибка: ' + response.message);
+                }
+            }
+        });
     }
 }
 
