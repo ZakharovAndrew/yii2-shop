@@ -1,26 +1,26 @@
 {
-  "name": "zakharov-andrew/yii2-shop",
-  "description": "Yii2 Shop",
-  "type": "yii2-extension",
-  "keywords": ["yii2", "extension", "module", "shop", "admin", "yii 2"],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Andrew Zakharov",
-      "homepage": "https://github.com/ZakharovAndrew",
-      "role": "Developer"
+    "name": "zakharov-andrew/yii2-shop",
+    "description": "Yii2 Shop",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "extension", "module", "shop", "admin", "yii 2", "cart"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Zakharov",
+            "homepage": "https://github.com/ZakharovAndrew",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "zakharov-andrew/yii2-image-upload-widget": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZakharovAndrew\\shop\\": "src"
+        }
+    },
+    "fxp-asset": {
+        "enabled": false
     }
-  ],
-  "require": {
-    "php": ">=7.3",
-    "zakharov-andrew/yii2-image-upload-widget": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "ZakharovAndrew\\shop\\": "src"
-    }
-  },
-  "fxp-asset": {
-    "enabled": false
-  }
 }
