@@ -50,6 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
       height: 100%;*/
       object-fit: cover;
     }
+    .product-description-block .to-album {
+        text-align: left;
+    }
   </style>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -98,6 +101,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-12 col-md-6 product-description-block">
             <div class="product-price"><?= number_format($model->price, 0, '', ' ' ) ?> ₽</div>
             <p><?= Module::t('Category')?>: <?= $last_category->title ?></p>
+            <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
+                <button><?= Module::t('Add to cart') ?></button>
+            </div>
             <?= $model->description ?>
             <div class="product-additional-params">
                 <?php
