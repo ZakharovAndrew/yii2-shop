@@ -30,6 +30,11 @@ class Module extends \yii\base\Module
     public $defaultProductImage = '/img/no-photo.jpg';
     
     /**
+     * @var string show H1
+     */
+    public $showTitle = true;
+    
+    /**
      *
      * @var string source language for translation 
      */

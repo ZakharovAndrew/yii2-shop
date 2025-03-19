@@ -50,8 +50,22 @@ $this->params['breadcrumbs'][] = $this->title;
       height: 100%;*/
       object-fit: cover;
     }
+    @media (min-width: 1200px) {
+        .product-h1 {
+            font-size: 2rem;
+        }
+    }
     .product-description-block .to-album {
         text-align: left;
+    }
+    .product-category span {
+        color:#8a8b8b;
+    }
+    .product-category a {
+        text-decoration: none;
+    }
+    .product-category a:hover {
+        text-decoration: underline;
     }
   </style>
 <!-- Swiper JS -->
@@ -62,7 +76,6 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 <div class="product-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php if (!Yii::$app->user->isGuest) {?>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -99,8 +112,9 @@ $this->params['breadcrumbs'][] = $this->title;
             
         </div>
         <div class="col-12 col-md-6 product-description-block">
+            <h1 class='product-h1'><?= Html::encode($this->title) ?></h1>
+            <p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['update', '/shop/product-category/view', 'url' => $last_category->url]) ?></p>
             <div class="product-price"><?= number_format($model->price, 0, '', ' ' ) ?> ₽</div>
-            <p><?= Module::t('Category')?>: <?= $last_category->title ?></p>
             <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
                 <button><?= Module::t('Add to cart') ?></button>
             </div>

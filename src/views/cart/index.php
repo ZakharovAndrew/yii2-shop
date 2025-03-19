@@ -29,20 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
             $sumProduct = 0;
             $sumCost = 0;
             foreach ($cartItems as $item) { ?>
-            <div id="cart-row-<?= $item->product_id ?>" class="row cart-row">
+            <div id="cart-row-<?= $item->product->id ?>" class="row cart-row">
                 <div class="col-lg-9 col-md-9 col-9">
                     <div style="display:flex">
                         <?php
-                        $product = Product::findOne($item->product_id);
-                        if ($product) {
-                            echo '<img src="'.$product->getFirstImage().'" class="img-cart">';
-                        } else {
-                            echo $item->product_id;
-                        }
+                        echo '<img src="'.$item->product->getFirstImage().'" class="img-cart">';
                         ?>
-                        <div class="cart-product" data-id="<?= $product->id ?>">
+                        <div class="cart-product" data-id="<?= $item->product->id ?>">
                             <div style="color:#21313c">
-                                <?= $product->title ?>
+                                <?= $item->product->title ?>
                             </div>
                             
                             
@@ -50,11 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div>
                                 <div class="count-buttons">
                                     <div class="count-buttons__wrapper">
-                                        <div class="count-buttons__button" onclick="shop.minusCart(<?= $product->id ?>, false)">-</div>
+                                        <div class="count-buttons__button" onclick="shop.minusCart(<?= $item->product->id ?>, false)">-</div>
                                     </div>
-                                    <div class="product-counter" id="product-counter-<?= $product->id ?>"><?= $item->quantity ?></div>
+                                    <div class="product-counter" id="product-counter-<?= $item->product->id ?>"><?= $item->quantity ?></div>
                                     <div class="count-buttons__wrapper">
-                                        <div class="count-buttons__button" onclick="shop.addCart(<?= $product->id ?>, false)">+</div>
+                                        <div class="count-buttons__button" onclick="shop.addCart(<?= $item->product->id ?>, false)">+</div>
                                     </div>
                                 </div>
                             </div>
@@ -65,16 +60,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 
                 <div class="text-center col-md-3 col-3">
-                    <div class="cost" id="product-cost-<?= $product->id ?>" data-cost="<?= $product->price ?>"><?= $product->price * $item->quantity ?> ₽</div>
-                    <div onclick="shop.removeFromCart(<?= $item->product_id ?>)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
-                            </div>
+                    <div class="cost" id="product-cost-<?= $item->product->id ?>" data-cost="<?= $item->product->price ?>"><?= $item->product->price * $item->quantity ?> ₽</div>
+                    <div onclick="shop.removeFromCart(<?= $item->product->id ?>)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
+                    </div>
                 </div>
             </div>
                  
             <?php 
                 $sumProduct += $item->quantity;
-                $sumCost += $product->price * $item->quantity;
+                $sumCost += $item->product->price * $item->quantity;
                 ?>
             <?php } ?>
             <div class="row cart-row">

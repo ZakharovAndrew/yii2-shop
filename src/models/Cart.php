@@ -105,7 +105,7 @@ class Cart extends ActiveRecord
         foreach ($cart as $productId => $quantity) {
             $product = Product::findOne($productId);
             if ($product) {
-                $products[] = [
+                $products[] = (object)[
                     'product' => $product,
                     'quantity' => $quantity,
                 ];
