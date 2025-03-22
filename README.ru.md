@@ -5,7 +5,9 @@
 [![License](https://poser.pugx.org/zakharov-andrew/yii2-shop/license)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
+<p align="center">
 Модуль для создания интернет-магазина на базе Yii2. Этот модуль предоставляет базовый функционал для управления товарами, категориями, заказами и другими элементами интернет-магазина.
+</p>
 
 <p align="center">
   <a href="#-основные-возможности">Основные возможности</a> •
