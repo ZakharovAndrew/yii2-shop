@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Shop Order
+ *  
+ * @link https://github.com/ZakharovAndrew/yii2-shop/
+ * @copyright Copyright (c) 2023-2025 Zakharov Andrew
+ */
+
 namespace app\modules\shop\models;
 
 use yii\db\ActiveRecord;
@@ -7,7 +14,7 @@ use Yii;
 use ZakharovAndrew\shop\Module;
 
 /**
- * Модель для таблицы `order`.
+ * This is the model class for table "order".
  *
  * @property int $id
  * @property int $user_id
