@@ -37,39 +37,39 @@ Yii2 shop module. A module for creating an online store based on Yii2. This modu
   - Filter products by attributes (color, size, price, etc.).
   - Flexible filter configuration for categories.
 
-### 3. **Order Management**
-- Create and manage orders.
-- Order statuses (new, processing, delivered, canceled, etc.).
-- Order history and change tracking.
-- Support for various delivery methods.
+- **📝 Order Management**
+  - Create and manage orders.
+  - Order statuses (new, processing, delivered, canceled, etc.).
+  - Order history and change tracking.
+  - Support for various delivery methods.
 
-### 4. **Shopping Cart and Checkout**
-- Add products to the cart.
-- Edit the cart (change quantities, remove products).
-- Checkout with customer details.
-- Coupon and discount support *(planned for future updates)*.
+- **🛒 Shopping Cart and Checkout**
+  - Add products to the cart.
+  - Edit the cart (change quantities, remove products).
+  - Checkout with customer details.
+  - Coupon and discount support *(planned for future updates)*.
 
-### 5. **User and Role Management**
-- User registration and authentication.
-- Role and permission management (admin, manager, customer).
-- User account with order history.
+- **👤 User and Role Management**
+  - User registration and authentication.
+  - Role and permission management (admin, manager, customer).
+  - User account with order history.
 
-### 6. **Search and SEO**
-- Search products by name, description, and attributes.
-- SEO optimization: meta tags, human-readable URLs (slug).
-- Sitemap generation (sitemap.xml).
+- **🔍 Search and SEO**
+  - Search products by name, description, and attributes.
+  - SEO optimization: meta tags, human-readable URLs (slug).
+  - Sitemap generation (sitemap.xml).
 
-### 7. **Multilingual Support**
-- Support for multiple languages in the store interface.
+- **🌐 Multilingual Support**
+  - Support for multiple languages in the store interface.
 
-### 8. **Analytics and Reports**
-- Sales reports.
-- Product popularity analysis.
-- Export data to CSV, Excel, and other formats.
+- **📊 Analytics and Reports**
+  - Sales reports.
+  - Product popularity analysis.
+  - Export data to CSV, Excel, and other formats.
 
-### 9. **Store Settings**
-- Flexible configuration of core store parameters.
-- Email notification settings for customers and administrators.
+- **⚙️ Store Settings**
+  - Flexible configuration of core store parameters.
+  - Email notification settings for customers and administrators.
 
 
 ## 🚀 Installation
