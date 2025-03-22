@@ -1,9 +1,13 @@
 # 🚀 Yii2 Shop
 
+<div align="center">
+
 [![Latest Stable Version](https://poser.pugx.org/zakharov-andrew/yii2-shop/v/stable)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Total Downloads](https://poser.pugx.org/zakharov-andrew/yii2-shop/downloads)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![License](https://poser.pugx.org/zakharov-andrew/yii2-shop/license)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
+
+</div>
 
 <p align="center">
 Yii2 shop module. A module for creating an online store based on Yii2. This module provides basic functionality for managing products, categories, orders, and other elements of an e-commerce store.
