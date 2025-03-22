@@ -1,4 +1,4 @@
-# 🚀 Yii2 Shop
+# 🚀 Yii2 Shop: Launch Your Online Store in Minutes!
 
 <div align="center">
 
