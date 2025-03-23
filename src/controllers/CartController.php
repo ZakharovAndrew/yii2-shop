@@ -20,7 +20,7 @@ class CartController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON; // Устанавливаем формат ответа JSON
 
         $productId = Yii::$app->request->post('productId'); // Получаем ID товара из POST-запроса
-        $quantity = Yii::$app->request->post('quantity', 1); // Получаем количество (по умолчанию 1)
+        $quantity = Yii::$app->request->post('quantity', 1);
 
         if (!$productId) {
             return ['success' => false, 'message' => 'Product ID is required.'];
@@ -80,28 +80,27 @@ class CartController extends Controller
     }
     
     /**
-     * Удаление товара из корзины через AJAX.
+     * Remove from cart
      *
      * @return array
      */
     public function actionRemove()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON; // Устанавливаем формат ответа JSON
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        $productId = Yii::$app->request->post('productId'); // Получаем ID товара из POST-запроса
+        $productId = Yii::$app->request->post('productId');
 
         if (!$productId) {
             return ['success' => false, 'message' => 'Product ID is required.'];
         }
 
-        // Удаляем товар из корзины
+        // remove from cart
         $cart = new Cart();
         $cart->removeFromCart($productId);
 
         return [
             'success' => true,
             'message' => 'Product removed from cart.',
-            'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
     }
     

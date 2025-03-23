@@ -21,12 +21,12 @@ class ZaanShop {
                         product_cost.innerHTML = (response.quantity * product_cost.dataset.cost) + ' ₽';
 
                         self.cartSumCount();
-                        
-                        if (show_alert) {
-                            alert('Товар добавлен в корзину!');
-                        }
                     } else {
                         console.log('Не нашел ' + 'product-counter-'+id);
+                    }
+                    
+                    if (show_alert) {
+                        alert('Товар добавлен в корзину!');
                     }
                     
                 } else {
@@ -109,9 +109,9 @@ class ZaanShop {
         });
     }
     
-    deleteProduct = (id) => {
+    removeFromCart = (id) => {
         $.ajax({
-            url: '/shop/cart/delete',
+            url: '/shop/cart/remove',
             type: 'POST',
             data: {
                 productId: id,
