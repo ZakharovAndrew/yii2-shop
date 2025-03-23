@@ -12,7 +12,7 @@ $this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckedito
 $script = <<< JS
    
 ClassicEditor
-    .create( document.querySelector( '#productcategory-description' ) )
+    .create( document.querySelector( '#productcategory-description' ))
     .catch( error => {
         console.error( error );
     } );
@@ -26,6 +26,11 @@ ClassicEditor
 JS;
 $this->registerJs($script, yii\web\View::POS_READY);
 ?>
+<style>
+.ck-editor__editable_inline {
+    min-height: 220px;
+}
+</style>
 
 <div class="product-category-form">
 
