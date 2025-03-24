@@ -52,3 +52,16 @@
 .cart-product{
     margin-left: .75rem !important;
 }
+.shop-product-img {
+    background: #f6f6f6;
+    position: relative;
+    aspect-ratio: 1 / 1.25;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+.shop-product-img img {
+    width:100%;
+    object-fit: cover;
+    border-radius: 9px 9px 0 0;
+}
