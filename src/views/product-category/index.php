@@ -37,8 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'position',
             'parent_id',
-            //'description:ntext',
-            //'description_after:ntext',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, ProductCategory $model, $key, $index, $column) {
