@@ -17,7 +17,19 @@ use Yii;
  * Yii2 Shop Module 
  */
 class Module extends \yii\base\Module
-{    
+{
+    public $deliveryMethods = [
+        1 => 'Courier delivery',
+        2 => 'Pickup from store',
+        3 => 'Postal delivery'
+    ];
+    
+    public $deliveryPrices = [
+        1 => '100',
+        2 => '110',
+        3 => '120'
+    ];
+    
     public $bootstrapVersion = '';
     public $catalogTitle = 'Catalog Title';
     public $uploadWebDir = '';

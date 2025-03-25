@@ -53,6 +53,8 @@ return [
     // order
     'Checkout' => 'Оформить заказ',
     'Select delivery method' => 'Выберите способ доставки',
+    'Unknown method of delivery' => 'Неизвестный способ доставки',
+    'Invalid delivery method selected' => 'Выбран недопустимый способ доставки',
     'User ID' => 'ID пользователя',
     'Delivery Method' => 'Способ доставки',
     'First Name' => 'Имя',

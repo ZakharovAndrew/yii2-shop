@@ -7,7 +7,7 @@
  * @copyright Copyright (c) 2023-2025 Zakharov Andrew
  */
 
-namespace app\modules\shop\models;
+namespace ZakharovAndrew\shop\models;
 
 use yii\db\ActiveRecord;
 use Yii;
@@ -50,7 +50,7 @@ class Order extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%order}}';
+        return 'order';
     }
 
     /**
@@ -62,6 +62,9 @@ class Order extends ActiveRecord
             [['user_id', 'status'], 'required'],
             [['user_id', 'delivery_method', 'status'], 'integer'],
             [['first_name', 'last_name', 'middle_name', 'phone', 'postcode', 'city', 'address'], 'string', 'max' => 255],
+            ['delivery_method', 'in', 'range' => function() {
+                return array_keys(self::getDeliveryMethods());
+            }, 'message' => 'Выберите корректный способ доставки'],
             [['created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -117,5 +120,29 @@ class Order extends ActiveRecord
             self::STATUS_SHIPPED => Module::t('Shipped to customer'),
             self::STATUS_DELIVERED => Module::t('Delivered to customer'),
         ];
+    }
+    
+    
+    public static function getDeliveryMethods()
+    {
+        /** @var \ZakharovAndrew\shop\Module $module */
+        $module = Yii::$app->getModule('shop');
+        
+        return $module->deliveryMethods;
+    }
+
+    public function getDeliveryMethodText()
+    {
+        $methods = self::getDeliveryMethods();
+        
+        return $methods[$this->delivery_method] ?? 'Unknown method of delivery';
+    }
+    
+    public static function getDeliveryPrices()
+    {
+        /** @var \ZakharovAndrew\shop\Module $module */
+        $module = Yii::$app->getModule('shop');
+        
+        return $module->deliveryPrices;
     }
 }
