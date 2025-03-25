@@ -22,9 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>Ваша корзина пуста.</p>
     <?php else: ?>
             <?php
-
             /* 
-             * список товаров в корзине
+             * List of product
              */
             $sumProduct = 0;
             $sumCost = 0;
@@ -39,8 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div style="color:#21313c">
                                 <?= $item->product->title ?>
                             </div>
-                            
-                            
 
                             <div>
                                 <div class="count-buttons">
@@ -56,7 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         
                     </div>
-                    
                 </div>
                 
                 <div class="text-center col-md-3 col-3">
@@ -86,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>
             
             <?= Html::a('Очистить корзину', ['cart/clear'], ['class' => 'btn btn-danger']) ?>
-            <?= Html::a(Module::t('Checkout'), ['order/create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Module::t('Checkout'), ['/shop/checkout/index'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 </div>
