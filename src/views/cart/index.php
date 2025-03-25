@@ -10,7 +10,7 @@ $this->title = Module::t('Cart');
 $this->params['breadcrumbs'][] = $this->title;
 
 /* @var $this yii\web\View */
-/* @var $news ZakharovAndrew\news\models\News */
+/* @var $item ZakharovAndrew\shop\models\Product */
 /* @var $pagination yii\data\Pagination */
 ?>
 
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
              * List of product
              */
             $sumProduct = 0;
-            $sumCost = 0;
+            $totalSum = 0;
             foreach ($cartItems as $item) { ?>
             <div id="cart-row-<?= $item->product->id ?>" class="row cart-row">
                 <div class="col-lg-9 col-md-9 col-9">
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  
             <?php 
                 $sumProduct += $item->quantity;
-                $sumCost += $item->product->price * $item->quantity;
+                $totalSum += $item->product->price * $item->quantity;
                 ?>
             <?php } ?>
             <div class="row cart-row">
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <span id="products-counter"><?= $sumProduct ?></span> шт.
                 </div>
                 <div class="text-center col-md-3 col-3">
-                    <span id="products-cost"><?= $sumCost ?></span> ₽
+                    <span id="products-cost"><?= $totalSum ?></span> ₽
                 </div>
             </div>
         <p>
