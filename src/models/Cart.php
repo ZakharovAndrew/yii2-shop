@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
 
 class Cart extends ActiveRecord
 {
-    private $sessionKey = 'cart';
+    const SESSION_KEY = 'cart';
     
     public static function tableName()
     {
@@ -51,7 +51,7 @@ class Cart extends ActiveRecord
 
     private function addToSessionCart($productId, $quantity)
     {
-        $cart = Yii::$app->session->get($this->sessionKey, []);
+        $cart = Yii::$app->session->get(self::SESSION_KEY, []);
         if (isset($cart[$productId])) {
             $cart[$productId] += $quantity;
         } else {
@@ -62,7 +62,7 @@ class Cart extends ActiveRecord
             unset($cart[$productId]);
         }
         
-        Yii::$app->session->set($this->sessionKey, $cart);
+        Yii::$app->session->set(self::SESSION_KEY, $cart);
         
         return $cart[$productId] ?? 0;
     }
@@ -100,7 +100,7 @@ class Cart extends ActiveRecord
 
     private function getSessionCart()
     {
-        $cart = Yii::$app->session->get($this->sessionKey, []);
+        $cart = Yii::$app->session->get(self::SESSION_KEY, []);
         $products = [];
         foreach ($cart as $productId => $quantity) {
             $product = Product::findOne($productId);
@@ -122,7 +122,7 @@ class Cart extends ActiveRecord
     public static function clearCart()
     {
         if (Yii::$app->user->isGuest) {
-            Yii::$app->session->remove($this->sessionKey);
+            Yii::$app->session->remove(static::SESSION_KEY);
         } else {
             Cart::deleteAll(['user_id' => Yii::$app->user->id]);
         }
