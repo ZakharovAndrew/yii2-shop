@@ -51,6 +51,8 @@ return [
     'Description after goods' => 'Описание после товаров',
     
     // order
+    'Checkout' => 'Оформить заказ',
+    'Select delivery method' => 'Выберите способ доставки',
     'User ID' => 'ID пользователя',
     'Delivery Method' => 'Способ доставки',
     'First Name' => 'Имя',

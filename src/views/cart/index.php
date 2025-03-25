@@ -83,6 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <span id="products-cost"><?= $sumCost ?></span> ₽
                 </div>
             </div>
-        <?= Html::a('Очистить корзину', ['cart/clear'], ['class' => 'btn btn-danger']) ?>
+        <p>
+            
+            <?= Html::a('Очистить корзину', ['cart/clear'], ['class' => 'btn btn-danger']) ?>
+            <?= Html::a(Module::t('Checkout'), ['order/create'], ['class' => 'btn btn-success']) ?>
+        </p>
     <?php endif; ?>
 </div>
