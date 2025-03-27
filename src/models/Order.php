@@ -66,6 +66,7 @@ class Order extends ActiveRecord
                 return array_keys(self::getDeliveryMethods());
             }, 'message' => 'Выберите корректный способ доставки'],
             [['created_at', 'updated_at'], 'safe'],
+            [['total_sum'], 'number'],
         ];
     }
 
@@ -122,6 +123,38 @@ class Order extends ActiveRecord
         ];
     }
     
+    public function getOrderItems()
+    {
+        return $this->hasMany(OrderItem::class, ['order_id' => 'id']);
+    }
+    
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        if (!$insert) {
+            $this->updateTotalSum();
+        }
+    }
+
+    public function updateTotalSum()
+    {
+        $sum = (float) OrderItem::find()
+            ->where(['order_id' => $this->id])
+            ->sum('price * quantity');
+            
+        $this->updateAttributes(['total_sum' => $sum]);
+    }
+    
+    /**
+     * Получает текстовое описание статуса заказа
+     * @return string
+     */
+    public function getStatusText()
+    {
+        $statuses = self::getStatuses();
+        return $statuses[$this->status] ?? 'Неизвестный статус';
+    }
     
     public static function getDeliveryMethods()
     {

@@ -3,6 +3,7 @@
 namespace ZakharovAndrew\shop\controllers;
 
 use ZakharovAndrew\shop\models\Order;
+use ZakharovAndrew\shop\models\OrderItem;
 use ZakharovAndrew\shop\models\Cart;
 use ZakharovAndrew\shop\Module;
 use Yii;
@@ -32,6 +33,9 @@ class CheckoutController extends Controller
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+        
+        $cart = new Cart();
+        $cartItems = $cart->getCart();
 
         // Handle AJAX validation requests
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
@@ -47,6 +51,24 @@ class CheckoutController extends Controller
             if (!in_array($model->delivery_method, $availableMethods)) {
                 Yii::$app->session->setFlash('error', Module::t('Invalid delivery method selected'));
             } elseif ($model->save()) {
+                
+                // Создаем элементы заказа
+                foreach ($cartItems as $item) {
+                    $orderItem = new OrderItem([
+                        'order_id' => $model->id,
+                        'product_id' => $item->product->id,
+                        'quantity' => $item->quantity,
+                        'price' => $item->product->price, // Сохраняем текущую цену
+                    ]);
+
+                    if (!$orderItem->save()) {
+                        throw new \Exception('Не удалось сохранить элемент заказа');
+                    }
+                }
+
+                // Очищаем корзину
+                $cart->clearCart();
+                
                 // Success: redirect to order confirmation
                 Yii::$app->session->setFlash('success', 'Your order has been placed successfully!');
                 return $this->redirect(['/shop/order/view', 'id' => $model->id]);

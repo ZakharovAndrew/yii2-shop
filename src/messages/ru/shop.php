@@ -71,7 +71,7 @@ return [
     'Order not accepted yet' => 'Заказ еще не принят',
     'Processing' => 'Принят в обработку',
     'Rejected' => 'Отклонен',
-    'Отменен пользователем' => 'Canceled by user',
+    'Canceled by user' => 'Отменен пользователем',
     'Assembling' => 'На сборке',
     'Awaiting payment' => 'Ожидает оплаты',
     'Paid' => 'Оплачен',

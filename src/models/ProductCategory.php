@@ -81,19 +81,7 @@ class ProductCategory extends \yii\db\ActiveRecord
     
     public static function getCategoryGroups()
     {
-        return Yii::$app->cache->getOrSet('list_category_group2', function () {
-            /*$model = self::find()->all();
-            $result = [];
-            foreach ($model as $category) {
-                if (empty($category->parent_id)) {
-                    $result[$category->id]['parent'] = $category;
-                } else {
-                    $result[$category->parent_id]['child'][] = $category;
-                }
-            }
-            return $result;
-             */
-            
+        return Yii::$app->cache->getOrSet('list_category_group2', function () {           
             $model = ProductCategory::find()->select(['id','title','parent_id'])->all();
             $items = [];
         
@@ -109,7 +97,6 @@ class ProductCategory extends \yii\db\ActiveRecord
 
                 $items[$parentKey]['items'][$data->id] = &$items[$data->id];
             }
-        
 
             return $this->getMenu($items[0]['items']);            
         }, 3600);

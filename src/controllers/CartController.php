@@ -32,7 +32,7 @@ class CartController extends Controller
             return ['success' => false, 'message' => 'Product not found.'];
         }
 
-        // Добавляем товар в корзину
+        // Add product to cart
         $cart = new Cart();
         $product_quantity = $cart->addToCart($product->id, $quantity);
 
@@ -54,13 +54,13 @@ class CartController extends Controller
             return ['success' => false, 'message' => 'Product ID is required.'];
         }
 
-        // Находим товар в базе данных
+        // find product
         $product = Product::findOne($productId);
         if (!$product) {
             return ['success' => false, 'message' => 'Product not found.'];
         }
 
-        // Добавляем товар в корзину
+        // Add product to cart
         $cart = new Cart();
         $product_quantity = $cart->addToCart($product->id, -1);
 
@@ -75,7 +75,7 @@ class CartController extends Controller
         $cart = new Cart();
         $cartItems = $cart->getCart();
         return $this->render('index', [
-            'cartItems' => $cartItems,
+            'cartItems' => $cartItems
         ]);
     }
     
