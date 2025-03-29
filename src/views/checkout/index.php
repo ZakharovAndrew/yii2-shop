@@ -37,8 +37,10 @@ $(document).on('change', '#order-delivery_method', function() {
 
 function updateOrderTotal() {
     const productsTotal = parseFloat($('#cart-total').data('value'));
-    const deliveryPrice = parseFloat($('#delivery-price').data('value')) || 0;
+    const deliveryPrice = parseFloat($('#delivery-price').html()) || 0;
     const grandTotal = productsTotal + deliveryPrice;
+        
+        console.log('deliveryPrice', deliveryPrice);
     
     $('#order-total').html(
         new Intl.NumberFormat('ru-RU', {
