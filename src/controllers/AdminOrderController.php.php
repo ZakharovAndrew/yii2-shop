@@ -5,7 +5,7 @@ namespace ZakharovAndrew\shop\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
-use app\modules\shop\models\Order;
+use ZakharovAndrew\shop\models\Order;
 use yii\web\NotFoundHttpException;
 
 class AdminOrderController extends Controller
@@ -76,7 +76,7 @@ class AdminOrderController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Order::findOne($id)) {
+        if (($model = Order::findOne($id)) !== null) {
             return $model;
         }
 
