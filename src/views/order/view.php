@@ -107,6 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
 
             <div class="text-right total-sum">
+                <strong>Стоимость доставки: <?= Yii::$app->formatter->asCurrency($order->delivery_cost) ?></strong><br>
                 <strong>Итого: <?= Yii::$app->formatter->asCurrency($order->total_sum) ?></strong>
             </div>
         </div>

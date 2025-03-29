@@ -65,8 +65,10 @@ class CheckoutController extends Controller
                         throw new \Exception('Не удалось сохранить элемент заказа');
                     }
                 }
-                
+                $model->delivery_cost = Order::getDeliveryPrices()[$model->delivery_method];
                 $model->updateTotalSum();
+                
+                $model->save();
 
                 // Очищаем корзину
                 $cart->clearCart();

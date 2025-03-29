@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                                 'format' => 'raw'
                             ],
-                            'total_sum:currency',
+                            //'total_sum:currency',
                             'created_at:datetime',
                             'updated_at:datetime',
                         ],
@@ -95,8 +95,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'columns' => [
                     [
-                        'attribute' => 'product.name',
-                        'label' => 'Товар'
+                        'attribute' => 'product.title',
+                        'label' => 'Товар',
+                        'format' => 'raw',
+                        'value' => function($model) {
+                            return Html::a($model->product->title, ['/shop/product/view', 'url' => $model->product->url]);
+                        },
                     ],
                     'price:currency',
                     'quantity',
@@ -109,6 +113,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'summary' => '',
             ]) ?>
+            <div class="text-right total-sum">
+                <strong>Стоимость доставки: <?= Yii::$app->formatter->asCurrency($order->delivery_cost) ?></strong><br>
+                <strong>Итого: <?= Yii::$app->formatter->asCurrency($order->total_sum) ?></strong>
+            </div>
         </div>
     </div>
 </div>

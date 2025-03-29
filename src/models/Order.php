@@ -130,13 +130,13 @@ class Order extends ActiveRecord
         return $this->hasMany(OrderItem::class, ['order_id' => 'id']);
     }
     
-    public function afterSave($insert, $changedAttributes)
+    /**
+     * Получает сумму товаров без учета доставки
+     * @return float
+     */
+    public function getItemsSum()
     {
-        parent::afterSave($insert, $changedAttributes);
-        
-        if (!$insert) {
-            $this->updateTotalSum();
-        }
+        return (float)$this->getOrderItems()->sum('price * quantity');
     }
 
     public function updateTotalSum()
@@ -145,7 +145,7 @@ class Order extends ActiveRecord
             ->where(['order_id' => $this->id])
             ->sum('price * quantity');
             
-        $this->updateAttributes(['total_sum' => $sum]);
+        $this->total_sum = $sum + $this->delivery_cost;
     }
     
     /**
