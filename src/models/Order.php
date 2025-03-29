@@ -12,6 +12,7 @@ namespace ZakharovAndrew\shop\models;
 use yii\db\ActiveRecord;
 use Yii;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\user\models\User;
 
 /**
  * This is the model class for table "order".
@@ -177,5 +178,27 @@ class Order extends ActiveRecord
         $module = Yii::$app->getModule('shop');
         
         return $module->deliveryPrices;
+    }
+    
+    /**
+     * Получает CSS-класс для статуса
+     * @return string
+     */
+    public function getStatusClass()
+    {
+        $classes = [
+            self::STATUS_NOT_ACCEPTED => 'label-default',
+            self::STATUS_PROCESSING => 'label-info',
+            self::STATUS_REJECTED => 'label-danger',
+            self::STATUS_CANCELED_BY_USER => 'label-warning',
+            self::STATUS_ASSEMBLING => 'label-primary',
+            self::STATUS_AWAITING_PAYMENT => 'label-warning',
+            self::STATUS_PAID => 'label-success',
+            self::STATUS_ASSEMBLED => 'label-primary',
+            self::STATUS_SHIPPED => 'label-info',
+            self::STATUS_DELIVERED => 'label-success',
+        ];
+
+        return $classes[$this->status] ?? 'label-default';
     }
 }
