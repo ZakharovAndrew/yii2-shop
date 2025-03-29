@@ -65,6 +65,8 @@ class CheckoutController extends Controller
                         throw new \Exception('Не удалось сохранить элемент заказа');
                     }
                 }
+                
+                $model->updateTotalSum();
 
                 // Очищаем корзину
                 $cart->clearCart();

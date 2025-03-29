@@ -67,7 +67,8 @@ class Order extends ActiveRecord
                 return array_keys(self::getDeliveryMethods());
             }, 'message' => 'Выберите корректный способ доставки'],
             [['created_at', 'updated_at'], 'safe'],
-            [['total_sum'], 'number'],
+            [['delivery_cost', 'total_sum'], 'number'],
+            [['delivery_cost', 'total_sum'], 'default', 'value' => 0],
         ];
     }
 
@@ -201,4 +202,5 @@ class Order extends ActiveRecord
 
         return $classes[$this->status] ?? 'label-default';
     }
+    
 }
