@@ -51,6 +51,8 @@ class CheckoutController extends Controller
         // Process form submission
         if ($model->load(Yii::$app->request->post())) {
 
+            $cartItems = $cart->getCart();
+            
             if (Yii::$app->user->isGuest) {
                 // Создаем временного пользователя
                 $user = $this->createTemporaryUser($model);
@@ -66,9 +68,7 @@ class CheckoutController extends Controller
             $model->user_id = Yii::$app->user->id;
             
             if ($model->save(false)) {
-                
-                $cartItems = $cart->getCart();
-                
+
                 // Создаем элементы заказа
                 foreach ($cartItems as $item) {
                     $orderItem = new OrderItem([
@@ -85,7 +85,7 @@ class CheckoutController extends Controller
                 $model->delivery_cost = Order::getDeliveryPrices()[$model->delivery_method];
                 $model->updateTotalSum();
                 
-                $model->save();
+                $model->save(false);
 
                 // Очищаем корзину
                 $cart->clearCart();
