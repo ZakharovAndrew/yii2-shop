@@ -141,4 +141,20 @@ class Cart extends ActiveRecord
         
         return $total;
     }
+    
+    /**
+     * Проверяет, пуста ли корзина
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        if (Yii::$app->user->isGuest) {
+            // Для гостей - проверяем сессию
+            $sessionItems = Yii::$app->session->get(self::SESSION_KEY, []);
+            return empty($sessionItems);
+        } else {
+            // Для авторизованных - проверяем БД
+            return !$this->getDatabaseCart(Yii::$app->user->id);
+        }
+    }
 }

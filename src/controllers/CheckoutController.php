@@ -6,6 +6,7 @@ use ZakharovAndrew\shop\models\Order;
 use ZakharovAndrew\shop\models\OrderItem;
 use ZakharovAndrew\shop\models\Cart;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\user\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -21,22 +22,26 @@ class CheckoutController extends Controller
      */
     public function actionIndex()
     {
-        // Redirect guests to login page with return URL
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/login', 'returnUrl' => Yii::$app->request->url]);
+        $cart = new Cart();
+        
+        if ($cart->isEmpty()) {
+            Yii::$app->session->setFlash('warning', 'Ваша корзина пуста');
+            return $this->redirect(['/shop/cart/index']);
         }
+    
+        // Redirect guests to login page with return URL
+        /*if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/login', 'returnUrl' => Yii::$app->request->url]);
+        }*/
 
         // Initialize new order with default values
         $model = new Order([
-            'user_id' => Yii::$app->user->id,
+            //'user_id' => Yii::$app->user->id,
             'status' => Order::STATUS_NOT_ACCEPTED,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
         
-        $cart = new Cart();
-        $cartItems = $cart->getCart();
-
         // Handle AJAX validation requests
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -45,12 +50,24 @@ class CheckoutController extends Controller
 
         // Process form submission
         if ($model->load(Yii::$app->request->post())) {
-            $availableMethods = array_keys(Order::getDeliveryMethods());
+
+            if (Yii::$app->user->isGuest) {
+                // Создаем временного пользователя
+                $user = $this->createTemporaryUser($model);
+                
+                if (!$user) {
+                    Yii::$app->session->setFlash('error', 'Неудалось создать пользователя');
+                    return $this->refresh();
+                }
+                
+                Yii::$app->user->login($user, 3600*24*30); // Авторизуем на 30 дней*/
+            }
             
-            // Validate selected delivery method
-            if (!in_array($model->delivery_method, $availableMethods)) {
-                Yii::$app->session->setFlash('error', Module::t('Invalid delivery method selected'));
-            } elseif ($model->save()) {
+            $model->user_id = Yii::$app->user->id;
+            
+            if ($model->save(false)) {
+                
+                $cartItems = $cart->getCart();
                 
                 // Создаем элементы заказа
                 foreach ($cartItems as $item) {
@@ -78,18 +95,16 @@ class CheckoutController extends Controller
                 return $this->redirect(['/shop/order/view', 'id' => $model->id]);
             } else {
                 // Save failed
-                Yii::$app->session->setFlash('error', 'Error processing your order');
+                Yii::$app->session->setFlash('error', 'Error processing your order'.var_export($model->getErrors(), true));
             }
         }
-
-        // user Cart
-        $cart = new Cart();
         
         // Render checkout form
         return $this->render('index', [
             'model' => $model,
             'totalSum' => $cart->getTotalSum(),
             'deliveryMethods' => Order::getDeliveryMethods(),
+            'isGuest' => Yii::$app->user->isGuest,
         ]);
     }
 
@@ -136,4 +151,27 @@ class CheckoutController extends Controller
 
         return $prices[$methodId] ?? 0;
     }
+    
+    private function createTemporaryUser($order)
+    {
+        $password = User::genPassword(8);
+        
+        $user = new User([
+            'username' => 'user'.time(),
+            'name' => $order->first_name . ' '. $order->last_name,
+            'email' => $order->email,
+            'phone' => str_replace(['-', ' ', '(', ')'], '', $order->phone),
+            'status' => User::STATUS_USER,
+        ]);
+        
+        $user->setPassword($password);
+
+        // Trying to send the password to the email and save the password
+        if (!$user->setPassword($password) || !$user->save()/* || !$user->sendPasswordEmail($password)*/) {
+            throw new \Exception('Ошибка создания временного аккаунта');
+        }
+
+        return $user;
+    }
+    
 }

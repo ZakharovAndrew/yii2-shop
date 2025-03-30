@@ -54,8 +54,26 @@ JS;
 $this->registerJs($deliveryPriceJs);
 ?>
 
+<style>
+.help-block {
+    color: red;
+}
+</style>
+
 <div class="checkout-index">
     <h1><?= Html::encode($this->title) ?></h1>
+    
+    <?php if ($isGuest): ?>
+        <div class="guest-notice alert alert-info">
+            <h4><i class="fas fa-info-circle"></i> Вы оформляете заказ как гость</h4>
+            <p>Укажите email, чтобы мы могли:</p>
+            <ul>
+                <li>Создать для вас аккаунт</li>
+                <li>Отправить данные о заказе</li>
+                <li>Сохранить историю покупок</li>
+            </ul>
+        </div>
+        <?php endif; ?>
 
     <div class="row">
         <!-- Left Column - Checkout Form -->
@@ -97,6 +115,12 @@ $this->registerJs($deliveryPriceJs);
                             'required' => true
                         ]
                     ]) ?>
+                    
+                    <?php if ($isGuest) { ?>
+                        <?= $form->field($model, 'email')->textInput([
+                            'placeholder' => 'example@site.com',
+                        ])->hint('Для создания аккаунта и отслеживания заказа') ?>
+                    <?php } ?>
                 </div>
             </div>
 

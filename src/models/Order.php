@@ -59,7 +59,7 @@ class Order extends ActiveRecord
      */
     public function rules()
     {
-        return [
+        $rules = [
             [['user_id', 'status'], 'required'],
             [['user_id', 'delivery_method', 'status'], 'integer'],
             [['first_name', 'last_name', 'middle_name', 'phone', 'postcode', 'city', 'address'], 'string', 'max' => 255],
@@ -70,6 +70,14 @@ class Order extends ActiveRecord
             [['delivery_cost', 'total_sum'], 'number'],
             [['delivery_cost', 'total_sum'], 'default', 'value' => 0],
         ];
+            
+        if (Yii::$app->user->isGuest) {
+            $rules[] = ['email', 'required', 'message' => 'Для оформления заказа укажите email'];
+            $rules[] = ['email', 'email'];
+            $rules[] = ['email', 'validateEmailUnique'];
+        }
+
+        return $rules;
     }
 
     /**
@@ -92,6 +100,17 @@ class Order extends ActiveRecord
             'created_at' => Module::t('Created At'),
             'updated_at' => Module::t('Updated At'),
         ];
+    }
+    
+    /**
+     * Валидатор для проверки уникальности email
+     */
+    public function validateEmailUnique($attribute, $params)
+    {
+        if (User::find()->where(['email' => $this->email])->exists()) {
+            $this->addError($attribute, 
+                'Этот email уже зарегистрирован. Пожалуйста, войдите или используйте другой email.');
+        }
     }
 
     /**

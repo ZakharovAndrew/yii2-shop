@@ -74,6 +74,7 @@ class CartController extends Controller
     {
         $cart = new Cart();
         $cartItems = $cart->getCart();
+        
         return $this->render('index', [
             'cartItems' => $cartItems
         ]);
