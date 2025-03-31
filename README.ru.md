@@ -1,9 +1,13 @@
+<div align="center">
+ 
 # 🚀 Yii2 Shop
 
 [![Latest Stable Version](https://poser.pugx.org/zakharov-andrew/yii2-shop/v/stable)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Total Downloads](https://poser.pugx.org/zakharov-andrew/yii2-shop/downloads)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![License](https://poser.pugx.org/zakharov-andrew/yii2-shop/license)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
+
+</div>
 
 <p align="center">
 Модуль для создания интернет-магазина на базе Yii2. Этот модуль предоставляет базовый функционал для управления товарами, категориями, заказами и другими элементами интернет-магазина.
