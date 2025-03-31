@@ -67,14 +67,14 @@
 
 ## 🚀 Установка
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+Предпочтительный способ установки этого расширения — через [composer](http://getcomposer.org/download/).
 
-Either run
+Вы можете выполнить следующую команду:
 
 ```
 $ composer require zakharov-andrew/yii2-shop
 ```
-or add
+или добавить
 
 ```
 "zakharov-andrew/yii2-shop": "*"
@@ -153,6 +153,9 @@ Add this to your main configuration's urlManager array
                 'product/<url:[\w\d\-]+>' => 'shop/product/view',
                 'cart' => 'shop/cart/index',
                 'checkout' => 'shop/checkout/index',
+                'admin/orders' => 'shop/admin-order/index',
+                'admin/orders/<id:\d+>' => 'shop/admin-order/view',
+                'admin/orders/update-status/<id:\d+>' => 'shop/admin-order/update-status',
                 // ...
             ],
         ],
