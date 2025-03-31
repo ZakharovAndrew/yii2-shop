@@ -51,6 +51,7 @@ return [
     'Description after goods' => 'Описание после товаров',
     
     // order
+    'Order' => 'Заказ',
     'Checkout' => 'Оформить заказ',
     'Select delivery method' => 'Выберите способ доставки',
     'Unknown method of delivery' => 'Неизвестный способ доставки',

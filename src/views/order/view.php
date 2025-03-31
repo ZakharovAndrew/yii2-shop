@@ -3,12 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use ZakharovAndrew\shop\Module;
 
 /* @var $this yii\web\View */
 /* @var $order app\modules\shop\models\Order */
 /* @var $items app\modules\shop\models\OrderItem[] */
 
-$this->title = 'Заказ #' . $order->id;
+$this->title = Module::t('Order').' #' . $order->id;
 $this->params['breadcrumbs'][] = ['label' => 'Мои заказы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -90,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'product.price',
-                        'label' => 'Цена',
+                        'label' => Module::t('Price'),
                         'value' => function($model) {
                             return Yii::$app->formatter->asCurrency($model->price);
                         },
@@ -108,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="text-right total-sum">
                 <strong>Стоимость доставки: <?= Yii::$app->formatter->asCurrency($order->delivery_cost) ?></strong><br>
-                <strong>Итого: <?= Yii::$app->formatter->asCurrency($order->total_sum) ?></strong>
+                <strong><?= Module::t('Total') ?>: <?= Yii::$app->formatter->asCurrency($order->total_sum) ?></strong>
             </div>
         </div>
     </div>
