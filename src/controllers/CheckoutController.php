@@ -91,7 +91,7 @@ class CheckoutController extends Controller
                 $cart->clearCart();
                 
                 // Success: redirect to order confirmation
-                Yii::$app->session->setFlash('success', 'Your order has been placed successfully!');
+                Yii::$app->session->setFlash('success', Module::t('Your order has been placed successfully!'));
                 return $this->redirect(['/shop/order/view', 'id' => $model->id]);
             } else {
                 // Save failed

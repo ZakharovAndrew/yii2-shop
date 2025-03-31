@@ -66,6 +66,7 @@ return [
     'Address' => 'Адрес',
     'Created At' => 'Дата создания',
     'Updated At' => 'Дата обновления',
+    'Your order has been placed successfully!' => 'Ваш заказ был успешно оформлен!',
     
     // the list of order statuss
     'Order not accepted yet' => 'Заказ еще не принят',
