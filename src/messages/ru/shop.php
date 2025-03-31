@@ -52,6 +52,7 @@ return [
     
     // order
     'Order' => 'Заказ',
+    'My Orders' => 'Мои заказы',
     'Checkout' => 'Оформить заказ',
     'Select delivery method' => 'Выберите способ доставки',
     'Unknown method of delivery' => 'Неизвестный способ доставки',

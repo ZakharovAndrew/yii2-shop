@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use ZakharovAndrew\shop\Module;
 
 /* @var $this yii\web\View */
-/* @var $orders app\modules\shop\models\Order[] */
+/* @var $orders ZakharovAndrew\shop\models\Order[] */
 
-$this->title = 'Мои заказы';
+$this->title = Module::t('My Orders');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
@@ -37,12 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->getStatusText();
                 },
             ],
-            /*[
+            [
                 'attribute' => 'total_sum',
+                'label' => Module::t('Total'),
                 'value' => function($model) {
                     return Yii::$app->formatter->asCurrency($model->total_sum);
                 },
-            ],*/
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}',

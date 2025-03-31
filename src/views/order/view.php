@@ -6,11 +6,11 @@ use yii\grid\GridView;
 use ZakharovAndrew\shop\Module;
 
 /* @var $this yii\web\View */
-/* @var $order app\modules\shop\models\Order */
-/* @var $items app\modules\shop\models\OrderItem[] */
+/* @var $order ZakharovAndrew\shop\models\Order */
+/* @var $items ZakharovAndrew\shop\models\OrderItem[] */
 
 $this->title = Module::t('Order').' #' . $order->id;
-$this->params['breadcrumbs'][] = ['label' => 'Мои заказы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('My Orders'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-view">
