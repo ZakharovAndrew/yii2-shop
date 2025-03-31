@@ -110,7 +110,7 @@ return [
 ];
 ```
 
-## Usage
+## 🛠 Usage
 
 Add this to your main configuration's modules array
 
