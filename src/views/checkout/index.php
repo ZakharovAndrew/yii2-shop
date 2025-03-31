@@ -55,9 +55,25 @@ $this->registerJs($deliveryPriceJs);
 ?>
 
 <style>
-.help-block {
-    color: red;
-}
+    .help-block {
+        color: red;
+    }
+    .card {
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #eee;
+    }
+    .form-control {
+        border-radius: 4px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 12px;
+    }
 </style>
 
 <div class="checkout-index">
@@ -144,7 +160,7 @@ $this->registerJs($deliveryPriceJs);
                             <div class="col-md-6">
                                 <?= $form->field($model, 'city')->textInput([
                                     'maxlength' => true,
-                                    'placeholder' => 'Город',
+                                    'placeholder' => Module::t('City'),
                                     'required' => true
                                 ]) ?>
                             </div>
@@ -203,7 +219,7 @@ $this->registerJs($deliveryPriceJs);
                     
                     <!-- Grand Total -->
                     <div class="d-flex justify-content-between font-weight-bold">
-                        <span>Итого:</span>
+                        <span><?= Module::t('Total') ?>:</span>
                         <span id="order-total" data-value="<?= $totalSum ?>">
                             <?= Yii::$app->formatter->asCurrency($totalSum) ?>
                         </span>
@@ -213,24 +229,3 @@ $this->registerJs($deliveryPriceJs);
         </div>
     </div>
 </div>
-
-
-
-<style>
-    .card {
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .card-header {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #eee;
-    }
-    .form-control {
-        border-radius: 4px;
-    }
-    .btn-primary {
-        background-color: #007bff;
-        border: none;
-        padding: 12px;
-    }
-</style>
