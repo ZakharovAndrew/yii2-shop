@@ -37,6 +37,12 @@ $this->registerJs($script, yii\web\View::POS_READY);
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
     
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'quantity')->textInput([
+        'type' => 'number',
+        'min' => 0,
+        'disabled' => true, // Запрещаем прямое редактирование
+    ])->label(Module::t('Quantity on stock')) ?>
 
     <?= $form->field($model, 'images')->widget(ImageUploadWidget::class, ['url' => '123', 'id'=> 'product-images', 'form' => $form]); ?>
     
