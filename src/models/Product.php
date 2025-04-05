@@ -119,6 +119,69 @@ class Product extends \yii\db\ActiveRecord
     {
         $product = static::findOne($id);
         return $product ? $product->price : null;
-  
+    }
+    
+    /**
+     * Добавляет количество товара на склад
+     */
+    public function addToStock($quantity, $userId, $comment = null)
+    {
+        if ($quantity <= 0) {
+            throw new \InvalidArgumentException('Quantity must be positive');
+        }
+        
+        $this->quantity += $quantity;
+        if (!$this->save(false)) {
+            throw new \RuntimeException('Failed to update product quantity');
+        }
+
+        $movement = new ProductStockMovement([
+            'product_id' => $this->id,
+            'quantity' => $quantity,
+            'user_id' => $userId,
+            'comment' => $comment,
+        ]);
+
+        if (!$movement->save()) {
+            throw new \RuntimeException('Failed to save stock movement');
+        }
+    }
+    
+    /**
+     * Уменьшает количество товара на складе
+     */
+    public function subtractFromStock($quantity, $userId, $comment = null)
+    {
+        if ($quantity <= 0) {
+            throw new \InvalidArgumentException('Quantity must be positive');
+        }
+        
+        if ($this->quantity < $quantity) {
+            throw new \RuntimeException('Not enough stock');
+        }
+        
+
+        $this->quantity -= $quantity;
+        if (!$this->save(false)) {
+            throw new \RuntimeException('Failed to update product quantity');
+        }
+
+        $movement = new ProductStockMovement([
+            'product_id' => $this->id,
+            'quantity' => -$quantity,
+            'user_id' => $userId,
+            'comment' => $comment,
+        ]);
+
+        if (!$movement->save()) {
+            throw new \RuntimeException('Failed to save stock movement');
+        }
+
+        return true;
+    }
+    
+    public function getStockMovements()
+    {
+        return $this->hasMany(ProductStockMovement::class, ['product_id' => 'id']);
     }
 }
