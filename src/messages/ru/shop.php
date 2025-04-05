@@ -82,4 +82,7 @@ return [
     'Assembled' => 'Собран',
     'Shipped to customer' => 'Отправлен клиенту',
     'Delivered to customer' => 'Получен клиентом',
+    
+    //stock
+    'Add to Stock' => 'Добавить на склад',
 ];
