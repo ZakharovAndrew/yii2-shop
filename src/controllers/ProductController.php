@@ -123,6 +123,28 @@ class ProductController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    public function actionUpdateStock($id)
+    {
+        $model = $this->findModel($id);
+
+        if (Yii::$app->request->isPost) {
+            $quantity = Yii::$app->request->post('quantity');
+            $comment = Yii::$app->request->post('comment');
+
+            try {
+                $model->addToStock($quantity, Yii::$app->user->id, $comment);
+                Yii::$app->session->setFlash('success', 'Stock updated successfully');
+                return $this->redirect(['view', 'id' => $model->id]);
+            } catch (\Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
+        return $this->render('update-stock', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Finds the Product model based on its primary key value.

@@ -48,6 +48,16 @@ class OrderController extends Controller
             'orders' => $orders,
         ]);
     }
+    
+    public function actionCancel($id)
+    {
+        $order = $this->findModel($id);
+        
+        foreach ($order->getOrderItems() as $item) {
+            $product = $item->product;
+            $product->addToStock($item->quantity, Yii::$app->user->id, $order->id);
+        }
+    }
 
     /**
      * Находит модель заказа по ID
