@@ -19,7 +19,7 @@ foreach ($categories as $category) {
 }
 $last_category = end($categories);
 //SEO
-$this->registerMetaTag(['name' => 'description', 'content' => $last_category->title . ' '. $model->title]);
+$this->registerMetaTag(['name' => 'description', 'content' => $last_category->title . ' '. $model->name]);
 $this->registerMetaTag(['name' => 'og:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);

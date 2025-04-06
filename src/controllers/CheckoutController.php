@@ -78,7 +78,7 @@ class CheckoutController extends Controller
                         'price' => $item->product->price, // Сохраняем текущую цену
                     ]);
                     
-                    $item->product->subtractFromStock($item->quantity, Yii::$app->user->id, $model->id);
+                    $item->product->subtractFromStock($item->quantity, Yii::$app->user->id,  "Order #".$model->id);
 
                     if (!$orderItem->save()) {
                         throw new \Exception('Не удалось сохранить элемент заказа');

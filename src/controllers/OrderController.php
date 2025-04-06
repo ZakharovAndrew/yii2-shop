@@ -55,7 +55,7 @@ class OrderController extends Controller
         
         foreach ($order->getOrderItems() as $item) {
             $product = $item->product;
-            $product->addToStock($item->quantity, Yii::$app->user->id, $order->id);
+            $product->addToStock($item->quantity, Yii::$app->user->id, "Order #".$order->id);
         }
     }
 

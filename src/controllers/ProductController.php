@@ -130,13 +130,13 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 
         if (Yii::$app->request->isPost) {
-            $quantity = Yii::$app->request->post('quantity');
+            $quantity = Yii::$app->request->post('Product')['quantity'] ?? 0;
             $comment = Yii::$app->request->post('comment');
 
             try {
                 $model->addToStock($quantity, Yii::$app->user->id, $comment);
                 Yii::$app->session->setFlash('success', 'Stock updated successfully');
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'url' => $model->url]);
             } catch (\Exception $e) {
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }

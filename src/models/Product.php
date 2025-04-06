@@ -124,7 +124,7 @@ class Product extends \yii\db\ActiveRecord
     /**
      * Добавляет количество товара на склад
      */
-    public function addToStock($quantity, $userId, $orderId, $comment = null)
+    public function addToStock($quantity, $userId, $comment = null)
     {
         if ($quantity <= 0) {
             throw new \InvalidArgumentException('Quantity must be positive');
@@ -139,7 +139,6 @@ class Product extends \yii\db\ActiveRecord
             'product_id' => $this->id,
             'quantity' => $quantity,
             'user_id' => $userId,
-            'order_id' => $orderId,
             'comment' => $comment,
         ]);
 
@@ -151,7 +150,7 @@ class Product extends \yii\db\ActiveRecord
     /**
      * Уменьшает количество товара на складе
      */
-    public function subtractFromStock($quantity, $userId, $orderId, $comment = null)
+    public function subtractFromStock($quantity, $userId, $comment = null)
     {
         if ($quantity <= 0) {
             throw new \InvalidArgumentException('Quantity must be positive');
@@ -171,7 +170,6 @@ class Product extends \yii\db\ActiveRecord
             'product_id' => $this->id,
             'quantity' => -$quantity,
             'user_id' => $userId,
-            'order_id' => $orderId,
             'comment' => $comment,
         ]);
 

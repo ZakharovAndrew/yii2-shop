@@ -23,8 +23,10 @@ $this->params['breadcrumbs'][] = 'Update Stock';
                     'min' => 1,
                     'value' => 1
                 ]) ?>
-                
-                <?= $form->field($model, 'comment')->textInput() ?>
+            </div>
+            <div class="col-md-6">
+                <label>Comment</label>
+                <?= Html::input('text', 'comment', '', ['class' => 'form-control']) ?>
             </div>
         </div>
         

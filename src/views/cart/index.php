@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ?>
                     <div class="cart-product" data-id="<?= $item->product->id ?>">
                         <div style="color:#21313c">
-                            <?= $item->product->title ?>
+                            <?= $item->product->name ?>
                         </div>
 
                         <div>
