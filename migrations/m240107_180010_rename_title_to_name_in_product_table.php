@@ -1,5 +1,7 @@
 <?php
 
+use yii\db\Migration;
+
 /**
  * Renames column title to name in product table.
  */
