@@ -9,7 +9,7 @@ use ZakharovAndrew\shop\Module;
  * This is the model class for table "product".
  *
  * @property int $id
- * @property string $title
+ * @property string $name
  * @property string|null $description
  * @property string $url
  * @property string $images
@@ -35,12 +35,12 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'url', 'images'], 'required'],
+            [['name', 'url', 'images'], 'required'],
             [['description'], 'string'],
             [['category_id', 'user_id', 'count_views', 'price'], 'integer'],
             [['created_at'], 'safe'],
             ['quantity', 'integer'],
-            [['title', 'url', 'images', 'param1', 'param2', 'param3'], 'string', 'max' => 255],
+            [['name', 'url', 'images', 'param1', 'param2', 'param3'], 'string', 'max' => 255],
         ];
     }
 
@@ -51,7 +51,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => Module::t('Title'),
+            'name' => Module::t('Name'),
             'description' => Module::t('Description'),
             'url' => Module::t('Url'),
             'images' => Module::t('Images'),

@@ -85,4 +85,5 @@ return [
     
     //stock
     'Add to Stock' => 'Добавить на склад',
+    'Quantity on stock' => 'Количество на складе',
 ];

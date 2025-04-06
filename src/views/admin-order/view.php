@@ -95,11 +95,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'columns' => [
                     [
-                        'attribute' => 'product.title',
+                        'attribute' => 'product.name',
                         'label' => 'Товар',
                         'format' => 'raw',
                         'value' => function($model) {
-                            return Html::a($model->product->title, ['/shop/product/view', 'url' => $model->product->url]);
+                            return Html::a($model->product->name, ['/shop/product/view', 'url' => $model->product->url]);
                         },
                     ],
                     'price:currency',

@@ -13,9 +13,9 @@ $show_opt_price = false;
     <div class="shop-product-item">
         <?php if (!empty($model->id)) {?>
         <a href="<?= Url::to(['/shop/product/view', 'url' => $model->url]) ?>">
-            <div class="shop-product-img"><img src="<?= $model->getFirstImage() ?>" alt="<?= trim($model->title) ?>"></div>
+            <div class="shop-product-img"><img src="<?= $model->getFirstImage() ?>" alt="<?= trim($model->name) ?>"></div>
         </a>
-        <div class="product-title"><?= $model->title ?></div>
+        <div class="product-title"><?= $model->name ?></div>
         <div class="product-price"><?= number_format($model->price, 0, '', ' ' ) ?> ₽<?= ((isset($model->price_opt) && $show_opt_price ) ? '<span class="float-right"><span>(опт)</span> '.$model->price_opt . ' ₽</span>' : '') ?></div>
         
         

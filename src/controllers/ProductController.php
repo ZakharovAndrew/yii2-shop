@@ -2,6 +2,7 @@
 
 namespace ZakharovAndrew\shop\controllers;
 
+use Yii;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductSearch;
 use yii\web\Controller;

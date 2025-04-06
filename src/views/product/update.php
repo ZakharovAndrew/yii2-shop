@@ -6,14 +6,14 @@ use ZakharovAndrew\shop\Module;
 /** @var yii\web\View $this */
 /** @var app\models\Product $model */
 
-$this->title = Module::t('Update Product') . ': ' . $model->title;
+$this->title = Module::t('Update Product') . ': ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Module::t('Products'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'url' => $model->url]];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'url' => $model->url]];
 $this->params['breadcrumbs'][] = Module::t('Update');
 ?>
 <div class="product-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->name) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

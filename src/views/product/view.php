@@ -12,7 +12,7 @@ $module = Yii::$app->getModule('shop');
 // current language
 $appLanguage = Yii::$app->language;
 
-$this->title = $model->title;
+$this->title = $model->name;
 $categories = ProductCategory::getCategories($model->category_id);
 foreach ($categories as $category) {
     $this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => ['/shop/product-category/view', 'url' => $category->url]];

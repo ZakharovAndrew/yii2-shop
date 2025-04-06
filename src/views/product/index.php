@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return '<img src="'.$model->getFirstImage('mini').'">';
                 }
             ],
-            'title',
+            'name',
             [
                 'attribute' => 'category_id',
                 'format' => 'raw',
