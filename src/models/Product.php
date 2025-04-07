@@ -37,7 +37,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['name', 'url', 'images'], 'required'],
             [['description'], 'string'],
-            [['category_id', 'user_id', 'count_views', 'price'], 'integer'],
+            [['category_id', 'user_id', 'count_views', 'price', 'status'], 'integer'],
             [['created_at'], 'safe'],
             ['quantity', 'integer'],
             [['name', 'url', 'images', 'param1', 'param2', 'param3'], 'string', 'max' => 255],
@@ -183,5 +183,10 @@ class Product extends \yii\db\ActiveRecord
     public function getStockMovements()
     {
         return $this->hasMany(ProductStockMovement::class, ['product_id' => 'id']);
+    }
+    
+    public function getCategory()
+    {
+        return $this->hasOne(ProductCategory::class, ['id' => 'category_id']);
     }
 }
