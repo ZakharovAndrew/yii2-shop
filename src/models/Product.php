@@ -189,4 +189,17 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ProductCategory::class, ['id' => 'category_id']);
     }
+    
+    /**
+     * Gets most viewed products
+     * @param int $limit
+     * @return Product[]
+     */
+    public static function getPopularProducts($limit = 5)
+    {
+        return self::find()
+            ->orderBy(['count_views' => SORT_DESC])
+            ->limit($limit)
+            ->all();
+    }
 }
