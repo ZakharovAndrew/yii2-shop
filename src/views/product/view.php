@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 <div class="product-view">
 
-    <?php if (!Yii::$app->user->isGuest) {?>
+    <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('admin')) {?>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -86,6 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Stock Movements', ['stock-movements', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
     <?php } ?>
     
