@@ -22,8 +22,11 @@ return [
     'Deactive' => 'Неактивная',
     'Save' => 'Сохранить',
     'Back' => 'Назад',
+    'Delete' => 'Удалить',
+    'Edit' => 'Редактировать',
     
     'Status' => 'Статус',
+    'Comment' => 'Комментарий',
     
     'Catalog' => 'Каталог',
     'Total' => 'Итого',
@@ -44,11 +47,13 @@ return [
     'Similar products' => 'Похожие товары',
     'Cart' => 'Корзина',
     'Add to cart' => 'Добавить в корзину',
+    'Quantity' => 'Количество',
     //category
     'Product Categories' => 'Категории товаров',
     'Create Product Category' => 'Создать категорию товаров',
     'Update Product Category' => 'Обновить категорию товаров',
     'Description after goods' => 'Описание после товаров',
+    'User' => 'Пользователь',
     
     // order
     'Order' => 'Заказ',
@@ -86,4 +91,6 @@ return [
     //stock
     'Add to Stock' => 'Добавить на склад',
     'Quantity on stock' => 'Количество на складе',
+    'Stock Movements' => 'Движения запасов',
+    'Product Stock Movements' => 'Движения запасов товара',
 ];

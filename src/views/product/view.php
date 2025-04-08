@@ -78,15 +78,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('admin')) {?>
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a(Module::t('Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Stock Movements', ['stock-movements', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Module::t('Stock Movements'), ['stock-movements', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
     <?php } ?>
     

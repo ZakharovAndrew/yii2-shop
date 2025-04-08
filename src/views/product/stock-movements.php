@@ -11,7 +11,7 @@ use yii\grid\GridView;
 /** @var ZakharovAndrew\shop\models\Product $model */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Stock Movements'; //Module::t('Stock Movements');
+$this->title = Module::t('Product Stock Movements');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <thead>
         <tr>
             <th>Date</th>
-            <th>User</th>
-            <th>Quantity</th>
-            <th>Comment</th>
+            <th><?= Module::t('User') ?></th>
+            <th><?= Module::t('Quantity') ?></th>
+            <th><?= Module::t('Comment') ?></th>
         </tr>
     </thead>
     <tbody>
