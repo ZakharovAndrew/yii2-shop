@@ -4,6 +4,7 @@ namespace ZakharovAndrew\shop\models;
 
 use Yii;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\user\models\User;
 
 class ProductStockMovement extends \yii\db\ActiveRecord
 {

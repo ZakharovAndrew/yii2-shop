@@ -146,6 +146,15 @@ class ProductController extends Controller
             'model' => $model,
         ]);
     }
+    
+    public function actionStockMovements($id)
+    {
+        $model = $this->findModel($id);
+
+        return $this->render('stock-movements', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Finds the Product model based on its primary key value.
