@@ -12,6 +12,7 @@ use yii\grid\GridView;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Module::t('Product Stock Movements');
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'url' => $model->url]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
