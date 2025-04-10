@@ -2,9 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use ZakharovAndrew\shop\Module;
 
 $this->title = 'Update Stock: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('Products'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update Stock';
 
@@ -17,6 +18,7 @@ $this->params['breadcrumbs'][] = 'Update Stock';
         <?php $form = ActiveForm::begin(); ?>
         
         <div class="row">
+            
             <div class="col-md-6">
                 <?= $form->field($model, 'quantity')->textInput([
                     'type' => 'number',
@@ -25,13 +27,13 @@ $this->params['breadcrumbs'][] = 'Update Stock';
                 ]) ?>
             </div>
             <div class="col-md-6">
-                <label>Comment</label>
+                <label><?= Module::t('Comment') ?></label>
                 <?= Html::input('text', 'comment', '', ['class' => 'form-control']) ?>
             </div>
         </div>
         
         <div class="form-group">
-            <?= Html::submitButton('Add to Stock', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Module::t('Add to Stock'), ['class' => 'btn btn-success']) ?>
         </div>
         
         <?php ActiveForm::end(); ?>
