@@ -75,6 +75,7 @@ return [
     'Updated At' => 'Дата обновления',
     'Your order has been placed successfully!' => 'Ваш заказ был успешно оформлен!',
     'Order Information' => 'Информация о заказе',
+    'Your cart is empty' => 'Ваша корзина пуста',
     
     // the list of order statuss
     'Order not accepted yet' => 'Заказ еще не принят',
@@ -93,4 +94,5 @@ return [
     'Quantity on stock' => 'Количество на складе',
     'Stock Movements' => 'Движения запасов',
     'Product Stock Movements' => 'Движения запасов товара',
+    'Failed to create user' => 'Неудалось создать пользователя',
 ];

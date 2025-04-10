@@ -59,6 +59,7 @@ class Product extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'count_views' => Module::t('Count Views'),
             'price' => Module::t('Price'),
+            'quantity' => Module::t('Quantity'),
             'created_at' => 'Created At',
         ];
     }
@@ -147,6 +148,11 @@ class Product extends \yii\db\ActiveRecord
         }
     }
     
+    public function canSubtractFromStock($quantity)
+    {
+        return $this->quantity >= $quantity;
+    }
+    
     /**
      * Уменьшает количество товара на складе
      */
@@ -157,7 +163,7 @@ class Product extends \yii\db\ActiveRecord
         }
         
         if ($this->quantity < $quantity) {
-            throw new \RuntimeException('Not enough stock');
+            throw new \Exception('Not enough stock');
         }
         
 
