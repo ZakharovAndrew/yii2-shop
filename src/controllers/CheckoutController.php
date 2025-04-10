@@ -25,7 +25,7 @@ class CheckoutController extends Controller
         $cart = new Cart();
         
         if ($cart->isEmpty()) {
-            Yii::$app->session->setFlash('warning', 'Ваша корзина пуста');
+            Yii::$app->session->setFlash('warning', Module::t('Your cart is empty'));
             return $this->redirect(['/shop/cart/index']);
         }
     
@@ -50,23 +50,31 @@ class CheckoutController extends Controller
 
         // Process form submission
         if ($model->load(Yii::$app->request->post())) {
+            
+
 
             $cartItems = $cart->getCart();
-            
+            foreach ($cartItems as $item) {
+                if (!$item->product->canSubtractFromStock($item->quantity)) {
+                    Yii::$app->session->setFlash('error', $item->product->name.' - Нет необходимого количества товара');
+                    return $this->redirect('/shop/cart/index');
+                }
+            }
+
             if (Yii::$app->user->isGuest) {
                 // Создаем временного пользователя
                 $user = $this->createTemporaryUser($model);
-                
+
                 if (!$user) {
-                    Yii::$app->session->setFlash('error', 'Неудалось создать пользователя');
+                    Yii::$app->session->setFlash('error', Module::t('Failed to create user'));
                     return $this->refresh();
                 }
-                
+
                 Yii::$app->user->login($user, 3600*24*30); // Авторизуем на 30 дней*/
             }
-            
+
             $model->user_id = Yii::$app->user->id;
-            
+
             if ($model->save(false)) {
 
                 // Создаем элементы заказа
@@ -77,7 +85,7 @@ class CheckoutController extends Controller
                         'quantity' => $item->quantity,
                         'price' => $item->product->price, // Сохраняем текущую цену
                     ]);
-                    
+
                     $item->product->subtractFromStock($item->quantity, Yii::$app->user->id,  "Order #".$model->id);
 
                     if (!$orderItem->save()) {
@@ -86,12 +94,12 @@ class CheckoutController extends Controller
                 }
                 $model->delivery_cost = Order::getDeliveryPrices()[$model->delivery_method];
                 $model->updateTotalSum();
-                
+
                 $model->save(false);
 
                 // Очищаем корзину
                 $cart->clearCart();
-                
+
                 // Success: redirect to order confirmation
                 Yii::$app->session->setFlash('success', Module::t('Your order has been placed successfully!'));
                 return $this->redirect(['/shop/order/view', 'id' => $model->id]);
@@ -99,6 +107,7 @@ class CheckoutController extends Controller
                 // Save failed
                 Yii::$app->session->setFlash('error', 'Error processing your order'.var_export($model->getErrors(), true));
             }
+                
         }
         
         // Render checkout form
