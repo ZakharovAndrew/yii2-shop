@@ -130,6 +130,7 @@ Add this to your main configuration's modules array
         'shop' => [
             'class' => 'ZakharovAndrew\shop\Module',
             'catalogTitle' => 'Catalog Title',
+            'storeName' => 'My Store',
             'bootstrapVersion' => 5, // if use bootstrap 5
             'params' => [
                 '1' => [

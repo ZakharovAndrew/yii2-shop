@@ -47,6 +47,11 @@ class Module extends \yii\base\Module
     public $showTitle = true;
     
     /**
+     * @var string Store name
+     */
+    public $storeName = 'My Store';
+    
+    /**
      *
      * @var string source language for translation 
      */
