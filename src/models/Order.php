@@ -61,7 +61,7 @@ class Order extends ActiveRecord
     {
         $rules = [
             [['user_id', 'status'], 'required'],
-            [['user_id', 'delivery_method', 'status'], 'integer'],
+            [['user_id', 'delivery_method', 'status', 'type'], 'integer'],
             [['first_name', 'last_name', 'middle_name', 'phone', 'postcode', 'city', 'address'], 'string', 'max' => 255],
             ['delivery_method', 'in', 'range' => function() {
                 return array_keys(self::getDeliveryMethods());
@@ -97,6 +97,7 @@ class Order extends ActiveRecord
             'city' => Module::t('City'),
             'address' => Module::t('Address'),
             'status' => Module::t('Status'),
+            'type' => Module::t('Type'),
             'created_at' => Module::t('Created At'),
             'updated_at' => Module::t('Updated At'),
         ];
