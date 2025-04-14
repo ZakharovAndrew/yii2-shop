@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'attribute' => 'id',
-                'label' => 'Номер заказа',
+                'label' => Module::t('Order Number'),
                 'format' => 'raw',
                 'value' => function($model) {
                     return Html::a($model->id, ['view', 'id' => $model->id]);
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                            'title' => 'Просмотреть',
+                            'title' => Module::t('View'),
                         ]);
                     },
                 ],

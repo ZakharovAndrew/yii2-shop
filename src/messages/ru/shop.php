@@ -76,6 +76,9 @@ return [
     'Your order has been placed successfully!' => 'Ваш заказ был успешно оформлен!',
     'Order Information' => 'Информация о заказе',
     'Your cart is empty' => 'Ваша корзина пуста',
+    'View' => 'Просмотреть',
+    'Order Number' => 'Номер заказа',
+    'Delivery Cost' => 'Стоимость доставки',
     
     // the list of order statuss
     'Order not accepted yet' => 'Заказ еще не принят',
