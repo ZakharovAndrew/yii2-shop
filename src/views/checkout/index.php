@@ -110,7 +110,7 @@ $this->registerJs($deliveryPriceJs);
                         <div class="col-md-6">
                             <?= $form->field($model, 'last_name')->textInput([
                                 'maxlength' => true,
-                                'placeholder' => 'Фамилия',
+                                'placeholder' => Module::t('Last Name'),
                                 'required' => true
                             ]) ?>
                         </div>
@@ -149,7 +149,7 @@ $this->registerJs($deliveryPriceJs);
                     <?= $form->field($model, 'delivery_method')->dropDownList(
                         $deliveryMethods,
                         [
-                            'prompt' => '-- Выберите способ доставки --',
+                            'prompt' => '-- '.Module::t('Select delivery method').' --',
                             'class' => 'form-control',
                             'required' => true
                         ]
