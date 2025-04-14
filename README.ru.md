@@ -7,6 +7,8 @@
 [![License](https://poser.pugx.org/zakharov-andrew/yii2-shop/license)](https://packagist.org/packages/zakharov-andrew/yii2-shop)
 [![Yii2](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
 
+
+
 </div>
 
 <p align="center">
@@ -19,6 +21,12 @@
   <a href="#-вклад-в-проект">Вклад в проект</a> •
   <a href="#-лицензия">Лицензия</a>
 </p>
+
+<p align="center">
+  <a href="README.md">🇺🇸 English</a>
+</p>
+
+---
 
 ## ✨ Основные возможности
 
