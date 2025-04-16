@@ -27,6 +27,9 @@ return [
     
     'Status' => 'Статус',
     'Comment' => 'Комментарий',
+    // Category
+    'Position' => 'Позиция',
+    'Parent Category' => 'Родительская категория',
     
     'Catalog' => 'Каталог',
     'Total' => 'Итого',

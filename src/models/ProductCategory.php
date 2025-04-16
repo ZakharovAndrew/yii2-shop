@@ -48,8 +48,8 @@ class ProductCategory extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => Module::t('Title'),
             'url' => Module::t('Url'),
-            'position' => 'Position',
-            'parent_id' => 'Parent ID',
+            'position' => Module::t('Position'),
+            'parent_id' => Module::t('Parent Category'),
             'description' => Module::t('Description'),
             'description_after' => Module::t('Description after goods'),
         ];
