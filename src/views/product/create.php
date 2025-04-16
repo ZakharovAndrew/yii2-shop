@@ -8,11 +8,11 @@ use ZakharovAndrew\shop\Module;
 
 $this->title = Module::t('Create Product');
 $this->params['breadcrumbs'][] = ['label' => Module::t('Products'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->name;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-create">
 
-    <h1><?= Html::encode($this->name) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
