@@ -36,7 +36,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
