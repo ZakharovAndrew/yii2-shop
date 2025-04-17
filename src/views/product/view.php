@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-12 col-md-6 product-description-block">
             <h1 class='product-h1'><?= Html::encode($this->title) ?></h1>
             <p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['update', '/shop/product-category/view', 'url' => $last_category->url]) ?></p>
-            <div class="product-price"><?= number_format($model->price, 0, '', ' ' ) ?> ₽</div>
+            <div class="product-price"><?= number_format($model->price ?? 0, 0, '', ' ' ) ?> ₽</div>
             <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
                 <button><?= Module::t('Add to cart') ?></button>
             </div>

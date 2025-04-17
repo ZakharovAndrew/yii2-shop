@@ -44,12 +44,14 @@ $this->registerJs($script, yii\web\View::POS_READY);
         'disabled' => true, // Запрещаем прямое редактирование
     ])->label(Module::t('Quantity on stock')) ?>
     
+    <?php if (!isset($action) || $action != 'create') {?>
     <div class="form-group">
         <?= Html::a(Module::t('Add to Stock'), ['update-stock', 'id' => $model->id], [
             'class' => 'btn btn-primary',
             'style' => 'margin-bottom: 20px;'
         ]) ?>
     </div>
+    <?php } ?>
 
     <?= $form->field($model, 'images')->widget(ImageUploadWidget::class, ['url' => '123', 'id'=> 'product-images', 'form' => $form]); ?>
     
