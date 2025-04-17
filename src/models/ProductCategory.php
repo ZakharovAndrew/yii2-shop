@@ -125,8 +125,11 @@ class ProductCategory extends \yii\db\ActiveRecord
             $result = [];
             while ($category_id !== NULL) {
                 $category = ProductCategory::findOne(['id' => $category_id]);
-                $category_id = $category->parent_id;
-                $result[] = $category;
+                
+                if ($category) {
+                    $result[] = $category;
+                }
+                $category_id = $category->parent_id ?? null;
             }
 
             return array_reverse($result);
