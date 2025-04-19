@@ -51,6 +51,14 @@ return [
     'Cart' => 'Корзина',
     'Add to cart' => 'Добавить в корзину',
     'Quantity' => 'Количество',
+    
+    'Bulk pricing' => 'Оптовые цены',
+    'Bulk quantity 1' => 'Количество для опта 1',
+    'Bulk price 1' => 'Оптовая цена 1',
+    'Bulk quantity 2' => 'Количество для опта 2',
+    'Bulk price 2' => 'Оптовая цена 2',
+    'Bulk quantity 3' => 'Количество для опта 3',
+    'Bulk price 3' => 'Оптовая цена 3',
     //category
     'Product Categories' => 'Категории товаров',
     'Create Product Category' => 'Создать категорию товаров',
