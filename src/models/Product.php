@@ -112,6 +112,7 @@ class Product extends \yii\db\ActiveRecord
         return self::find()
                 ->where(['category_id' => $this->category_id])
                 ->andWhere(['!=', 'id', $this->id])
+                ->andWhere(['status' => 1])
                 ->limit($count)
                 ->all();
     }
