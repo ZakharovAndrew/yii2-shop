@@ -62,6 +62,7 @@ return [
     'Set prices for different quantity ranges' => 'Установите цены для разных диапазонов количества',
     'Quantity threshold' => 'Порог количества',
     'Special price' => 'Спеццена',
+    'Applies when quantity in cart meets or exceeds this value' => 'Применяется, когда количество в корзине достигает или превышает это значение',
     //category
     'Product Categories' => 'Категории товаров',
     'Create Product Category' => 'Создать категорию товаров',
