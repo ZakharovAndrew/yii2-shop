@@ -38,6 +38,69 @@ $this->registerJs($script, yii\web\View::POS_READY);
     
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
     
+    <!-- Секция оптовых цен -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h3 class="card-title"><?= Module::t('Bulk pricing') ?></h3>
+            <p class="text-muted mb-0"><?= Module::t('Set prices for different quantity ranges') ?></p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'bulk_price_quantity_1')->textInput([
+                        'type' => 'number',
+                        'min' => 1,
+                        'placeholder' => Module::t('Quantity threshold')
+                    ])->label(Module::t('Bulk quantity 1')) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'bulk_price_1')->textInput([
+                        'type' => 'number',
+                        'min' => 0,
+                        'placeholder' => Module::t('Special price')
+                    ])->label(Module::t('Bulk price 1')) ?>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'bulk_price_quantity_2')->textInput([
+                        'type' => 'number',
+                        'min' => 1,
+                        'placeholder' => Module::t('Quantity threshold')
+                    ])->label(Module::t('Bulk quantity 2')) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'bulk_price_2')->textInput([
+                        'type' => 'number',
+                        'min' => 0,
+                        'placeholder' => Module::t('Special price')
+                    ])->label(Module::t('Bulk price 2')) ?>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <?= $form->field($model, 'bulk_price_quantity_3')->textInput([
+                        'type' => 'number',
+                        'min' => 1,
+                        'placeholder' => Module::t('Quantity threshold')
+                    ])->label(Module::t('Bulk quantity 3')) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'bulk_price_3')->textInput([
+                        'type' => 'number',
+                        'min' => 0,
+                        'placeholder' => Module::t('Special price')
+                    ])->label(Module::t('Bulk price 3')) ?>
+                </div>
+            </div>
+            
+            <p class="text-muted small"><?= Module::t('Applies when quantity in cart meets or exceeds this value') ?></p>
+        </div>
+    </div>
+    <!-- Конец секции оптовых цен -->
+    
     <?= $form->field($model, 'quantity')->textInput([
         'type' => 'number',
         'min' => 0,

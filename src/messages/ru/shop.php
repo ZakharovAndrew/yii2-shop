@@ -59,6 +59,7 @@ return [
     'Bulk price 2' => 'Оптовая цена 2',
     'Bulk quantity 3' => 'Количество для опта 3',
     'Bulk price 3' => 'Оптовая цена 3',
+    'Set prices for different quantity ranges' => 'Установите цены для разных диапазонов количества',
     //category
     'Product Categories' => 'Категории товаров',
     'Create Product Category' => 'Создать категорию товаров',

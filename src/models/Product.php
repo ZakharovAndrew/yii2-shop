@@ -37,7 +37,10 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['name', 'url', 'images', 'price'], 'required'],
             [['description'], 'string'],
-            [['category_id', 'user_id', 'count_views', 'price', 'status'], 'integer'],
+            [['category_id', 'user_id', 'count_views', 'price', 'status', 
+              'bulk_price_quantity_1', 'bulk_price_1', 
+              'bulk_price_quantity_2', 'bulk_price_2', 
+              'bulk_price_quantity_3', 'bulk_price_3'], 'integer'],
             [['created_at'], 'safe'],
             ['quantity', 'integer'],
             [['name', 'url', 'images', 'param1', 'param2', 'param3'], 'string', 'max' => 255],
@@ -61,7 +64,36 @@ class Product extends \yii\db\ActiveRecord
             'price' => Module::t('Price'),
             'quantity' => Module::t('Quantity'),
             'created_at' => 'Created At',
+            'bulk_price_quantity_1' => Module::t('Bulk quantity 1'),
+            'bulk_price_1' => Module::t('Bulk price 1'),
+            'bulk_price_quantity_2' => Module::t('Bulk quantity 2'),
+            'bulk_price_2' => Module::t('Bulk price 2'),
+            'bulk_price_quantity_3' => Module::t('Bulk quantity 3'),
+            'bulk_price_3' => Module::t('Bulk price 3'),
         ];
+    }
+    
+    /**
+     * Get actual price based on quantity
+     * @param int $quantity
+     * @return int
+     */
+    public function getActualPrice($quantity)
+    {
+        // Check bulk prices in descending order (from highest quantity)
+        if ($this->bulk_price_quantity_3 && $quantity >= $this->bulk_price_quantity_3 && $this->bulk_price_3) {
+            return $this->bulk_price_3;
+        }
+        
+        if ($this->bulk_price_quantity_2 && $quantity >= $this->bulk_price_quantity_2 && $this->bulk_price_2) {
+            return $this->bulk_price_2;
+        }
+        
+        if ($this->bulk_price_quantity_1 && $quantity >= $this->bulk_price_quantity_1 && $this->bulk_price_1) {
+            return $this->bulk_price_1;
+        }
+        
+        return $this->price;
     }
     
     /**
