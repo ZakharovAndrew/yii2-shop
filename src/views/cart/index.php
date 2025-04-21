@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\Module;
 use ZakharovAndrew\shop\assets\ShopAssets;
@@ -35,9 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div id="cart-row-<?= $item->product->id ?>" class="row cart-row">
             <div class="col-lg-9 col-md-9 col-9">
                 <div style="display:flex">
-                    <?php
-                    echo '<img src="'.$item->product->getFirstImage().'" class="img-cart">';
-                    ?>
+                    <a href="<?= Url::toRoute(['/shop/product/view', 'url' => $item->product->url]) ?>"><img src="<?= $item->product->getFirstImage() ?>" class="img-cart"></a>
                     <div class="cart-product" data-id="<?= $item->product->id ?>">
                         <div style="color:#21313c">
                             <?= $item->product->name ?>
