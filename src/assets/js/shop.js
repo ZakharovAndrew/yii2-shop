@@ -29,7 +29,7 @@ class ZaanShop {
                             product_cost_without_discount.style.display = 'block';
                         }
 
-                        self.cartSumCount();
+                        self.cartSumCount(response);
                     } else {
                         console.log('Не нашел ' + 'product-counter-'+id);
                     }
@@ -45,7 +45,7 @@ class ZaanShop {
         });
     }
     
-    cartSumCount = () => {
+    cartSumCount = (response) => {
         let sumProducts = 0;
         let sumCosts = 0;
 
@@ -63,8 +63,15 @@ class ZaanShop {
         });
 
         // update sum
-        document.querySelector('#products-counter').innerHTML =  sumProducts;
-        document.querySelector('#products-cost').innerHTML =  sumCosts;
+        document.getElementById('products-counter').innerHTML = sumProducts;
+        document.getElementById('products-cost').innerHTML = response.cartTotal.total;
+        document.getElementById('products-cost-without-discount').innerHTML = response.cartTotal.total_without_discount;
+
+        if (response.cartTotal.total == response.cartTotal.total_without_discount) {
+            document.getElementById('products-cost-without-discount').style.display = 'none';
+        } else {
+            document.getElementById('products-cost-without-discount').style.display = 'block';
+        }
 
         let el_min_cost = document.getElementById('min-cost');
 
@@ -104,6 +111,7 @@ class ZaanShop {
                         product_cost.innerHTML = response.total + ' ₽';
                         product_cost_without_discount.innerHTML = response.total_without_discount + ' ₽';
                         
+                        
                         if (response.total == response.total_without_discount) {
                             product_cost_without_discount.style.display = 'none';
                         } else {
@@ -115,7 +123,7 @@ class ZaanShop {
                             document.querySelector('#cart-row-' + id).remove();
                         }
                         
-                        self.cartSumCount();
+                        self.cartSumCount(response);
                     } else {
                         console.log('Не нашел ' + 'product-counter-'+id);
                     }

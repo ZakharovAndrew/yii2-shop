@@ -43,6 +43,7 @@ class CartController extends Controller
             'price' => $result['price'],
             'total_without_discount' => $result['total_without_discount'],
             'total' => $result['total'],
+            'cartTotal' => $cart->getTotalSum()
             
             //'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
@@ -75,7 +76,7 @@ class CartController extends Controller
             'price' => $result['price'],
             'total_without_discount' => $result['total_without_discount'],
             'total' => $result['total'],
-            
+            'cartTotal' => $cart->getTotalSum()
             //'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
     }

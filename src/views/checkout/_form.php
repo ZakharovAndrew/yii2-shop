@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\Module;
+
+use ZakharovAndrew\shop\assets\ShopAssets;
+ShopAssets::register($this);
 ?>
 
 <div class="row">
@@ -117,8 +120,11 @@ use ZakharovAndrew\shop\Module;
                 <!-- Products Subtotal -->
                 <div class="d-flex justify-content-between mb-2">
                     <span>Товары:</span>
-                    <span id="cart-total" data-value="<?= $totalSum ?>">
-                        <?= Yii::$app->formatter->asCurrency($totalSum) ?>
+                    <span id="cart-total" data-value="<?= $totalSum['total'] ?>">
+                        <?php if (isset($totalSum['total_without_discount'])) { ?>
+                        <span class="cost-without-discount"><?= Yii::$app->formatter->asCurrency($totalSum['total_without_discount']) ?></span><br>
+                        <?php } ?>
+                        <?= Yii::$app->formatter->asCurrency($totalSum['total']) ?>
                     </span>
                 </div>
 
@@ -135,8 +141,8 @@ use ZakharovAndrew\shop\Module;
                 <!-- Grand Total -->
                 <div class="d-flex justify-content-between font-weight-bold">
                     <span><?= Module::t('Total') ?>:</span>
-                    <span id="order-total" data-value="<?= $totalSum ?>">
-                        <?= Yii::$app->formatter->asCurrency($totalSum) ?>
+                    <span id="order-total" data-value="<?= $totalSum['total'] ?>">
+                        <?= Yii::$app->formatter->asCurrency($totalSum['total']) ?>
                     </span>
                 </div>
             </div>
