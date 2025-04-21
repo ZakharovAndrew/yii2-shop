@@ -63,6 +63,13 @@ return [
     'Quantity threshold' => 'Порог количества',
     'Special price' => 'Спеццена',
     'Applies when quantity in cart meets or exceeds this value' => 'Применяется, когда количество в корзине достигает или превышает это значение',
+    'Bulk discounts' => 'Оптовые скидки',
+    'From' => 'От',
+    'pcs.' => 'шт.',
+    'Quantity in order' => 'Количество в заказе',
+    'Discounted price' => 'Цена со скидкой',
+    'You save' => 'Ваша выгода',
+    'Discount' => 'Скидка',
     //category
     'Product Categories' => 'Категории товаров',
     'Create Product Category' => 'Создать категорию товаров',
