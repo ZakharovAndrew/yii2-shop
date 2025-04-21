@@ -34,12 +34,16 @@ class CartController extends Controller
 
         // Add product to cart
         $cart = new Cart();
-        $product_quantity = $cart->addToCart($product->id, $quantity);
+        $result = $cart->addToCart($product->id, $quantity);
 
         return [
             'success' => true,
             'message' => 'Product added to cart.',
-            'quantity' => $product_quantity,
+            'quantity' => $result['quantity'],
+            'price' => $result['price'],
+            'total_without_discount' => $result['total_without_discount'],
+            'total' => $result['total'],
+            
             //'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
     }
@@ -62,11 +66,17 @@ class CartController extends Controller
 
         // Add product to cart
         $cart = new Cart();
-        $product_quantity = $cart->addToCart($product->id, -1);
+        $result = $cart->addToCart($product->id, -1);
 
         return [
             'success' => true,
-            'quantity' => $product_quantity,
+            'message' => 'Product added to cart.',
+            'quantity' => $result['quantity'],
+            'price' => $result['price'],
+            'total_without_discount' => $result['total_without_discount'],
+            'total' => $result['total'],
+            
+            //'cartCount' => $cart->getTotalQuantity(), // Общее количество товаров в корзине
         ];
     }
 

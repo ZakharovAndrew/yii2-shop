@@ -64,12 +64,22 @@ class Cart extends ActiveRecord
         
         Yii::$app->session->set(self::SESSION_KEY, $cart);
         
-        return $cart[$productId] ?? 0;
+        $product = Product::findOne($productId);
+        $currentQuantity = $cart[$productId] ?? 0;
+        
+        return [
+            'quantity' => $currentQuantity,
+            'price' => $product ? $product->getActualPrice($currentQuantity) : 0,
+            'total_without_discount' => $product ? $product->price * $currentQuantity : 0,
+            'total' => $product ? $product->getActualPrice($currentQuantity) * $currentQuantity : 0
+        ];
     }
     
     private function addToDatabaseCart($userId, $productId, $quantity)
     {
         $cartItem = Cart::findOne(['user_id' => $userId, 'product_id' => $productId]);
+        $product = Product::findOne($productId);
+        
         if ($cartItem) {
             $cartItem->quantity += $quantity;
         } else {
@@ -78,15 +88,21 @@ class Cart extends ActiveRecord
             $cartItem->product_id = $productId;
             $cartItem->quantity = $quantity;
         }
-        $cartItem->save();
         
-        if ($cartItem->quantity == 0) {
+        if ($cartItem->quantity <= 0) {
             $cartItem->delete();
-            
-            return 0;
+            $currentQuantity = 0;
+        } else {
+            $cartItem->save();
+            $currentQuantity = $cartItem->quantity;
         }
         
-        return $cartItem->quantity;
+        return [
+            'quantity' => $currentQuantity,
+            'price' => $product ? $product->getActualPrice($currentQuantity) : 0,
+            'total_without_discount' => $product ? $product->price * $currentQuantity : 0,
+            'total' => $product ? $product->getActualPrice($currentQuantity) * $currentQuantity : 0
+        ];
     }
 
     public function getCart()

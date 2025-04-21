@@ -59,7 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="text-center col-md-3 col-3">
-                <div class="cost" id="product-cost-<?= $item->product->id ?>" data-cost="<?= $item->product->price ?>"><?= $item->product->price * $item->quantity ?> ₽</div>
+                <div class="cost cost-without-discount" id="product-cost-without-discount-<?= $item->product->id ?>" style="<?= $item->product->price * $item->quantity ==  $item->product->getActualPrice($item->quantity) * $item->quantity ? 'display:none' : '    text-decoration: line-through;';?>"><?= $item->product->price * $item->quantity ?> ₽</div>
+                <div class="cost" id="product-cost-<?= $item->product->id ?>" data-cost="<?= $item->product->getActualPrice($item->quantity) ?>"><?= $item->product->getActualPrice($item->quantity) * $item->quantity ?> ₽</div>
                 <div onclick="shop.removeFromCart(<?= $item->product->id ?>)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
                 </div>

@@ -14,11 +14,20 @@ class ZaanShop {
             },
             success: function(response) {
                 if (response.success) {
+                    console.log(response);
                     let product_counter = document.getElementById('product-counter-'+id);
                     if (product_counter) {
                         product_counter.innerHTML = response.quantity;
                         let product_cost = document.getElementById('product-cost-'+id);
-                        product_cost.innerHTML = (response.quantity * product_cost.dataset.cost) + ' ₽';
+                        let product_cost_without_discount = document.getElementById('product-cost-without-discount-'+id);
+                        product_cost.innerHTML = response.total + ' ₽';
+                        product_cost_without_discount.innerHTML = response.total_without_discount + ' ₽';
+                        
+                        if (response.total == response.total_without_discount) {
+                            product_cost_without_discount.style.display = 'none';
+                        } else {
+                            product_cost_without_discount.style.display = 'block';
+                        }
 
                         self.cartSumCount();
                     } else {
@@ -91,7 +100,15 @@ class ZaanShop {
                     if (product_counter) {
                         product_counter.innerHTML = response.quantity;
                         let product_cost = document.getElementById('product-cost-'+id);
-                        product_cost.innerHTML = (response.quantity * product_cost.dataset.cost) + ' ₽';
+                        let product_cost_without_discount = document.getElementById('product-cost-without-discount-'+id);
+                        product_cost.innerHTML = response.total + ' ₽';
+                        product_cost_without_discount.innerHTML = response.total_without_discount + ' ₽';
+                        
+                        if (response.total == response.total_without_discount) {
+                            product_cost_without_discount.style.display = 'none';
+                        } else {
+                            product_cost_without_discount.style.display = 'block';
+                        }
 
                         if (response.quantity == 0) {
                             console.log('clear row');
