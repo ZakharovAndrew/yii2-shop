@@ -67,6 +67,31 @@ $this->params['breadcrumbs'][] = $this->title;
     .product-category a:hover {
         text-decoration: underline;
     }
+    
+    
+    .bulk-pricing-table {
+    margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+}
+.bulk-pricing-table th {
+    background-color: #f8f9fa;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+.bulk-pricing-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+.bulk-pricing-table .text-success {
+    color: #28a745;
+    font-weight: bold;
+}
+.bulk-pricing-table .text-danger {
+    color: #dc3545;
+}
   </style>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -116,6 +141,49 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1 class='product-h1'><?= Html::encode($this->title) ?></h1>
             <p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['update', '/shop/product-category/view', 'url' => $last_category->url]) ?></p>
             <div class="product-price"><?= number_format($model->price ?? 0, 0, '', ' ' ) ?> ₽</div>
+            <!-- Блок оптовых цен -->
+            <?php if ($model->bulk_price_quantity_1 || $model->bulk_price_quantity_2 || $model->bulk_price_quantity_3): ?>
+            <div class="bulk-pricing">
+                <div class="bulk-pricing-title"><?= Module::t('Bulk discounts') ?></div>
+                <table class="table table-bordered bulk-pricing-table">
+                    <thead>
+                        <tr>
+                            <th><?= Module::t('Quantity in order') ?></th>
+                            <th><?= Module::t('Discounted price') ?></th>
+                            <th><?= Module::t('Discount') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $bulkPrices = [
+                            ['quantity' => $model->bulk_price_quantity_1, 'price' => $model->bulk_price_1],
+                            ['quantity' => $model->bulk_price_quantity_2, 'price' => $model->bulk_price_2],
+                            ['quantity' => $model->bulk_price_quantity_3, 'price' => $model->bulk_price_3]
+                        ];
+
+                        // Сортируем по количеству (от меньшего к большему)
+                        usort($bulkPrices, function($a, $b) {
+                            return $a['quantity'] <=> $b['quantity'];
+                        });
+
+                        foreach ($bulkPrices as $item): 
+                            if ($item['quantity'] && $item['price']): 
+                                $discountPercent = round(100 - ($item['price'] * 100 / $model->price));
+                        ?>
+                        <tr>
+                            <td><?= Module::t('From') ?> <?= $item['quantity'] ?></td>
+                            <td><?= number_format($item['price'], 0, '', ' ') ?> ₽</td>
+                            <td class="text-success"><?= $discountPercent ?>%</td>
+                        </tr>
+                        <?php 
+                            endif;
+                        endforeach; 
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php endif; ?>
+            <!-- Конец блока оптовых цен -->
             <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
                 <button><?= Module::t('Add to cart') ?></button>
             </div>
