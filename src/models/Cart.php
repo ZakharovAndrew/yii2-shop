@@ -104,6 +104,45 @@ class Cart extends ActiveRecord
             'total' => $product ? $product->getActualPrice($currentQuantity) * $currentQuantity : 0
         ];
     }
+    
+    /**
+     * Удаляет товар из корзины
+     * 
+     * @param int $productId product ID
+     * @return bool
+     */
+    public function removeFromCart($productId)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->removeFromSessionCart($productId);
+        }
+        
+        return $this->removeFromDatabaseCart(Yii::$app->user->id, $productId);
+    }
+
+    private function removeFromSessionCart($productId)
+    {
+        $cart = Yii::$app->session->get(self::SESSION_KEY, []);
+        
+        if (isset($cart[$productId])) {
+            unset($cart[$productId]);
+            Yii::$app->session->set(self::SESSION_KEY, $cart);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private function removeFromDatabaseCart($userId, $productId)
+    {
+        $cartItem = Cart::findOne(['user_id' => $userId, 'product_id' => $productId]);
+        
+        if ($cartItem) {
+            return (bool)$cartItem->delete();
+        }
+        
+        return false;
+    }
 
     public function getCart()
     {

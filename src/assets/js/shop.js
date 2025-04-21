@@ -50,6 +50,14 @@ class ZaanShop {
         let sumCosts = 0;
 
         const products = document.querySelectorAll('.cart-product');
+        // refresh cart
+        if (products.length == 0) {
+            // reload the current page
+            window.location.reload();
+            
+            return;
+        }
+        
         products.forEach(product => {
             let id = product.dataset.id;
 
@@ -135,6 +143,7 @@ class ZaanShop {
     }
     
     removeFromCart = (id) => {
+        let self = this;
         $.ajax({
             url: '/shop/cart/remove',
             type: 'POST',
