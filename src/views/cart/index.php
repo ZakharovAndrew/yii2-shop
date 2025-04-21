@@ -79,10 +79,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <span id="products-cost"><?= $totalSum ?></span> ₽
             </div>
         </div>
-        <p>
-            
-            <?= Html::a('Очистить корзину', ['cart/clear'], ['class' => 'btn btn-danger']) ?>
+        
+        <div class="cart-actions text-right">
+            <?= Html::a(Module::t('Clear cart'), ['cart/clear'], [
+                'class' => 'btn btn-outline-danger mr-2',
+                'data-confirm' => Module::t('Are you sure you want to clear your cart?')
+            ]) ?>
             <?= Html::a(Module::t('Checkout'), ['/shop/checkout/index'], ['class' => 'btn btn-success']) ?>
-        </p>
+        </div>
     <?php endif; ?>
 </div>

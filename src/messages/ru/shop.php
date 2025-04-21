@@ -101,6 +101,8 @@ return [
     'View' => 'Просмотреть',
     'Order Number' => 'Номер заказа',
     'Delivery Cost' => 'Стоимость доставки',
+    'Clear cart' => 'Очистить корзину',
+    'Are you sure you want to clear your cart?' => 'Вы уверены, что хотите очистить корзину?',
     
     // the list of order statuss
     'Order not accepted yet' => 'Заказ еще не принят',
