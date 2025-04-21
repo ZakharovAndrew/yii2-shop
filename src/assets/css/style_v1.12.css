@@ -77,3 +77,7 @@
     margin-bottom:20px;
     overflow: hidden;
 }
+
+.cost-without-discount {
+    text-decoration:line-through;
+}
