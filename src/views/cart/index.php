@@ -18,8 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (empty($cartItems)): ?>
-    <div class="empty-basket text-center"><img src="/empty-basket.png" class="img-responsive img-fluid"><h3>Корзина пустая</h3><p>Добавьте товары из магазина</p></div>
-        <p>Ваша корзина пуста.</p>
+    <div class="empty-basket text-center">
+        <img src="/empty-basket.png" class="img-responsive img-fluid">
+        <h3><?= Module::t('Your cart is empty') ?></h3>
+        <p><?= Module::t('Add products from the store') ?></p>
+    </div>
     <?php else: ?>
         <?php
         /* 

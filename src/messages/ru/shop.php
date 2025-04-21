@@ -101,6 +101,8 @@ return [
     'View' => 'Просмотреть',
     'Order Number' => 'Номер заказа',
     'Delivery Cost' => 'Стоимость доставки',
+    'Your cart is empty' => 'Ваша корзина пуста',
+    'Add products from the store' => 'Добавьте товары из магазина',
     'Clear cart' => 'Очистить корзину',
     'Are you sure you want to clear your cart?' => 'Вы уверены, что хотите очистить корзину?',
     
