@@ -148,14 +148,20 @@ class Cart extends ActiveRecord
     {
         $items = $this->getCart();
         $total = 0;
+        $totalWithoutDiscount = 0;
         
         foreach ($items as $item) {
             $product = $item->product ?? $item;
             $quantity = $item->quantity ?? 1;
-            $total += $product->price * $quantity;
+             
+            $total += $product->getActualPrice($quantity) * $quantity;
+            $totalWithoutDiscount += $product->price * $quantity;
         }
         
-        return $total;
+        return [
+            'total' => $total,
+            'total_without_discount' => $totalWithoutDiscount
+        ];
     }
     
     /**

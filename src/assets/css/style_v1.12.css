@@ -78,6 +78,7 @@
     overflow: hidden;
 }
 
-.cost-without-discount {
+.cost-without-discount, #products-cost-without-discount {
     text-decoration:line-through;
 }
+

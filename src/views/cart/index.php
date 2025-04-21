@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
          */
         $sumProduct = 0;
         $totalSum = 0;
+        $totalSumWithoutDiscount = 0;
         foreach ($cartItems as $item) { ?>
         <div id="cart-row-<?= $item->product->id ?>" class="row cart-row">
             <div class="col-lg-9 col-md-9 col-9">
@@ -70,6 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php 
             $sumProduct += $item->quantity;
             $totalSum += $item->product->getActualPrice($item->quantity) * $item->quantity;
+            $totalSumWithoutDiscount += $item->product->price * $item->quantity;
             ?>
         <?php } ?>
         <div class="row cart-row">
@@ -80,6 +82,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <span id="products-counter"><?= $sumProduct ?></span> шт.
             </div>
             <div class="text-center col-md-3 col-3">
+                
+                <span id="products-cost-without-discount"><?= $totalSumWithoutDiscount ?></span> ₽
                 <span id="products-cost"><?= $totalSum ?></span> ₽
             </div>
         </div>
