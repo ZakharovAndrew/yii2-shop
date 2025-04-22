@@ -140,6 +140,11 @@ Add this to your main configuration's modules array
                     ]
                 ]
             ],
+            'deliveryMethods' => [
+                1 => 'Courier delivery',
+                2 => 'Pickup from store',
+                3 => 'Postal delivery'
+            ],
             'defaultProductImage' => '/images/default-product-image.jpg', // Path to the default image for a product
             'uploadWebDir' => '/web/path/to/upload/dir/'
         ],
