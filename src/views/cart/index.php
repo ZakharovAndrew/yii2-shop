@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="text-center col-md-3 col-3">
                 
-                <span id="products-cost-without-discount"><?= $totalSumWithoutDiscount ?></span> ₽
+                <div id="products-cost-without-discount" <?= $totalSum == $totalSumWithoutDiscount ? 'style="display:none"' : '' ?>><?= $totalSumWithoutDiscount ?> ₽</div>
                 <span id="products-cost"><?= $totalSum ?></span> ₽
             </div>
         </div>

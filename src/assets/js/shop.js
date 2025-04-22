@@ -73,7 +73,7 @@ class ZaanShop {
         // update sum
         document.getElementById('products-counter').innerHTML = sumProducts;
         document.getElementById('products-cost').innerHTML = response.cartTotal.total;
-        document.getElementById('products-cost-without-discount').innerHTML = response.cartTotal.total_without_discount;
+        document.getElementById('products-cost-without-discount').innerHTML = response.cartTotal.total_without_discount + ' ₽';
 
         if (response.cartTotal.total == response.cartTotal.total_without_discount) {
             document.getElementById('products-cost-without-discount').style.display = 'none';
