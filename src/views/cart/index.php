@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <b><?= Module::t('Total') ?></b>
             </div>
             <div class="col-lg-3 col-md-3 col-4">
-                <span id="products-counter"><?= $sumProduct ?></span> шт.
+                <span id="products-counter"><?= $sumProduct ?></span> <?= Module::t('pcs.') ?>
             </div>
             <div class="text-center col-md-3 col-3">
                 
