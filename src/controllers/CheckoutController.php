@@ -83,7 +83,8 @@ class CheckoutController extends Controller
                         'order_id' => $model->id,
                         'product_id' => $item->product->id,
                         'quantity' => $item->quantity,
-                        'price' => $item->product->price, // Сохраняем текущую цену
+                        'price' => $item->product->getActualPrice($item->quantity),
+                        'price_without_discount' => $item->product->price,
                     ]);
 
                     $item->product->subtractFromStock($item->quantity, Yii::$app->user->id,  "Order #".$model->id);
