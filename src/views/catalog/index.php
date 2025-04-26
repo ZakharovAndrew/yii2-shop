@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\widgets\LinkPager;
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\ProductSearch $searchModel */
@@ -23,6 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?= $this->render('_product_list', [
         'products' => $products
+    ]) ?>
+
+    <?= LinkPager::widget([
+        'pagination' => $dataProvider->pagination,
+        'linkOptions' => ['class' => 'page-link'],
     ]) ?>
 
 </div>
