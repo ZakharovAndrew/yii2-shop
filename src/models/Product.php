@@ -11,6 +11,8 @@ use ZakharovAndrew\shop\Module;
  * @property int $id
  * @property string $name
  * @property string|null $description
+ * @property string|null $composition
+ * @property float|null $weight
  * @property string $url
  * @property string $images
  * @property int|null $category_id
@@ -36,7 +38,8 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'url', 'images', 'price'], 'required'],
-            [['description'], 'string'],
+            [['description', 'composition'], 'string'],
+            [['weight'], 'number'],
             [['category_id', 'user_id', 'count_views', 'price', 'status', 
               'bulk_price_quantity_1', 'bulk_price_1', 
               'bulk_price_quantity_2', 'bulk_price_2', 
@@ -56,6 +59,8 @@ class Product extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => Module::t('Name'),
             'description' => Module::t('Description'),
+            'composition' => Module::t('Composition'),
+            'weight' => Module::t('Weight'), 
             'url' => Module::t('Url'),
             'images' => Module::t('Images'),
             'category_id' => Module::t('Category'),

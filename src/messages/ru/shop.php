@@ -36,6 +36,8 @@ return [
     //Product
     'Title' => 'Название',
     'Description' => 'Описание',
+    'Composition' => 'Состав',
+    'Weight' => 'Вес',
     'Url' => 'Ссылка',
     'Cost' => 'Стоимость',
     'Price' => 'Цена',
