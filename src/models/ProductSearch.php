@@ -100,6 +100,7 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'status' => 1,
             /*'category_id' => $this->category_id,
             'user_id' => $this->user_id,
             'count_views' => $this->count_views,
