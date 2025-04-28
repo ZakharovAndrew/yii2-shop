@@ -30,6 +30,9 @@ use ZakharovAndrew\user\models\User;
  * @property int $status
  * @property string $created_at
  * @property string $updated_at
+ * @property float $delivery_cost
+ * @property float $total_sum
+ * @property float $total_sum_without_discount
  */
 class Order extends ActiveRecord
 {
@@ -67,8 +70,8 @@ class Order extends ActiveRecord
                 return array_keys(self::getDeliveryMethods());
             }, 'message' => 'Выберите корректный способ доставки'],
             [['created_at', 'updated_at'], 'safe'],
-            [['delivery_cost', 'total_sum'], 'number'],
-            [['delivery_cost', 'total_sum'], 'default', 'value' => 0],
+            [['delivery_cost', 'total_sum', 'total_sum_without_discount'], 'number'],
+            [['delivery_cost', 'total_sum', 'total_sum_without_discount'], 'default', 'value' => 0],
         ];
             
         if (Yii::$app->user->isGuest) {
@@ -151,12 +154,21 @@ class Order extends ActiveRecord
     }
     
     /**
-     * Получает сумму товаров без учета доставки
+     * Get the total amount of goods excluding shipping
      * @return float
      */
     public function getItemsSum()
     {
         return (float)$this->getOrderItems()->sum('price * quantity');
+    }
+    
+    /**
+     * Получает сумму товаров без учета доставки и скидок
+     * @return float
+     */
+    public function getItemsSumWithoutDiscount()
+    {
+        return (float)$this->getOrderItems()->sum('price_without_discount * quantity');
     }
 
     public function updateTotalSum()
@@ -165,7 +177,13 @@ class Order extends ActiveRecord
             ->where(['order_id' => $this->id])
             ->sum('price * quantity');
             
+         // Сумма без скидки
+        $sumWithoutDiscount = (float) OrderItem::find()
+            ->where(['order_id' => $this->id])
+            ->sum('price_without_discount * quantity');
+            
         $this->total_sum = $sum + $this->delivery_cost;
+        $this->total_sum_without_discount = $sumWithoutDiscount + $this->delivery_cost;
     }
     
     /**
@@ -199,6 +217,19 @@ class Order extends ActiveRecord
         $module = Yii::$app->getModule('shop');
         
         return $module->deliveryPrices;
+    }
+    
+    /**
+     * Get discount percentage for order
+     * @return float
+     */
+    public function getDiscountPercent()
+    {
+        if ($this->total_sum_without_discount <= 0) {
+            return 0;
+        }
+        
+        return round(($this->getDiscountAmount() / $this->total_sum_without_discount) * 100, 2);
     }
     
     /**

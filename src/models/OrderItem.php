@@ -24,7 +24,7 @@ class OrderItem extends ActiveRecord
         return [
             [['order_id', 'product_id', 'quantity', 'price'], 'required'],
             [['order_id', 'product_id', 'quantity'], 'integer'],
-            [['price'], 'number'],
+            [['price', 'price_without_discount'], 'number'],
         ];
     }
 
