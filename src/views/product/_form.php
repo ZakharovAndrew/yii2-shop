@@ -118,6 +118,10 @@ $this->registerJs($script, yii\web\View::POS_READY);
 
     <?= $form->field($model, 'images')->widget(ImageUploadWidget::class, ['url' => '123', 'id'=> 'product-images', 'form' => $form]); ?>
     
+    <?= $form->field($model, 'composition')->textarea(['rows' => 3]) ?>
+    
+    <?= $form->field($model, 'weight')->textInput(['type' => 'number', 'step' => '0.01']) ?>
+    
     <?php
     /* additional params */
     foreach (range(1,3) as $i) {
