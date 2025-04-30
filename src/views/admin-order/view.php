@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
 use ZakharovAndrew\shop\models\Order;
+use ZakharovAndrew\shop\Module;
 
 /* @var $this yii\web\View */
 /* @var $order ZakharovAndrew\shop\models\Order */
@@ -102,7 +103,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a($model->product->name, ['/shop/product/view', 'url' => $model->product->url]);
                         },
                     ],
-                    'price:currency',
+                    [
+                        'attribute' => 'product.price',
+                        'label' => Module::t('Price'),
+                        'format' => 'raw',
+                        'value' => function($model) {
+                            if (isset($model->price_without_discount) && $model->price_without_discount != $model->price) {
+                                return '<span style="text-decoration: line-through">'.Yii::$app->formatter->asCurrency($model->price_without_discount) . '</span> '. Yii::$app->formatter->asCurrency($model->price);
+                            }
+                            return Yii::$app->formatter->asCurrency($model->price);
+                        },
+                    ],
                     'quantity',
                     [
                         'label' => 'Сумма',

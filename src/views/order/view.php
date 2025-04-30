@@ -92,7 +92,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'product.price',
                         'label' => Module::t('Price'),
+                        'format' => 'raw',
                         'value' => function($model) {
+                            if (isset($model->price_without_discount)) {
+                                return '<span style="text-decoration: line-through">'.Yii::$app->formatter->asCurrency($model->price_without_discount) . '</span> '. Yii::$app->formatter->asCurrency($model->price);
+                            }
                             return Yii::$app->formatter->asCurrency($model->price);
                         },
                     ],
