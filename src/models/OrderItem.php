@@ -11,6 +11,7 @@ namespace ZakharovAndrew\shop\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use ZakharovAndrew\shop\Module;
 
 class OrderItem extends ActiveRecord
 {
@@ -25,6 +26,17 @@ class OrderItem extends ActiveRecord
             [['order_id', 'product_id', 'quantity', 'price'], 'required'],
             [['order_id', 'product_id', 'quantity'], 'integer'],
             [['price', 'price_without_discount'], 'number'],
+        ];
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'price' => Module::t('Price'),
+            'quantity' => Module::t('Quantity'),
         ];
     }
 
