@@ -187,6 +187,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
                 <button><?= Module::t('Add to cart') ?></button>
             </div>
+            
+            <?php if ($model->composition): ?>
+            <div class="product-composition">
+                <h3><?= Module::t('Composition') ?></h3>
+                <p><?= nl2br(Html::encode($model->composition)) ?></p>
+            </div>
+            <?php endif; ?>
+            
             <?= $model->description ?>
             <div class="product-additional-params">
                 <?php
