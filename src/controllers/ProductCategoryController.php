@@ -60,7 +60,6 @@ class ProductCategoryController extends Controller
         $model = $this->findModelByUrl($url);
         
         $query = Product::find()->where(['or', ['category_id' => $model->id], 'category_id IN (SELECT id FROM product_category WHERE parent_id = '.$model->id.')'])->andWhere(['status' => 1]);
-        //$products =>
                 
         // делаем копию выборки
         $countQuery = clone $query;
@@ -76,7 +75,8 @@ class ProductCategoryController extends Controller
         
         return $this->render('view', [
             'model' => $model,
-            'products' => $products
+            'products' => $products,
+            'pagination' => $pages
         ]);
     }
 

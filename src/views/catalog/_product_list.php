@@ -1,5 +1,6 @@
 <?php 
 
+use yii\widgets\LinkPager;
 use ZakharovAndrew\shop\assets\ShopAssets;
 ShopAssets::register($this);
 
@@ -16,7 +17,6 @@ $this->registerJs($script, yii\web\View::POS_READY);
 ?>
 
 <style>
-    
     .product-title {
         text-align: center;
         padding: 0 5px;
@@ -35,7 +35,6 @@ $this->registerJs($script, yii\web\View::POS_READY);
     }
     .category-description {margin: 30px 0}
     
-    
 </style>
 <div class="row product-list">
     <?php foreach($products as $product) {
@@ -45,3 +44,10 @@ $this->registerJs($script, yii\web\View::POS_READY);
         ]);
     } ?>
 </div>
+
+<?php if (isset($pagination)) {?>
+<?= LinkPager::widget([
+    'pagination' => $pagination,
+    'linkOptions' => ['class' => 'page-link'],
+]) ?>
+<?php } ?>

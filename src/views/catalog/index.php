@@ -23,12 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     
     <?= $this->render('_product_list', [
-        'products' => $products
-    ]) ?>
-
-    <?= LinkPager::widget([
-        'pagination' => $dataProvider->pagination,
-        'linkOptions' => ['class' => 'page-link'],
+        'products' => $products,
+        'pagination' => $dataProvider->pagination
     ]) ?>
 
 </div>

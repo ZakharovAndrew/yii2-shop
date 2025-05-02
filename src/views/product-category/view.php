@@ -27,9 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="category-description"><?= $model->description ?></div>
     
     <?= $this->render('../catalog/_product_list', [
-        'products' => $products
+        'products' => $products,
+        'pagination' => $pagination
     ]) ?>
-    
+        
     <div class="category-description_after"><?= $model->description_after ?></div>
     
     <?php if (!Yii::$app->user->isGuest) {?>
