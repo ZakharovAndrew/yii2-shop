@@ -23,6 +23,7 @@ use ZakharovAndrew\shop\Module;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    // Product status constants
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
     
@@ -83,7 +84,7 @@ class Product extends \yii\db\ActiveRecord
     }
     
     /**
-     * Get status list
+     * Returns product status options
      * @return array
      */
     public static function getStatuses()
@@ -92,6 +93,38 @@ class Product extends \yii\db\ActiveRecord
             self::STATUS_DELETED => Module::t('Deleted'),
             self::STATUS_ACTIVE => Module::t('Active'),
         ];
+    }
+    
+    /**
+     * Gets status text representation
+     * @return string
+     */
+    public function getStatusText()
+    {
+        $statuses = self::getStatuses();
+        return $statuses[$this->status] ?? Module::t('Unknown status');
+    }
+    
+    /**
+     * Checks if product is active
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+    
+    /**
+     * Gets CSS class for status label
+     * @return string
+     */
+    public function getStatusClass()
+    {
+        $classes = [
+            self::STATUS_DELETED => 'label-danger',
+            self::STATUS_ACTIVE => 'label-success',
+        ];
+        return $classes[$this->status] ?? 'label-default';
     }
     
     /**

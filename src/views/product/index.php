@@ -14,6 +14,26 @@ use yii\grid\GridView;
 $this->title = Module::t('Products');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    .label {
+        display: inline-block;
+        padding: 3px 6px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+    }
+    .label-success {
+        background-color: #5cb85c;
+    }
+    .label-danger {
+        background-color: #d9534f;
+    }
+</style>
 <div class="product-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -62,10 +82,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'category_id',
             //'user_id',
             //'count_views',
-            //'created_at',
             [
                 'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::tag('span', $model->getStatusText(), [
+                        'class' => 'label ' . $model->getStatusClass()
+                    ]);
+                },
                 'filter' => Product::getStatuses()
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => ['date', 'php:d.m.Y H:i']
             ],
             [
                 'class' => ActionColumn::className(),
