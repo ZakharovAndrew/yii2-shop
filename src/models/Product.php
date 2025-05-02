@@ -23,6 +23,9 @@ use ZakharovAndrew\shop\Module;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 1;
+    
     /**
      * {@inheritdoc}
      */
@@ -68,6 +71,7 @@ class Product extends \yii\db\ActiveRecord
             'count_views' => Module::t('Count Views'),
             'price' => Module::t('Price'),
             'quantity' => Module::t('Quantity'),
+            'status' => Module::t('Status'),
             'created_at' => 'Created At',
             'bulk_price_quantity_1' => Module::t('Bulk quantity 1'),
             'bulk_price_1' => Module::t('Bulk price 1'),
@@ -75,6 +79,18 @@ class Product extends \yii\db\ActiveRecord
             'bulk_price_2' => Module::t('Bulk price 2'),
             'bulk_price_quantity_3' => Module::t('Bulk quantity 3'),
             'bulk_price_3' => Module::t('Bulk price 3'),
+        ];
+    }
+    
+    /**
+     * Get status list
+     * @return array
+     */
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_DELETED => Module::t('Deleted'),
+            self::STATUS_ACTIVE => Module::t('Active'),
         ];
     }
     
@@ -233,7 +249,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ProductCategory::class, ['id' => 'category_id']);
     }
-    
+     
     /**
      * Gets most viewed products
      * @param int $limit

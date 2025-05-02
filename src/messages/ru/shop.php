@@ -51,6 +51,8 @@ return [
     'Update Product' => 'Обновить товар',
     'Similar products' => 'Похожие товары',
     'Cart' => 'Корзина',
+    'Deleted' => 'Удален',
+    'Active' => 'Активен',
     'Add to cart' => 'Добавить в корзину',
     'Quantity' => 'Количество',
     
