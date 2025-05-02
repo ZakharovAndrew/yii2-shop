@@ -4,6 +4,7 @@ namespace ZakharovAndrew\shop\models;
 
 use Yii;
 use ZakharovAndrew\shop\Module;
+use yii\helpers\Inflector;
 
 /**
  * This is the model class for table "product".
@@ -42,6 +43,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'url', 'images', 'price'], 'required'],
+            ['url', 'unique', 'message' => Module::t('This URL is already in use')],
             [['description', 'composition'], 'string'],
             [['weight'], 'number'],
             [['category_id', 'user_id', 'count_views', 'price', 'status', 
@@ -294,5 +296,33 @@ class Product extends \yii\db\ActiveRecord
             ->orderBy(['count_views' => SORT_DESC])
             ->limit($limit)
             ->all();
+    }
+    
+    /**
+     * Generates unique URL from product name
+     * @return string
+     */
+    public function generateUniqueUrl()
+    {
+        $baseUrl = Inflector::slug($this->name);
+        $url = $baseUrl;
+        $counter = 1;
+
+        while (self::find()->where(['url' => $url])->exists()) {
+            $url = $baseUrl . '-' . $counter++;
+        }
+
+        return $url;
+    }
+    
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if (empty($this->url)) {
+                $this->url = $this->generateUniqueUrl();
+            }
+            return true;
+        }
+        return false;
     }
 }
