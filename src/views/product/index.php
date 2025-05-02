@@ -64,6 +64,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'count_views',
             //'created_at',
             [
+                'attribute' => 'status',
+                'filter' => Product::getStatuses()
+            ],
+            [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
