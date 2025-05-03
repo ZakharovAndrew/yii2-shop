@@ -25,6 +25,9 @@ ClassicEditor
 JS;
 $this->registerJs($script, yii\web\View::POS_READY);
 ?>
+<style>
+    .has-error .help-block {color:red}
+</style>
 
 <div class="product-form">
 

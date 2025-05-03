@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-12 col-md-6 product-description-block">
             <h1 class='product-h1'><?= Html::encode($this->title) ?></h1>
-            <p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['update', '/shop/product-category/view', 'url' => $last_category->url]) ?></p>
+            <p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['/shop/product-category/view', 'url' => $last_category->url]) ?></p>
             <div class="product-price"><?= number_format($model->price ?? 0, 0, '', ' ' ) ?> ₽</div>
             <!-- Блок оптовых цен -->
             <?php if ($model->bulk_price_quantity_1 || $model->bulk_price_quantity_2 || $model->bulk_price_quantity_3): ?>
