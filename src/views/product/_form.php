@@ -78,6 +78,30 @@ $this->registerJs($script, yii\web\View::POS_READY);
                 </div>
             </div>
             
+            <div class="card">
+                <h6 class=" card-header">Additional</h6>
+                <div class="card-body">
+                    <?= $form->field($model, 'weight')->textInput(['type' => 'number', 'step' => '0.01']) ?>
+    
+                    <?php
+                    /* additional params */
+                    foreach (range(1,3) as $i) {
+                        if (isset($module->params[$i])) {
+                            echo $form->field($model, 'param'.$i)->textInput(['maxlength' => true])->label($module->params[$i]['title'][$appLanguage]);
+                        }
+                    } ?>
+                    <?= $form->field($model, 'category_id')->dropDownList(ProductCategory::getDropdownGroups(), ['prompt' => '', 'class' => 'form-control form-select']) ?>
+
+                    <?= $form->field($model, 'status')->dropDownList(
+                        $model::getStatuses(), 
+                        [
+                            'prompt' => Module::t('Select status'),
+                            'class' => 'form-control form-select'
+                        ]
+                    ) ?>
+                </div>
+            </div>
+            
             
         </div>
         <div class="col-lg-4">
@@ -169,35 +193,6 @@ $this->registerJs($script, yii\web\View::POS_READY);
         </div>
     </div>
 
-    
-
-    
-
-    
-    
-
-    
-    
-    
-    
-    <?= $form->field($model, 'weight')->textInput(['type' => 'number', 'step' => '0.01']) ?>
-    
-    <?php
-    /* additional params */
-    foreach (range(1,3) as $i) {
-        if (isset($module->params[$i])) {
-            echo $form->field($model, 'param'.$i)->textInput(['maxlength' => true])->label($module->params[$i]['title'][$appLanguage]);
-        }
-    } ?>
-    <?= $form->field($model, 'category_id')->dropDownList(ProductCategory::getDropdownGroups(), ['prompt' => '', 'class' => 'form-control form-select']) ?>
-
-    <?= $form->field($model, 'status')->dropDownList(
-        $model::getStatuses(), 
-        [
-            'prompt' => Module::t('Select status'),
-            'class' => 'form-control form-select'
-        ]
-    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
