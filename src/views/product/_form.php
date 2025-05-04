@@ -47,7 +47,9 @@ $this->registerJs($script, yii\web\View::POS_READY);
         margin-bottom:8px;
         font-weight: 500;
     }
-    
+    .product-form .card .card-body .form-group:last-child {
+        margin-bottom: 0
+    }
 </style>
 
 <div class="product-form">
