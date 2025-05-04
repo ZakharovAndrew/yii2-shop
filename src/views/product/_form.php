@@ -101,9 +101,8 @@ $this->registerJs($script, yii\web\View::POS_READY);
                     ) ?>
                 </div>
             </div>
-            
-            
         </div>
+        
         <div class="col-lg-4">
             <div style="position: sticky;z-index: 1015;top:80px">
                 <div class="card">
@@ -195,7 +194,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
 
 
     <div class="form-group">
-        <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton((!isset($action) || $action != 'create') ? Module::t('Save') : Module::t('Add Product'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
