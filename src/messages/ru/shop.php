@@ -56,6 +56,8 @@ return [
     'Add to cart' => 'Добавить в корзину',
     'Quantity' => 'Количество',
     'This URL is already in use' => 'Этот URL уже используется',
+    'Select status' => 'Выберите статус',
+    'Basic information' => 'Основная информация',
     
     'Bulk pricing' => 'Оптовые цены',
     'Bulk quantity 1' => 'Количество для опта 1',

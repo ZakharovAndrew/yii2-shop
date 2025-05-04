@@ -27,101 +27,158 @@ $this->registerJs($script, yii\web\View::POS_READY);
 ?>
 <style>
     .has-error .help-block {color:red}
+    .product-form .card {
+        padding:0;
+        border:0;
+        box-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+        margin-bottom: 20px
+    }
+    .product-form .card .card-header {
+        background: #f9fafd;
+        line-height: 26px;
+        font-size:14px;
+        color:#617083;
+        border:0;
+    }
+    .product-form .card label {
+        font-size:14px;
+        letter-spacing:0.266667px;
+        line-height:20px;
+        margin-bottom:8px;
+        font-weight: 500;
+    }
+    
 </style>
 
 <div class="product-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
-    
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
-    
-    <!-- Секция оптовых цен -->
-    <div class="card mb-3">
-        <div class="card-header">
-            <h3 class="card-title"><?= Module::t('Bulk pricing') ?></h3>
-            <p class="text-muted mb-0"><?= Module::t('Set prices for different quantity ranges') ?></p>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <h6 class=" card-header"><?= Module::t('Basic information') ?></h6>
+                <div class="card-body">
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="card">
+                <h6 class=" card-header">Details</h6>
+                <div class="card-body">
+                    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+                    
+                    <?= $form->field($model, 'composition')->textarea(['rows' => 1]) ?>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h6 class=" card-header"><?= Module::t('Images') ?></h6>
+                <div class="card-body">
+                    <?= $form->field($model, 'images')->widget(ImageUploadWidget::class, ['url' => '123', 'id'=> 'product-images', 'form' => $form])->label(false); ?>
+                </div>
+            </div>
+            
+            
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <?= $form->field($model, 'bulk_price_quantity_1')->textInput([
-                        'type' => 'number',
-                        'min' => 1,
-                        'placeholder' => Module::t('Quantity threshold')
-                    ])->label(Module::t('Bulk quantity 1')) ?>
+        <div class="col-lg-4">
+            <div style="position: sticky;z-index: 1015;top:80px">
+                <div class="card">
+                    <h6 class="card-header">Pricing</h6>
+                    <div class="card-body">
+                        <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'bulk_price_1')->textInput([
-                        'type' => 'number',
-                        'min' => 0,
-                        'placeholder' => Module::t('Special price')
-                    ])->label(Module::t('Bulk price 1')) ?>
+                <div class="card">
+                    <h6 class="card-header"><?= Module::t('Bulk pricing') ?></h6>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'bulk_price_quantity_1')->textInput([
+                                    'type' => 'number',
+                                    'min' => 1,
+                                    'placeholder' => Module::t('Quantity threshold')
+                                ])->label(Module::t('Bulk quantity 1')) ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'bulk_price_1')->textInput([
+                                    'type' => 'number',
+                                    'min' => 0,
+                                    'placeholder' => Module::t('Special price')
+                                ])->label(Module::t('Bulk price 1')) ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'bulk_price_quantity_2')->textInput([
+                                    'type' => 'number',
+                                    'min' => 1,
+                                    'placeholder' => Module::t('Quantity threshold')
+                                ])->label(Module::t('Bulk quantity 2')) ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'bulk_price_2')->textInput([
+                                    'type' => 'number',
+                                    'min' => 0,
+                                    'placeholder' => Module::t('Special price')
+                                ])->label(Module::t('Bulk price 2')) ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'bulk_price_quantity_3')->textInput([
+                                    'type' => 'number',
+                                    'min' => 1,
+                                    'placeholder' => Module::t('Quantity threshold')
+                                ])->label(Module::t('Bulk quantity 3')) ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'bulk_price_3')->textInput([
+                                    'type' => 'number',
+                                    'min' => 0,
+                                    'placeholder' => Module::t('Special price')
+                                ])->label(Module::t('Bulk price 3')) ?>
+                            </div>
+                        </div>
+
+                        <p class="text-muted small"><?= Module::t('Applies when quantity in cart meets or exceeds this value') ?></p>
+                    </div>
+                </div>
+            
+            
+                <div class="card">
+                    <h6 class=" card-header">Stock</h6>
+                    <div class="card-body">
+                        <?= $form->field($model, 'quantity')->textInput([
+                            'type' => 'number',
+                            'min' => 0,
+                            'disabled' => true, // Запрещаем прямое редактирование
+                        ])->label(Module::t('Quantity on stock')) ?>
+
+                        <?php if (!isset($action) || $action != 'create') {?>
+                        <div class="form-group">
+                            <?= Html::a(Module::t('Add to Stock'), ['update-stock', 'id' => $model->id], [
+                                'class' => 'btn btn-primary',
+                            ]) ?>
+                        </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <?= $form->field($model, 'bulk_price_quantity_2')->textInput([
-                        'type' => 'number',
-                        'min' => 1,
-                        'placeholder' => Module::t('Quantity threshold')
-                    ])->label(Module::t('Bulk quantity 2')) ?>
-                </div>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'bulk_price_2')->textInput([
-                        'type' => 'number',
-                        'min' => 0,
-                        'placeholder' => Module::t('Special price')
-                    ])->label(Module::t('Bulk price 2')) ?>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <?= $form->field($model, 'bulk_price_quantity_3')->textInput([
-                        'type' => 'number',
-                        'min' => 1,
-                        'placeholder' => Module::t('Quantity threshold')
-                    ])->label(Module::t('Bulk quantity 3')) ?>
-                </div>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'bulk_price_3')->textInput([
-                        'type' => 'number',
-                        'min' => 0,
-                        'placeholder' => Module::t('Special price')
-                    ])->label(Module::t('Bulk price 3')) ?>
-                </div>
-            </div>
-            
-            <p class="text-muted small"><?= Module::t('Applies when quantity in cart meets or exceeds this value') ?></p>
         </div>
     </div>
-    <!-- Конец секции оптовых цен -->
-    
-    <?= $form->field($model, 'quantity')->textInput([
-        'type' => 'number',
-        'min' => 0,
-        'disabled' => true, // Запрещаем прямое редактирование
-    ])->label(Module::t('Quantity on stock')) ?>
-    
-    <?php if (!isset($action) || $action != 'create') {?>
-    <div class="form-group">
-        <?= Html::a(Module::t('Add to Stock'), ['update-stock', 'id' => $model->id], [
-            'class' => 'btn btn-primary',
-            'style' => 'margin-bottom: 20px;'
-        ]) ?>
-    </div>
-    <?php } ?>
 
-    <?= $form->field($model, 'images')->widget(ImageUploadWidget::class, ['url' => '123', 'id'=> 'product-images', 'form' => $form]); ?>
     
-    <?= $form->field($model, 'composition')->textarea(['rows' => 3]) ?>
+
+    
+
+    
+    
+
+    
+    
+    
     
     <?= $form->field($model, 'weight')->textInput(['type' => 'number', 'step' => '0.01']) ?>
     
@@ -133,6 +190,14 @@ $this->registerJs($script, yii\web\View::POS_READY);
         }
     } ?>
     <?= $form->field($model, 'category_id')->dropDownList(ProductCategory::getDropdownGroups(), ['prompt' => '', 'class' => 'form-control form-select']) ?>
+
+    <?= $form->field($model, 'status')->dropDownList(
+        $model::getStatuses(), 
+        [
+            'prompt' => Module::t('Select status'),
+            'class' => 'form-control form-select'
+        ]
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
