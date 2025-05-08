@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <table class="table">
     <thead>
         <tr>
-            <th>Date</th>
+            <th><?= Module::t('Date') ?></th>
             <th><?= Module::t('User') ?></th>
             <th><?= Module::t('Quantity') ?></th>
             <th><?= Module::t('Comment') ?></th>

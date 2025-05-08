@@ -61,6 +61,7 @@ return [
     'Type' => 'Тип',
     'Rating' => 'Рейтинг',
     'Position' => 'Позиция',
+    'Out of stock' => 'Нет в наличии',
     
     'Bulk pricing' => 'Оптовые цены',
     'Bulk quantity 1' => 'Количество для опта 1',
@@ -129,6 +130,7 @@ return [
     'Delivered to customer' => 'Получен клиентом',
     
     //stock
+    'Date' => 'Дата',
     'Add to Stock' => 'Добавить на склад',
     'Quantity on stock' => 'Количество на складе',
     'Stock Movements' => 'Движения запасов',
