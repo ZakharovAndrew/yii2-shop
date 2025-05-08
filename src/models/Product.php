@@ -20,6 +20,7 @@ use yii\helpers\Inflector;
  * @property int|null $user_id
  * @property int|null $count_views
  * @property int|null $price
+ * @property int $position
  * @property string|null $created_at
  */
 class Product extends \yii\db\ActiveRecord
@@ -48,6 +49,8 @@ class Product extends \yii\db\ActiveRecord
             [['weight'], 'number'],
             [['rating'], 'number', 'min' => 0, 'max' => 5],
             [['rating'], 'default', 'value' => 0],
+            [['position'], 'integer'],
+            [['position'], 'default', 'value' => 0],
             [['category_id', 'user_id', 'count_views', 'price', 'status', 
               'bulk_price_quantity_1', 'bulk_price_1', 
               'bulk_price_quantity_2', 'bulk_price_2', 
@@ -78,6 +81,7 @@ class Product extends \yii\db\ActiveRecord
             'quantity' => Module::t('Quantity'),
             'status' => Module::t('Status'),
             'rating' => Module::t('Rating'),
+            'position' => Module::t('Position'),
             'created_at' => 'Created At',
             'bulk_price_quantity_1' => Module::t('Bulk quantity 1'),
             'bulk_price_1' => Module::t('Bulk price 1'),
@@ -204,6 +208,7 @@ class Product extends \yii\db\ActiveRecord
                 ->where(['category_id' => $this->category_id])
                 ->andWhere(['!=', 'id', $this->id])
                 ->andWhere(['status' => 1])
+                ->orderBy('position DESC')
                 ->limit($count)
                 ->all();
     }

@@ -60,6 +60,7 @@ return [
     'Basic information' => 'Основная информация',
     'Type' => 'Тип',
     'Rating' => 'Рейтинг',
+    'Position' => 'Позиция',
     
     'Bulk pricing' => 'Оптовые цены',
     'Bulk quantity 1' => 'Количество для опта 1',
