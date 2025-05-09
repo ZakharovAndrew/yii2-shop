@@ -131,6 +131,7 @@ return [
     
     //stock
     'Date' => 'Дата',
+    'Left' => 'Осталось',
     'Add to Stock' => 'Добавить на склад',
     'Quantity on stock' => 'Количество на складе',
     'Stock Movements' => 'Движения запасов',

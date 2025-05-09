@@ -95,6 +95,10 @@ $this->params['breadcrumbs'][] = $this->title;
 .out_of_stock {
     font-size:20px;margin:10px 0 20px
 }
+.product_in_stock {
+    font-size:14px;
+    color:red;
+}
   </style>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -187,14 +191,16 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?php endif; ?>
             <!-- Конец блока оптовых цен -->
-            <?php if ($model->quantity == 0) {?>
+            <?php if ($model->quantity == 0) { ?>
             <div class="out_of_stock"><?= Module::t('Out of stock') ?></div>
             <?php } else { ?>
             <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
                 <button><?= Module::t('Add to cart') ?></button>
             </div>
             <?php } ?>
-            
+            <?php if ($model->quantity > 1 && $model->quantity <6) { ?>
+            <div class="product_in_stock"><?= Module::t('Left') ?> <?= $model->quantity ?> шт.</div>
+            <?php } ?>
             <?php if ($model->composition): ?>
             <div class="product-composition">
                 <h3><?= Module::t('Composition') ?></h3>
