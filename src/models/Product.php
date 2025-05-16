@@ -21,6 +21,7 @@ use yii\helpers\Inflector;
  * @property int|null $count_views
  * @property int|null $price
  * @property int $position
+ * @property string|null $video
  * @property string|null $created_at
  */
 class Product extends \yii\db\ActiveRecord
@@ -57,7 +58,7 @@ class Product extends \yii\db\ActiveRecord
               'bulk_price_quantity_3', 'bulk_price_3'], 'integer'],
             [['created_at'], 'safe'],
             ['quantity', 'integer'],
-            [['name', 'url', 'images', 'param1', 'param2', 'param3'], 'string', 'max' => 255],
+            [['name', 'url', 'images', 'param1', 'param2', 'param3', 'video'], 'string', 'max' => 255],
         ];
     }
 
@@ -89,6 +90,7 @@ class Product extends \yii\db\ActiveRecord
             'bulk_price_2' => Module::t('Bulk price 2'),
             'bulk_price_quantity_3' => Module::t('Bulk quantity 3'),
             'bulk_price_3' => Module::t('Bulk price 3'),
+            'video' => Module::t('Video'),
         ];
     }
     
