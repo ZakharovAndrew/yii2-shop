@@ -105,6 +105,8 @@ $this->registerJs($script, yii\web\View::POS_READY);
                     <?= $form->field($model, 'rating')->textInput(['type' => 'number', 'step' => '0.01']) ?>
                     
                     <?= $form->field($model, 'position')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'video')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
