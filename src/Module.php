@@ -35,6 +35,8 @@ class Module extends \yii\base\Module
     public $uploadWebDir = '';
  
     public $useTranslite = false;
+
+    public $mobileProductsPerRow = 1;
     
     /**
      * @var string Path to the default image for a product
