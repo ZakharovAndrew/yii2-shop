@@ -130,9 +130,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="swiper-wrapper">
                     <?php foreach ($model->getImages('big') as $img) { ?>
                     <div class="swiper-slide">
-                        <div class="swiper-zoom-container">
-                            <img src="<?= $img ?>" class="img-fluid"></div>
-                        </div>
+                        <div class="swiper-zoom-container"><img src="<?= $img ?>" class="img-fluid"></div>
+                    </div>
+                    <?php } ?>
+                    <?php if (!empty($model->video) { ?>
+                    <div class="swiper-slide">
+                        <video src="<?= $model->video ?>" width="100%">Sorry, your browser doesn't support embedded videos!</video>
+                    </div>
                     <?php } ?>
                 </div>
                 <div class="swiper-pagination"></div>
