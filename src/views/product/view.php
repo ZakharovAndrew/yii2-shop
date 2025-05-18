@@ -99,6 +99,18 @@ $this->params['breadcrumbs'][] = $this->title;
     font-size:14px;
     color:red;
 }
+.videoContainer
+{
+    position:absolute;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+}
+.videoContainer video
+{
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+}
   </style>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -133,9 +145,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="swiper-zoom-container"><img src="<?= $img ?>" class="img-fluid"></div>
                     </div>
                     <?php } ?>
-                    <?php if (!empty($model->video) { ?>
-                    <div class="swiper-slide">
-                        <video src="<?= $model->video ?>" width="100%">Sorry, your browser doesn't support embedded videos!</video>
+                    <?php if (!empty($model->video)) { ?>
+                    <div class="swiper-slide" style="height:auto">
+                        <div class="videoContainer">
+                            <video src="<?= $model->video ?>" controls width="100%" height="auto">Sorry, your browser doesn't support embedded videos!</video>
+                        </div>
                     </div>
                     <?php } ?>
                 </div>
