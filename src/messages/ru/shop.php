@@ -62,6 +62,7 @@ return [
     'Rating' => 'Рейтинг',
     'Position' => 'Позиция',
     'Out of stock' => 'Нет в наличии',
+    'Video' => 'Видео',
     
     'Bulk pricing' => 'Оптовые цены',
     'Bulk quantity 1' => 'Количество для опта 1',
