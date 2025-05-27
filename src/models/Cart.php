@@ -182,6 +182,19 @@ class Cart extends ActiveRecord
             Cart::deleteAll(['user_id' => Yii::$app->user->id]);
         }
     }
+
+    public function getTotalQuantity()
+    {
+        $items = $this->getCart();
+        $total = 0;
+        
+        foreach ($items as $item) {
+            $quantity = $item->quantity ?? 1;
+            $total += $quantity;
+        }
+        
+        return $total;
+    }
     
     public function getTotalSum()
     {
