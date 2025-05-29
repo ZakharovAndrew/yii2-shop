@@ -7,6 +7,7 @@ use yii\web\Controller;
 use ZakharovAndrew\shop\models\Cart;
 use ZakharovAndrew\shop\models\Product;
 use yii\web\Response;
+use ZakharovAndrew\shop\Module;
 
 class CartController extends Controller
 {
