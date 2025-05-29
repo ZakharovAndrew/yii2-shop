@@ -63,6 +63,7 @@ return [
     'Position' => 'Позиция',
     'Out of stock' => 'Нет в наличии',
     'Video' => 'Видео',
+    'We don’t have enough items in stock at the moment.' => 'К сожалению, сейчас этого товара нет в достаточном количестве.',
     
     'Bulk pricing' => 'Оптовые цены',
     'Bulk quantity 1' => 'Количество для опта 1',

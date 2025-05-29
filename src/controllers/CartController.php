@@ -31,9 +31,15 @@ class CartController extends Controller
         if (!$product) {
             return ['success' => false, 'message' => 'Product not found.'];
         }
+        
+        $cart = new Cart();
+        
+        // проверяем достаточно ли продукта на складе
+        if ($product->quantity < $cart->getProductQuantity($productId) + $quantity) {
+            return ['success' => false, 'message' => Module::t('We don’t have enough items in stock at the moment.')];
+        }
 
         // Add product to cart
-        $cart = new Cart();
         $result = $cart->addToCart($product->id, $quantity);
 
         return [

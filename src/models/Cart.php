@@ -216,6 +216,19 @@ class Cart extends ActiveRecord
         ];
     }
     
+    public function getProductQuantity($product_id)
+    {
+        $items = $this->getCart();
+        
+        foreach ($items as $item) {
+            if ($item->product->id == $product_id) {
+                return $item->quantity ?? 1;
+            }
+        }
+        
+        return 0;
+    }
+    
     /**
      * Проверяет, пуста ли корзина
      * @return bool
