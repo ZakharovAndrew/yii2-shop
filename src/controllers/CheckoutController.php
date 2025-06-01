@@ -28,6 +28,14 @@ class CheckoutController extends Controller
             Yii::$app->session->setFlash('warning', Module::t('Your cart is empty'));
             return $this->redirect(['/shop/cart/index']);
         }
+
+        $cartItems = $cart->getCart();
+        foreach ($cartItems as $item) {
+            if (!$item->product->canSubtractFromStock($item->quantity)) {
+                Yii::$app->session->setFlash('error', $item->product->name.' - Нет необходимого количества товара');
+                return $this->redirect('/shop/cart/index');
+            }
+        }
     
         // Redirect guests to login page with return URL
         /*if (Yii::$app->user->isGuest) {
@@ -50,17 +58,6 @@ class CheckoutController extends Controller
 
         // Process form submission
         if ($model->load(Yii::$app->request->post())) {
-            
-
-
-            $cartItems = $cart->getCart();
-            foreach ($cartItems as $item) {
-                if (!$item->product->canSubtractFromStock($item->quantity)) {
-                    Yii::$app->session->setFlash('error', $item->product->name.' - Нет необходимого количества товара');
-                    return $this->redirect('/shop/cart/index');
-                }
-            }
-
             if (Yii::$app->user->isGuest) {
                 // Создаем временного пользователя
                 $user = $this->createTemporaryUser($model);
