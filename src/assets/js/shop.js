@@ -28,11 +28,11 @@ class ZaanShop {
                         } else {
                             product_cost_without_discount.style.display = 'block';
                         }
-
-                        self.cartSumCount(response);
                     } else {
                         console.log('Не нашел ' + 'product-counter-'+id);
                     }
+
+                    self.cartSumCount(response);
                     
                     if (show_alert) {
                         alert('Товар добавлен в корзину!');
@@ -74,6 +74,11 @@ class ZaanShop {
         document.getElementById('products-counter').innerHTML = sumProducts;
         document.getElementById('products-cost').innerHTML = response.cartTotal.total;
         document.getElementById('products-cost-without-discount').innerHTML = response.cartTotal.total_without_discount + ' ₽';
+
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.innerHTML = response.quantity;
+        }
 
         if (response.cartTotal.total == response.cartTotal.total_without_discount) {
             document.getElementById('products-cost-without-discount').style.display = 'none';
