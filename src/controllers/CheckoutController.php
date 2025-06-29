@@ -145,7 +145,7 @@ class CheckoutController extends Controller
         return [
             'success' => true,
             'price' => $price,
-            'formattedPrice' => Yii::$app->formatter->asCurrency($price),
+            'formattedPrice' => (is_numeric($price) ? Yii::$app->formatter->asCurrency($price) : $price),
         ];
     }
 
