@@ -55,10 +55,10 @@ class ProductCategory extends \yii\db\ActiveRecord
         ];
     }
     
-    public static function getDropdownGroups()
+    public static function getDropdownGroups($exclude = null)
     {
-        return Yii::$app->cache->getOrSet('list_categories_dropdown', function () {
-            $model = self::find()->all();
+        return Yii::$app->cache->getOrSet('list_categories_dropdown'.($exclude ?? ''), function () use ($exclude) {
+            $model = self::find()->where(['NOT IN', 'id', $exclude])->all();
             $result = [];
             $cat_title = [];
             foreach ($model as $category) {

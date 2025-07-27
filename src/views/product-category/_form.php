@@ -42,7 +42,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
 
     <?= $form->field($model, 'position')->textInput() ?>
 
-    <?= $form->field($model, 'parent_id')->textInput() ?>
+    <?= $form->field($model, 'parent_id')->dropDownList(ProductCategory::getDropdownGroups($model->id), ['prompt' => '', 'class' => 'form-control form-select']) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
