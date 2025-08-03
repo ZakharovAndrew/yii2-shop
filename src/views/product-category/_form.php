@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\Module;
-use ZakharovAndrew\shop\models\ProductCategory
+use ZakharovAndrew\shop\models\ProductCategory;
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\ProductCategory $model */
