@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
-/** @var app\models\ProductCategory $model */
+/** @var ZakharovAndrew\shop\models\ProductCategory $model */
 
 $this->title = Module::t('Create Product Category');
 $this->params['breadcrumbs'][] = ['label' => Module::t('Product Categories'), 'url' => ['index']];
