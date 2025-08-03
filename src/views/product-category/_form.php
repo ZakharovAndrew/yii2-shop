@@ -3,9 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\shop\models\ProductCategory
 
 /** @var yii\web\View $this */
-/** @var app\models\ProductCategory $model */
+/** @var ZakharovAndrew\shop\models\ProductCategory $model */
 /** @var yii\widgets\ActiveForm $form */
 
 $this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js');
