@@ -21,6 +21,7 @@ use yii\helpers\Inflector;
  * @property int|null $count_views
  * @property int|null $price
  * @property int $position
+ * @property int $shop_id
  * @property string|null $video
  * @property string|null $created_at
  */
@@ -50,7 +51,7 @@ class Product extends \yii\db\ActiveRecord
             [['weight'], 'number'],
             [['rating'], 'number', 'min' => 0, 'max' => 5],
             [['rating'], 'default', 'value' => 0],
-            [['position'], 'integer'],
+            [['position', 'shop_id'], 'integer'],
             [['position'], 'default', 'value' => 0],
             [['category_id', 'user_id', 'count_views', 'price', 'status', 
               'bulk_price_quantity_1', 'bulk_price_1', 
