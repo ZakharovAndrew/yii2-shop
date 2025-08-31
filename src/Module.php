@@ -37,6 +37,11 @@ class Module extends \yii\base\Module
     public $useTranslite = false;
 
     public $mobileProductsPerRow = 1;
+
+    /**
+     * @var boolean Multi-store support 
+     */
+    public $multiStore = false;
     
     /**
      * @var string Path to the default image for a product
