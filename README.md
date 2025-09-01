@@ -34,6 +34,7 @@ Yii2 shop module. A module for creating an online store based on Yii2. This modu
   - Add attributes and specifications to products.
   - Upload product images.
   - Manage product stock levels.
+  - Multi-store support
 
 - **🗂️ Categories and Filters**
   - Hierarchical category system.
