@@ -5,7 +5,7 @@ use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
-/** @var ZakharovAndrew\shop\models\ProductCategory $model */
+/** @var app\models\ProductCategory $model */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Module::t('Catalog'), 'url' => ['/shop/catalog/index']];
