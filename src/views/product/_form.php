@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\models\ProductCategory;
+use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\shop\Module;
 use ZakharovAndrew\imageupload\ImageUploadWidget;
 
@@ -101,6 +102,15 @@ $this->registerJs($script, yii\web\View::POS_READY);
                             'class' => 'form-control form-select'
                         ]
                     ) ?>
+                    
+                    <?php if ($module->multiStore) {
+                        echo $form->field($model, 'shop_id')->dropDownList(
+                            Shop::getShopsList(), 
+                            [
+                                'class' => 'form-control form-select'
+                            ]
+                        );
+                    } ?>
                     
                     <?= $form->field($model, 'rating')->textInput(['type' => 'number', 'step' => '0.01']) ?>
                     

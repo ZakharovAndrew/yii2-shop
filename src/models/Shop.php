@@ -11,6 +11,7 @@ namespace ZakharovAndrew\shop\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use ZakharovAndrew\shop\Module;
 
 /**
@@ -78,5 +79,15 @@ class Shop extends ActiveRecord
             return Yii::getAlias('@web/uploads/shops/') . $this->avatar;
         }
         return null;
+    }
+    
+    /**
+     * Get a list of shops 
+     */
+    public static function getShopsList()
+    {
+        return Yii::$app->cache->getOrSet('list_shops', function () {
+            return ArrayHelper::map(self::find()->select(['id', 'name'])->asArray()->all(), 'id', 'name');
+        }, 60);
     }
 }
