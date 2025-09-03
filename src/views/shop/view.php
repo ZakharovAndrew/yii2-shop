@@ -1,39 +1,27 @@
 <?php
 
 use yii\helpers\Html;
-use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
-/** @var app\models\ProductCategory $model */
+/** @var ZakharovAndrew\shop\models\Shop $model */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Module::t('Catalog'), 'url' => ['/shop/catalog/index']];
+$this->title = $model->name;
 
-// collecting a list of categories
-foreach (ProductCategory::getCategories($model->id) as $category) {
-    // exclude the current category
-    if ($category->id !== $model->id) {
-        $this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => ['/shop/product-category/view', 'url' => $category->url]];
-    }
-}
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 ?>
-<div class="product-category-view">
+<div class="shop-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <div class="category-description"><?= $model->description ?></div>
+    <div class="shop-description"><?= $model->description ?></div>
     
     <?= $this->render('../catalog/_product_list', [
         'products' => $products,
         'pagination' => $pagination
     ]) ?>
-        
-    <div class="category-description_after"><?= $model->description_after ?></div>
     
-    <?php if (!Yii::$app->user->isGuest) {?>
+    <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('admin')) {?>
     <p>
         <?= Html::a(Module::t('Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
