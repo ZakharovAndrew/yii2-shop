@@ -43,7 +43,7 @@ class Shop extends ActiveRecord
         return [
             [['name', 'url'], 'required'],
             [['description'], 'string'],
-            [['name', 'url', 'avatar'], 'string', 'max' => 255],
+            [['name', 'url', 'avatar', 'whatsapp'], 'string', 'max' => 255],
             [['url'], 'unique'],
             [['url'], 'match', 'pattern' => '/^[a-z0-9\-]+$/', 'message' => 'URL может содержать только латинские буквы, цифры и дефисы'],
         ];
@@ -56,7 +56,7 @@ class Shop extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название магазина',
+            'name' => Module::t('Store Name'),
             'description' => Module::t('Description'),
             'url' => 'URL',
             'avatar' => 'Аватарка',

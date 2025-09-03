@@ -141,6 +141,7 @@ return [
     'Failed to create user' => 'Неудалось создать пользователя',
     
     // shops
+    'Store Name' => 'Название магазина',
     'Create Store' => 'Создать магазин',
     'Stores' => 'Магазины',
 ];
