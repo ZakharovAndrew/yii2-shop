@@ -48,15 +48,33 @@ class ShopController extends Controller
     }
 
     /**
-     * Displays a single Shop model.
-     * @param int $id ID
+     * Displays products of store
+     * @param string $url link to store
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($url)
     {
+        $model = $this->findModelByUrl($url);
+        
+        $query = Product::find()->where(['shop_id' => $model->id])->andWhere(['status' => 1])->orderBy('position DESC');
+                
+        // делаем копию выборки
+        $countQuery = clone $query;
+        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 48]);
+        // приводим параметры в ссылке к ЧПУ
+        $pages->pageSizeParam = false;
+        $products = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            //->orderBy(Product::getSortby($sortby))
+            //->orderBy('datetime_at desc')
+            ->all();
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'products' => $products,
+            'pagination' => $pages
         ]);
     }
 
@@ -71,7 +89,7 @@ class ShopController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'url' => $model->url]);
             }
         } else {
             $model->loadDefaultValues();
@@ -94,7 +112,7 @@ class ShopController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'url' => $model->url]);
         }
 
         return $this->render('update', [
