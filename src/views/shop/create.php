@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\Shop $model */
 
-$this->title = 'Create Shop';
-$this->params['breadcrumbs'][] = ['label' => 'Shops', 'url' => ['index']];
+$this->title = Module::t('Create Store');
+$this->params['breadcrumbs'][] = ['label' => Module::t('Stores '), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="shop-create">

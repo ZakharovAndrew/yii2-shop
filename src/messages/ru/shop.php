@@ -139,4 +139,8 @@ return [
     'Stock Movements' => 'Движения запасов',
     'Product Stock Movements' => 'Движения запасов товара',
     'Failed to create user' => 'Неудалось создать пользователя',
+    
+    // shops
+    'Create Store' => 'Создать магазин',
+    'Stores' => 'Магазины',
 ];
