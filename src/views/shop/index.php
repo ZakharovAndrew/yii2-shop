@@ -11,12 +11,12 @@ use ZakharovAndrew\shop\Module;
 /** @var ZakharovAndrew\shop\models\ShopSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Shops';
+$this->title = Module::t('Stores');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="shop-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
 
     <p>
         <?= Html::a(Module::t('Create Store'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description:ntext',
             'url:url',
+            'whatsapp',
             'avatar',
             'created_at',
             //'updated_at',
