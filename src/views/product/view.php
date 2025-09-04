@@ -19,7 +19,7 @@ foreach ($categories as $category) {
 }
 $last_category = end($categories);
 //SEO
-$this->registerMetaTag(['name' => 'description', 'content' => $last_category->title . ' '. $model->name]);
+$this->registerMetaTag(['name' => 'description', 'content' => ($last_category->title ?? '') . ' '. $model->name]);
 $this->registerMetaTag(['name' => 'og:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
@@ -164,7 +164,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-12 col-md-6 product-description-block">
             <h1 class='product-h1'><?= Html::encode($this->title) ?></h1>
-            <p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['/shop/product-category/view', 'url' => $last_category->url]) ?></p>
+            <?php if (isset($last_category)) {?><p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['/shop/product-category/view', 'url' => $last_category->url]) ?></p><?php } ?>
             <div class="product-price"><?= number_format($model->price ?? 0, 0, '', ' ' ) ?> ₽</div>
             <!-- Блок оптовых цен -->
             <?php if ($model->bulk_price_quantity_1 || $model->bulk_price_quantity_2 || $model->bulk_price_quantity_3): ?>
