@@ -8,7 +8,7 @@ use ZakharovAndrew\shop\Module;
 
 $this->title = 'Update Shop: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Module::t('Stores'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'url' => $model->url]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="shop-update">
