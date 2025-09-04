@@ -109,7 +109,7 @@ $this->registerJs($script, yii\web\View::POS_READY);
                             [
                                 'class' => 'form-control form-select'
                             ]
-                        );
+                        )->label(Module::t('Store'));
                     } ?>
                     
                     <?= $form->field($model, 'rating')->textInput(['type' => 'number', 'step' => '0.01']) ?>
