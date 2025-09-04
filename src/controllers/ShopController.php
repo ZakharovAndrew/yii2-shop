@@ -2,11 +2,13 @@
 
 namespace ZakharovAndrew\shop\controllers;
 
+use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\shop\models\ShopSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
 
 /**
  * ShopController implements the CRUD actions for Shop model.
@@ -144,6 +146,15 @@ class ShopController extends Controller
     protected function findModel($id)
     {
         if (($model = Shop::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    protected function findModelByUrl($url)
+    {
+        if (($model = Shop::findOne(['url' => $url])) !== null) {
             return $model;
         }
 
