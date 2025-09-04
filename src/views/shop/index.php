@@ -28,12 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'name',
             'description:ntext',
-            'url:url',
+            [
+                'attribute' => 'url',
+                'content' => function ($model) {
+                    return '<a href="'. Url::to(['shop/view', 'url'=>$model->url]) .'">'.$model->url.'</a>';
+                },
+            ],
             'whatsapp',
             'avatar',
             'created_at',
