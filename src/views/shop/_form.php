@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'whatsapp')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
