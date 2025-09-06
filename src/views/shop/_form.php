@@ -6,6 +6,17 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\Shop $model */
 /** @var yii\widgets\ActiveForm $form */
+$this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js');
+$script = <<< JS
+   
+ClassicEditor
+    .create( document.querySelector( '#shop-description' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+
+JS;
+$this->registerJs($script, yii\web\View::POS_READY);
 ?>
 
 <div class="shop-form">
