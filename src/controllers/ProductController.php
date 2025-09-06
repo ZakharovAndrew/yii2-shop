@@ -5,6 +5,7 @@ namespace ZakharovAndrew\shop\controllers;
 use Yii;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductSearch;
+use ZakharovAndrew\shop\models\Shop;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,11 +73,20 @@ class ProductController extends Controller
     /**
      * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param int $shop_id store ID
      * @return string|\yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionCreate()
+    public function actionCreate($shop_id = null)
     {
         $model = new Product();
+        
+        if (!empty($shop_id)) {
+            if (Shop::findOne(['id' => $shop_id]) == null) {
+                throw new NotFoundHttpException('The requested page does not exist!');
+            }
+            $model->shop_id = $shop_id;
+        }
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -88,6 +98,7 @@ class ProductController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'shop_id' => $shop_id
         ]);
     }
 

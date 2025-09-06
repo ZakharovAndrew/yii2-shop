@@ -103,13 +103,15 @@ $this->registerJs($script, yii\web\View::POS_READY);
                         ]
                     ) ?>
                     
-                    <?php if ($module->multiStore) {
+                    <?php if ($module->multiStore && empty($shop_id)) {
                         echo $form->field($model, 'shop_id')->dropDownList(
                             Shop::getShopsList(), 
                             [
                                 'class' => 'form-control form-select'
                             ]
                         )->label(Module::t('Store'));
+                    } else if ($module->multiStore && !empty($shop_id)) {
+                        echo $form->field($model, 'shop_id')->hiddenInput()->label(false);
                     } ?>
                     
                     <?= $form->field($model, 'rating')->textInput(['type' => 'number', 'step' => '0.01']) ?>
