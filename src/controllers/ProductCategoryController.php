@@ -6,33 +6,15 @@ use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\models\ProductCategorySearch;
 use yii\data\Pagination;
-use yii\web\Controller;
+use ZakharovAndrew\user\controllers\ParentController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
  */
-class ProductCategoryController extends Controller
+class ProductCategoryController extends ParentController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all ProductCategory models.
      *
