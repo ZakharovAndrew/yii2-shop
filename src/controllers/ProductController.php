@@ -15,6 +15,9 @@ use yii\filters\VerbFilter;
  */
 class ProductController extends ParentController
 {
+    public $controller_id = 4001;
+    
+    public $full_access_actions = ['view'];
 
     /**
      * Lists all Product models.
