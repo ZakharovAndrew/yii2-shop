@@ -21,6 +21,7 @@ use ZakharovAndrew\shop\Module;
  * @property string $name
  * @property string|null $description
  * @property string $url
+ * @property string|null $city
  * @property string|null $avatar
  * @property int $created_at
  * @property int $updated_at
@@ -43,7 +44,7 @@ class Shop extends ActiveRecord
         return [
             [['name', 'url'], 'required'],
             [['description'], 'string'],
-            [['name', 'url', 'avatar', 'whatsapp'], 'string', 'max' => 255],
+            [['name', 'url', 'avatar', 'whatsapp', 'city'], 'string', 'max' => 255],
             [['url'], 'unique'],
             [['url'], 'match', 'pattern' => '/^[a-z0-9\-]+$/', 'message' => 'URL может содержать только латинские буквы, цифры и дефисы'],
         ];
