@@ -160,7 +160,7 @@ class ProductProperty extends \yii\db\ActiveRecord
      */
     public function isSelectType()
     {
-        return $this->type === self::TYPE_SELECT;
+        return (int)$this->type === self::TYPE_SELECT;
     }
 
     /**
@@ -169,7 +169,7 @@ class ProductProperty extends \yii\db\ActiveRecord
      */
     public function isCheckboxType()
     {
-        return $this->type === self::TYPE_CHECKBOX;
+        return (int)$this->type === self::TYPE_CHECKBOX;
     }
 
     /**
@@ -178,7 +178,7 @@ class ProductProperty extends \yii\db\ActiveRecord
      */
     public function isDateType()
     {
-        return $this->type === self::TYPE_DATE;
+        return (int)$this->type === self::TYPE_DATE;
     }
 
     /**
@@ -187,7 +187,7 @@ class ProductProperty extends \yii\db\ActiveRecord
      */
     public function isYearType()
     {
-        return $this->type === self::TYPE_YEAR;
+        return (int)$this->type === self::TYPE_YEAR;
     }
 
     /**
@@ -229,6 +229,84 @@ class ProductProperty extends \yii\db\ActiveRecord
             return true;
         }
         return false;
+    }
+    
+     /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        // Сохраняем опции для выпадающего списка
+        if ($this->isSelectType()) {
+            $this->saveOptions();
+        } else {
+            // Удаляем все опции, если тип изменился не на SELECT
+            ProductPropertyOption::deleteAll(['property_id' => $this->id]);
+        }
+    }
+
+    /**
+     * Сохранение опций выпадающего списка
+     */
+    public function saveOptions()
+    {
+        $postOptions = Yii::$app->request->post('options', []);
+        
+        // Удаляем опции, которые были удалены из формы
+        $existingOptionIds = [];
+        foreach ($postOptions as $key => $options) {
+            if (is_numeric($key)) { // Существующие опции
+                $existingOptionIds[] = $key;
+            }
+        }
+        
+        // Удаляем опции, которых нет в форме
+        if (!empty($existingOptionIds)) {
+            ProductPropertyOption::deleteAll([
+                'and',
+                ['property_id' => $this->id],
+                ['not in', 'id', $existingOptionIds]
+            ]);
+        } else {
+            ProductPropertyOption::deleteAll(['property_id' => $this->id]);
+        }
+        
+        // Сохраняем существующие опции
+        foreach ($postOptions as $optionId => $optionData) {
+            if (is_numeric($optionId)) { // Существующая опция
+                $option = ProductPropertyOption::findOne($optionId);
+                if ($option && $option->property_id == $this->id) {
+                    $option->value = $optionData['value'] ?? '';
+                    $option->sort_order = $optionData['sort_order'] ?? 0;
+                    $option->save();
+                }
+            } else if ($optionId === 'new') { // Новые опции
+                foreach ($optionData as $newOption) {
+                    $option = new ProductPropertyOption();
+                    $option->property_id = $this->id;
+                    $option->value = $newOption['value'] ?? '';
+                    $option->sort_order = $newOption['sort_order'] ?? 0;
+                    $option->save();
+                }
+            }
+        }
+    }
+
+    /**
+     * Получить опции в формате для формы
+     */
+    public function getOptionsForForm()
+    {
+        $options = [];
+        foreach ($this->options as $option) {
+            $options[$option->id] = [
+                'value' => $option->value,
+                'sort_order' => $option->sort_order
+            ];
+        }
+        return $options;
     }
 
     /**

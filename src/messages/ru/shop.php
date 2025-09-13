@@ -225,5 +225,23 @@ return [
     // ProductPropertySearch
     'Search' => 'Поиск',
     'Reset' => 'Сбросить',
-    'Select Type' => 'Выберите тип'
+    'Select Type' => 'Выберите тип',
+    
+    // Новые переводы для формы опций
+    'Dropdown Options' => 'Варианты выпадающего списка',
+    'Add Option' => 'Добавить вариант',
+    'Option value' => 'Значение варианта',
+    'Sort order' => 'Порядок сортировки',
+    'Add options for dropdown list. Each option should have a unique value.' => 'Добавьте варианты для выпадающего списка. Каждый вариант должен иметь уникальное значение.',
+    'Please add at least one option for dropdown list.' => 'Пожалуйста, добавьте хотя бы один вариант для выпадающего списка.',
+    
+    // Сообщения
+    'Options saved successfully' => 'Варианты успешно сохранены',
+    'Option values must be unique.' => 'Значения вариантов должны быть уникальными.',
+    'Remove' => 'Удалить',
+    'No options added yet. Click "Add Option" to create new options.' => 'Опции еще не добавлены. Нажмите "Добавить вариант" чтобы создать новые опции.',
+    
+    // Иконки и подсказки
+    'Option value' => 'Значение варианта',
+    'Sort order' => 'Порядок сортировки',
 ];

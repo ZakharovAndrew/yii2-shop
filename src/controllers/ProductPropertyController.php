@@ -82,7 +82,7 @@ class ProductPropertyController extends ParentController
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', Module::t('Property updated successfully'));
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
