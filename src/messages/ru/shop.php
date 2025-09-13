@@ -145,4 +145,85 @@ return [
     'Create Store' => 'Создать магазин',
     'Stores' => 'Магазины',
     'Store' => 'Магазин',
+    
+    // Product Property translations
+    'Name' => 'Название',
+    'Code' => 'Код',
+    'Type' => 'Тип',
+    'Sort Order' => 'Порядок сортировки',
+    'Required' => 'Обязательное',
+    'Active' => 'Активно',
+    'Created At' => 'Создано',
+    'Updated At' => 'Обновлено',
+    
+    // Property types
+    'Text Field' => 'Текстовое поле',
+    'Dropdown List' => 'Выпадающий список',
+    'Year' => 'Год',
+    'Date' => 'Дата',
+    'Checkbox' => 'Чекбокс',
+    'Unknown Type' => 'Неизвестный тип',
+    
+    // Property Option translations
+    'Property' => 'Свойство',
+    'Value' => 'Значение',
+    
+    // Property Value translations
+    'Product' => 'Товар',
+    'Text Value' => 'Текстовое значение',
+    'Integer Value' => 'Числовое значение',
+    'Date Value' => 'Дата',
+    'Boolean Value' => 'Логическое значение',
+    'Option' => 'Опция',
+    
+    // Common
+    'Yes' => 'Да',
+    'No' => 'Нет',
+    
+    // Controller messages
+    'Options are available only for dropdown list properties' => 'Опции доступны только для свойств типа "Выпадающий список"',
+    'Options saved successfully' => 'Опции успешно сохранены',
+    'Option deleted' => 'Опция удалена',
+    'Option not found' => 'Опция не найдена',
+    
+    // Новые переводы для контроллера
+    'Product Properties' => 'Свойства товаров',
+    'Create Property' => 'Создать свойство',
+    'Create Product Property' => 'Создание свойства товара',
+    'Update Product Property: {name}' => 'Редактирование свойства: {name}',
+    'Update' => 'Редактировать',
+    'Save' => 'Сохранить',
+    'Cancel' => 'Отмена',
+    'Delete' => 'Удалить',
+    'Manage Options' => 'Управление опциями',
+    'Toggle Status' => 'Переключить статус',
+    'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить этот элемент?',
+    'Are you sure you want to change the status?' => 'Вы уверены, что хотите изменить статус?',
+    
+    // Опции
+    'Manage Options for: {name}' => 'Управление опциями для: {name}',
+    'Add New Option' => 'Добавить новую опцию',
+    'Option Value' => 'Значение опции',
+    'Add Option' => 'Добавить опцию',
+    'Existing Options' => 'Существующие опции',
+    'Actions' => 'Действия',
+    'No options found' => 'Опции не найдены',
+    'Are you sure you want to delete this option?' => 'Вы уверены, что хотите удалить эту опцию?',
+    'Edit Option' => 'Редактировать опцию',
+    'Save Changes' => 'Сохранить изменения',
+    
+    // Сообщения
+    'Property created successfully' => 'Свойство успешно создано',
+    'Property updated successfully' => 'Свойство успешно обновлено',
+    'Property deleted successfully' => 'Свойство успешно удалено',
+    'Status updated successfully' => 'Статус успешно обновлен',
+    'Failed to update status' => 'Не удалось обновить статус',
+    'Options saved successfully' => 'Опции успешно сохранены',
+    'Option deleted' => 'Опция удалена',
+    'The requested page does not exist.' => 'Запрашиваемая страница не существует.',
+    
+    // ProductPropertySearch
+    'Search' => 'Поиск',
+    'Reset' => 'Сбросить',
+    'Select Type' => 'Выберите тип'
 ];

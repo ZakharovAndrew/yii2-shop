@@ -5,33 +5,19 @@ namespace ZakharovAndrew\shop\controllers;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\shop\models\ShopSearch;
-use yii\web\Controller;
+use ZakharovAndrew\user\controllers\ParentController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\data\Pagination;
 
 /**
  * ShopController implements the CRUD actions for Shop model.
  */
-class ShopController extends Controller
+class ShopController extends ParentController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
+    
+    public $controller_id = 2001;
+    
+    public $full_access_actions = ['view'];
 
     /**
      * Lists all Shop models.

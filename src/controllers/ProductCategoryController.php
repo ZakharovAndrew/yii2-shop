@@ -15,6 +15,9 @@ use yii\filters\VerbFilter;
  */
 class ProductCategoryController extends ParentController
 {
+    
+    public $controller_id = 2002;
+    
     /**
      * Lists all ProductCategory models.
      *
