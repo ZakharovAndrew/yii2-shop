@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m240107_180024_add_whatsapp_to_shop_table extends Migration
+class m240107_180026_add_city_to_shop_table extends Migration
 {
     public function up()
     {
