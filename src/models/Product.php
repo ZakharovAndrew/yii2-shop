@@ -326,6 +326,32 @@ class Product extends \yii\db\ActiveRecord
         return $url;
     }
     
+    /**
+     * Gets query for [[PropertyValues]].
+     */
+    public function getPropertyValues()
+    {
+        return $this->hasMany(ProductPropertyValue::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * Get property value by property code
+     */
+    public function getPropertyValueByCode($code)
+    {
+        $property = ProductProperty::find()
+            ->where(['code' => $code, 'is_active' => true])
+            ->one();
+
+        if (!$property) {
+            return null;
+        }
+
+        return ProductPropertyValue::find()
+            ->where(['product_id' => $this->id, 'property_id' => $property->id])
+            ->one();
+    }
+    
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {

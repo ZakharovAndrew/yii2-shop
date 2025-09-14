@@ -5,6 +5,8 @@ namespace ZakharovAndrew\shop\controllers;
 use Yii;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductSearch;
+use ZakharovAndrew\shop\models\ProductProperty;
+use ZakharovAndrew\shop\models\ProductPropertyValue;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\user\controllers\ParentController;
 use yii\web\NotFoundHttpException;
@@ -100,12 +102,50 @@ class ProductController extends ParentController
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            // saving properties
+            $this->saveProductProperties($model, Yii::$app->request->post('properties', []));
+            
             return $this->redirect(['view', 'url' => $model->url]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+    
+    /**
+     * Сохраняет свойства товара
+     */
+    protected function saveProductProperties($product, $propertiesData)
+    {
+        foreach ($propertiesData as $propertyId => $value) {
+            $property = ProductProperty::findOne($propertyId);
+            if (!$property) continue;
+
+            // Ищем существующее значение
+            $propertyValue = ProductPropertyValue::find()
+                ->where(['product_id' => $product->id, 'property_id' => $propertyId])
+                ->one();
+
+            if (!$propertyValue) {
+                $propertyValue = new ProductPropertyValue();
+                $propertyValue->product_id = $product->id;
+                $propertyValue->property_id = $propertyId;
+            }
+
+            // Устанавливаем значение в зависимости от типа свойства
+            $propertyValue->setValue($value);
+
+            // Сохраняем только если есть значение или свойство обязательно
+            if (!empty($value) || $property->is_required) {
+                $propertyValue->save();
+            } else {
+                // Удаляем пустое значение, если свойство не обязательно
+                if (!$propertyValue->isNewRecord) {
+                    $propertyValue->delete();
+                }
+            }
+        }
     }
 
     /**

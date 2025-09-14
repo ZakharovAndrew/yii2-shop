@@ -244,4 +244,9 @@ return [
     // Иконки и подсказки
     'Option value' => 'Значение варианта',
     'Sort order' => 'Порядок сортировки',
+    
+    'Product Properties' => 'Свойства товара',
+    'Select option' => 'Выберите вариант',
+    'Enter value' => 'Введите значение',
+    'Required field' => 'Обязательное поле',
 ];

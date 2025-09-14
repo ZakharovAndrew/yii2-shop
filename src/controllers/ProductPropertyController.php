@@ -189,6 +189,7 @@ class ProductPropertyController extends ParentController
     {
         $model = $this->findModel($id);
         $model->is_active = !$model->is_active;
+        $model->changeOptions = false;
         
         if ($model->save(false)) {
             Yii::$app->session->setFlash('success', Module::t('Status updated successfully'));

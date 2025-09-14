@@ -28,6 +28,8 @@ class ProductProperty extends \yii\db\ActiveRecord
     const TYPE_YEAR = 3;
     const TYPE_DATE = 4;
     const TYPE_CHECKBOX = 5;
+    
+    public $changeOptions = true;
 
     /**
      * {@inheritdoc}
@@ -240,7 +242,9 @@ class ProductProperty extends \yii\db\ActiveRecord
         
         // Сохраняем опции для выпадающего списка
         if ($this->isSelectType()) {
-            $this->saveOptions();
+            if ($this->changeOptions) {
+                $this->saveOptions();
+            }
         } else {
             // Удаляем все опции, если тип изменился не на SELECT
             ProductPropertyOption::deleteAll(['property_id' => $this->id]);

@@ -6,6 +6,7 @@ use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\shop\Module;
 use ZakharovAndrew\imageupload\ImageUploadWidget;
+use ZakharovAndrew\shop\models\ProductProperty;
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\Product $model */
@@ -25,6 +26,16 @@ ClassicEditor
 
 JS;
 $this->registerJs($script, yii\web\View::POS_READY);
+
+// Получаем активные свойства товара
+$properties = ProductProperty::getActiveProperties();
+$propertyValues = [];
+if (!$model->isNewRecord) {
+    foreach ($model->propertyValues as $value) {
+        $propertyValues[$value->property_id] = $value;
+    }
+}
+
 ?>
 <style>
     .has-error .help-block {color:red}
@@ -50,6 +61,30 @@ $this->registerJs($script, yii\web\View::POS_READY);
     }
     .product-form .card .card-body .form-group:last-child {
         margin-bottom: 0
+    }
+    /* Стили для свойств товара */
+    .property-field {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+    }
+    .property-field.required {
+        border-left-color: #dc3545;
+    }
+    .property-field .property-name {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #495057;
+    }
+    .property-field .property-type {
+        font-size: 12px;
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+    .property-field .form-control {
+        background: #fff;
     }
 </style>
 
@@ -81,18 +116,115 @@ $this->registerJs($script, yii\web\View::POS_READY);
                 </div>
             </div>
             
+            <!-- Блок свойств товара -->
+            <?php if (!empty($properties)): ?>
+            <div class="card">
+                <h6 class="card-header"><?= Module::t('Product Properties') ?></h6>
+                <div class="card-body">
+                    <?php foreach ($properties as $property): ?>
+                        <?php
+                        $value = $propertyValues[$property->id] ?? null;
+                        $fieldName = "properties[{$property->id}]";
+                        $fieldId = "property-{$property->id}";
+                        ?>
+                        
+                        <div class="property-field <?= $property->is_required ? 'required' : '' ?>">
+                            <div class="property-name">
+                                <?= Html::encode($property->name) ?>
+                                <?php if ($property->is_required): ?>
+                                    <span class="text-danger">*</span>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <?php if ($property->isSelectType()): ?>
+                                <!-- Выпадающий список -->
+                                <?= Html::dropDownList(
+                                    $fieldName,
+                                    $value ? $value->option_id : null,
+                                    $property->getOptionsList(),
+                                    [
+                                        'class' => 'form-control form-select',
+                                        'id' => $fieldId,
+                                        'prompt' => Module::t('Select option'),
+                                        'required' => $property->is_required
+                                    ]
+                                ) ?>
+                                
+                            <?php elseif ($property->isCheckboxType()): ?>
+                                <!-- Чекбокс -->
+                                <?= Html::checkbox(
+                                    $fieldName,
+                                    $value ? $value->value_bool : false,
+                                    [
+                                        'id' => $fieldId,
+                                        'class' => 'form-check-input',
+                                        'value' => 1
+                                    ]
+                                ) ?>
+                                <?= Html::label(Module::t('Yes'), $fieldId, ['class' => 'form-check-label']) ?>
+                                
+                            <?php elseif ($property->isDateType()): ?>
+                                <!-- Дата -->
+                                <?= Html::input(
+                                    'date',
+                                    $fieldName,
+                                    $value ? $value->value_date : '',
+                                    [
+                                        'class' => 'form-control',
+                                        'id' => $fieldId,
+                                        'required' => $property->is_required
+                                    ]
+                                ) ?>
+                                
+                            <?php elseif ($property->isYearType()): ?>
+                                <!-- Год -->
+                                <?= Html::input(
+                                    'number',
+                                    $fieldName,
+                                    $value ? $value->value_int : '',
+                                    [
+                                        'class' => 'form-control',
+                                        'id' => $fieldId,
+                                        'min' => 1900,
+                                        'max' => date('Y') + 10,
+                                        'step' => 1,
+                                        'placeholder' => 'YYYY',
+                                        'required' => $property->is_required
+                                    ]
+                                ) ?>
+                                
+                            <?php else: ?>
+                                <!-- Текстовое поле -->
+                                <?= Html::textInput(
+                                    $fieldName,
+                                    $value ? $value->value_text : '',
+                                    [
+                                        'class' => 'form-control',
+                                        'id' => $fieldId,
+                                        'placeholder' => Module::t('Enter value'),
+                                        'required' => $property->is_required
+                                    ]
+                                ) ?>
+                            <?php endif; ?>
+                            
+                            <?php if ($property->is_required): ?>
+                                <div class="text-muted small mt-1">
+                                    <i class="fa fa-exclamation-circle"></i> <?= Module::t('Required field') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+            
+            
+            
             <div class="card">
                 <h6 class=" card-header">Additional</h6>
                 <div class="card-body">
                     <?= $form->field($model, 'weight')->textInput(['type' => 'number', 'step' => '0.01']) ?>
     
-                    <?php
-                    /* additional params */
-                    foreach (range(1,3) as $i) {
-                        if (isset($module->params[$i])) {
-                            echo $form->field($model, 'param'.$i)->textInput(['maxlength' => true])->label($module->params[$i]['title'][$appLanguage]);
-                        }
-                    } ?>
                     <?= $form->field($model, 'category_id')->dropDownList(ProductCategory::getDropdownGroups(), ['prompt' => '', 'class' => 'form-control form-select']) ?>
 
                     <?= $form->field($model, 'status')->dropDownList(
@@ -189,14 +321,13 @@ $this->registerJs($script, yii\web\View::POS_READY);
                     </div>
                 </div>
             
-            
                 <div class="card">
                     <h6 class=" card-header">Stock</h6>
                     <div class="card-body">
                         <?= $form->field($model, 'quantity')->textInput([
                             'type' => 'number',
                             'min' => 0,
-                            'disabled' => true, // Запрещаем прямое редактирование
+                            'disabled' => true,
                         ])->label(Module::t('Quantity on stock')) ?>
 
                         <?php if (!isset($action) || $action != 'create') {?>
@@ -211,7 +342,6 @@ $this->registerJs($script, yii\web\View::POS_READY);
             </div>
         </div>
     </div>
-
 
     <div class="form-group">
         <?= Html::submitButton((!isset($action) || $action != 'create') ? Module::t('Save') : Module::t('Add Product'), ['class' => 'btn btn-success']) ?>
