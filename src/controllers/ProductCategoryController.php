@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
  */
 class ProductCategoryController extends ParentController
 {
+    public $full_access_actions = ['view'];
     
     public $controller_id = 2002;
     
