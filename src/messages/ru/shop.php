@@ -249,4 +249,27 @@ return [
     'Select option' => 'Выберите вариант',
     'Enter value' => 'Введите значение',
     'Required field' => 'Обязательное поле',
+    
+    /**
+     * Colors
+     */
+    'Position' => 'Позиция',
+    'Sort Order' => 'Порядок сортировки',
+    'CSS Color' => 'CSS цвет',
+    
+    // Основные цвета
+    'White' => 'Белый',
+    'Gray' => 'Серый',
+    'Black' => 'Черный',
+    'Blue' => 'Синий',
+    'Red' => 'Красный',
+    'Orange' => 'Оранжевый',
+    
+    'Product Colors' => 'Цвета товаров',
+    'Create Color' => 'Создать цвет',
+    'Move up' => 'Поднять',
+    'Move down' => 'Опустить',
+    'Position updated successfully' => 'Позиция успешно обновлена',
+    'Cannot move color up' => 'Не удалось поднять цвет',
+    'Cannot move color down' => 'Не удалось опустить цвет',
 ];
