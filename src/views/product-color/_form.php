@@ -30,10 +30,6 @@ use ZakharovAndrew\shop\Module;
     </div>
 
     <div class="form-group">
-        <?= $form->field($model, 'position')->textInput(['maxlength' => true]) ?>
-    </div>
-
-    <div class="form-group">
 
         <div class="checkbox" style="margin-top: 8px;">
             <?= $form->field($model, 'is_active')->checkbox([
@@ -45,26 +41,14 @@ use ZakharovAndrew\shop\Module;
     </div>
 
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
-            <?= Html::submitButton(
-                Module::t('Save'),
-                ['class' => 'btn btn-success']
-            ) ?>
-            <?= Html::a(
-                Module::t('Cancel'),
-                ['index'],
-                ['class' => 'btn btn-default']
-            ) ?>
-        </div>
+        <?= Html::submitButton( Module::t('Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Cancel'), ['index'], ['class' => 'btn btn-default']) ?>
     </div>
+</div>
 
     <?php ActiveForm::end(); ?>
 
-</div>
 
-<style>
-
-</style>
 
 <?php
 // JavaScript для автоматического генерации code из name

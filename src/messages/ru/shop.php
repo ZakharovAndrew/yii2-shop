@@ -272,4 +272,21 @@ return [
     'Position updated successfully' => 'Позиция успешно обновлена',
     'Cannot move color up' => 'Не удалось поднять цвет',
     'Cannot move color down' => 'Не удалось опустить цвет',
+    
+    
+    'Create Product Color' => 'Создание цвета товара',
+    'Back to List' => 'Назад к списку',
+    'Color Preview' => 'Предпросмотр цвета',
+    'Sample Text' => 'Пример текста',
+    'Hex:' => 'HEX:',
+    'Text Color:' => 'Цвет текста:',
+    'Tip:' => 'Подсказка:',
+    
+        'Enter color name' => 'Введите название цвета',
+    'Auto-generated from name' => 'Автоматически генерируется из названия',
+    'Enter HEX color without # (e.g., FF5733)' => 'Введите HEX цвет без # (например, FF5733)',
+    'Auto-assigned' => 'Автоматически назначается',
+    'Active color' => 'Активный цвет',
+    'Save' => 'Сохранить',
+    'Cancel' => 'Отмена',
 ];
