@@ -289,4 +289,6 @@ return [
     'Active color' => 'Активный цвет',
     'Save' => 'Сохранить',
     'Cancel' => 'Отмена',
+    'Available Colors' => 'Доступные цвета',
 ];
+
