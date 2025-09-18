@@ -15,9 +15,12 @@ use ZakharovAndrew\shop\Module;
  * @property int|null $parent_id
  * @property string|null $description
  * @property string|null $description_after
+ * @property array $availableColorIds
  */
 class ProductCategory extends \yii\db\ActiveRecord
 {
+    public $availableColorIds = []; // for selected colors
+
     /**
      * {@inheritdoc}
      */
@@ -36,6 +39,7 @@ class ProductCategory extends \yii\db\ActiveRecord
             [['position', 'parent_id'], 'integer'],
             [['description', 'description_after'], 'string'],
             [['title', 'url'], 'string', 'max' => 255],
+            [['availableColorIds'], 'safe'],
         ];
     }
 
@@ -52,6 +56,7 @@ class ProductCategory extends \yii\db\ActiveRecord
             'parent_id' => Module::t('Parent Category'),
             'description' => Module::t('Description'),
             'description_after' => Module::t('Description after goods'),
+            'availableColorIds' => Module::t('Available Colors'),
         ];
     }
     
@@ -143,13 +148,113 @@ class ProductCategory extends \yii\db\ActiveRecord
             return \yii\helpers\ArrayHelper::index($category, 'id');
         }, 600);
     }
+
+    /**
+     * Gets query for [[AvailableColors]].
+     */
+    public function getAvailableColors()
+    {
+        return $this->hasMany(ProductColor::class, ['id' => 'color_id'])
+            ->viaTable('category_colors', ['category_id' => 'id']);
+    }
+    
+    /**
+     * Get available colors relation
+     */
+    public function getCategoryColors()
+    {
+        return $this->hasMany(CategoryColors::class, ['category_id' => 'id']);
+    }
+
+    /**
+     * Get list of available color IDs
+     */
+    public function getAvailableColorIds()
+    {
+        return $this->getAvailableColors()->select('id')->column();
+    }
+
+    /**
+     * Get available colors list for dropdown
+     */
+    public static function getAvailableColorsList($categoryId = null)
+    {
+        if ($categoryId) {
+            $category = self::findOne($categoryId);
+            if ($category) {
+                return $category->getAvailableColors()
+                    ->select(['name', 'id'])
+                    ->indexBy('id')
+                    ->column();
+            }
+        }
+        
+        return ProductColor::getActiveColorsList();
+    }
     
     public function afterSave($insert, $changedAttributes)
     {
+        // Обновляем связанные цвета
+        if (!$insert) {
+            $this->updateAvailableColors();
+        }
+        
         Yii::$app->cache->delete('list_category_group2');
         Yii::$app->cache->delete('list_product_categories');
         Yii::$app->cache->delete('list_categories_dropdown');
+        Yii::$app->cache->delete('category_colors_' . $this->id);
+        
         return parent::afterSave($insert, $changedAttributes);
         
+    }
+
+    /**
+     * After find - load available color IDs
+     */
+    public function afterFind()
+    {
+        parent::afterFind();
+        $this->availableColorIds = $this->getAvailableColorIds();
+    }
+
+    /**
+     * Update available colors for category
+     */
+    public function updateAvailableColors()
+    {
+        // Удаляем старые связи
+        CategoryColors::deleteAll(['category_id' => $this->id]);
+        
+        // Добавляем новые связи
+        if (!empty($this->availableColorIds)) {
+            foreach ($this->availableColorIds as $colorId) {
+                $categoryColor = new CategoryColors([
+                    'category_id' => $this->id,
+                    'color_id' => $colorId,
+                ]);
+                $categoryColor->save();
+            }
+        }
+    }
+
+    /**
+     * Check if color is available for this category
+     */
+    public function isColorAvailable($colorId)
+    {
+        return in_array($colorId, $this->getAvailableColorIds());
+    }
+
+    /**
+     * Get available colors with cache
+     */
+    public function getCachedAvailableColors()
+    {
+        return Yii::$app->cache->getOrSet('category_colors_' . $this->id, function () {
+            return $this->getAvailableColors()
+                ->where(['is_active' => true])
+                ->orderBy(['position' => SORT_ASC])
+                ->all();
+        }, 3600);
     }
 }
