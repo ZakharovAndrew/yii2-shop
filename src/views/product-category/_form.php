@@ -50,8 +50,7 @@ $css = <<< CSS
     border-radius: 4px;
 }
 .checkbox-list label {
-    display: block;
-    margin-bottom: 5px;
+    display: flex;
 }
 CSS;
 $this->registerCss($css);
@@ -100,7 +99,9 @@ $this->registerCss($css);
                     'class' => 'color-option'
                 ]);
                 
-                return Html::tag('div', $checkbox . $labelTag);
+                return Html::tag('div', $checkbox . $labelTag, [
+                   'style' => 'display: flex; align-items: center; margin-bottom: 8px;'
+                ]);
             },
             'class' => 'checkbox-list'
         ]
