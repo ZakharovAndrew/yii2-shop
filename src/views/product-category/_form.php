@@ -26,6 +26,35 @@ ClassicEditor
 
 JS;
 $this->registerJs($script, yii\web\View::POS_READY);
+
+// Регистрируем CSS для отображения цветовых бейджей
+$css = <<< CSS
+.color-option {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+.color-badge-preview {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+}
+.checkbox-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+}
+.checkbox-list label {
+    display: block;
+    margin-bottom: 5px;
+}
+CSS;
+$this->registerCss($css);
 ?>
 <style>
 .ck-editor__editable_inline {
@@ -48,6 +77,34 @@ $this->registerJs($script, yii\web\View::POS_READY);
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'description_after')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'availableColorIds')->checkboxList(
+        \ZakharovAndrew\shop\models\ProductColor::getActiveColorsList(),
+        [
+            'item' => function($index, $label, $name, $checked, $value) {
+                // Получаем CSS цвет для этого значения
+                $color = \ZakharovAndrew\shop\models\ProductColor::findOne($value);
+                $cssColor = $color ? $color->css_color : '#ccc';
+                
+                $checkbox = Html::checkbox($name, $checked, [
+                    'value' => $value,
+                    'id' => 'color-' . $value,
+                ]);
+                
+                $labelContent = Html::tag('span', '', [
+                    'class' => 'color-badge-preview',
+                    'style' => "background-color: {$cssColor}"
+                ]) . ' ' . Html::encode($label);
+                
+                $labelTag = Html::label($labelContent, 'color-' . $value, [
+                    'class' => 'color-option'
+                ]);
+                
+                return Html::tag('div', $checkbox . $labelTag);
+            },
+            'class' => 'checkbox-list'
+        ]
+    )->label(Module::t('Available Colors')) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
