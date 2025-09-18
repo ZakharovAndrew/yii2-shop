@@ -290,5 +290,9 @@ return [
     'Save' => 'Сохранить',
     'Cancel' => 'Отмена',
     'Available Colors' => 'Доступные цвета',
+
+    'Select Color' => 'Выберите цвет',
+    'Select a category to see available colors' => 'Выберите категорию чтобы увидеть доступные цвета',
 ];
+
 
