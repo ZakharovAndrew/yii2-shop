@@ -100,7 +100,7 @@ $this->registerCss($css);
                 ]);
                 
                 return Html::tag('div', $checkbox . $labelTag, [
-                   'style' => 'display: flex; align-items: center; margin-bottom: 8px;'
+                   'style' => 'display: flex; gap:15px;align-items: center; margin-bottom: 8px;'
                 ]);
             },
             'class' => 'checkbox-list'
