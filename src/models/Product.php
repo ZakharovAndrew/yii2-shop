@@ -351,6 +351,40 @@ class Product extends \yii\db\ActiveRecord
             ->where(['product_id' => $this->id, 'property_id' => $property->id])
             ->one();
     }
+
+    public function actionGetColorsByCategory($category_id)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        $category = ProductCategory::findOne($category_id);
+        if (!$category) {
+            return ['success' => false, 'message' => 'Category not found'];
+        }
+        
+        $colors = $category->getCachedAvailableColors();
+        $colorsData = [];
+        
+        foreach ($colors as $color) {
+            $colorsData[] = [
+                'id' => $color->id,
+                'name' => $color->name,
+                'css_color' => $color->css_color
+            ];
+        }
+        
+        if (empty($colorsData)) {
+            return [
+                'success' => true,
+                'colors' => [],
+                'message' => 'No colors available for this category'
+            ];
+        }
+        
+        return [
+            'success' => true,
+            'colors' => $colorsData
+        ];
+    }
     
     public function beforeSave($insert)
     {
