@@ -16,6 +16,22 @@ $module = Yii::$app->getModule('shop');
 // current language
 $appLanguage = Yii::$app->language;
 $this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js');
+
+// Получаем доступные цвета для выбранной категории
+$availableColors = [];
+if ($model->category_id) {
+    $category = ProductCategory::findOne($model->category_id);
+    if ($category) {
+        $availableColors = $category->getCachedAvailableColors();
+    }
+}
+
+// All colors
+$allColors = \ZakharovAndrew\shop\models\ProductColor::find()
+    ->where(['is_active' => true])
+    ->orderBy(['position' => SORT_ASC])
+    ->all();
+
 $script = <<< JS
    
 ClassicEditor
@@ -23,6 +39,58 @@ ClassicEditor
     .catch( error => {
         console.error( error );
     } );
+
+// Функция для обновления доступных цветов при изменении категории
+function updateAvailableColors(categoryId) {
+    $.get('/shop/product/get-colors-by-category', {category_id: categoryId}, function(data) {
+        var colorsContainer = $('#color-selection-container');
+        colorsContainer.empty();
+        
+        if (data.colors && data.colors.length > 0) {
+            $.each(data.colors, function(index, color) {
+                var isSelected = ($('#product-color_id').val() == color.id);
+                var colorHtml = '<div class="color-option' + (isSelected ? ' selected' : '') + '" data-color-id="' + color.id + '" style="background-color: ' + color.css_color + '; border: 2px solid ' + (isSelected ? '#007bff' : 'transparent') + '" title="' + color.name + '"></div>';
+                colorsContainer.append(colorHtml);
+            });
+            $('#color-selection-container').show();
+        } else {
+            colorsContainer.html('<div class="text-muted">' + data.message + '</div>');
+            $('#color-selection-container').show();
+        }
+    }).fail(function() {
+        $('#color-selection-container').html('<div class="text-danger">Ошибка загрузки цветов</div>').show();
+    });
+}
+
+// Обработчик изменения категории
+$('#product-category_id').on('change', function() {
+    var categoryId = $(this).val();
+    if (categoryId) {
+        updateAvailableColors(categoryId);
+    } else {
+        $('#color-selection-container').hide();
+    }
+});
+
+// Обработчик клика по цвету
+$(document).on('click', '.color-option', function() {
+    var colorId = $(this).data('color-id');
+    $('#product-color_id').val(colorId);
+    
+    // Снимаем выделение со всех цветов
+    $('.color-option').removeClass('selected').css('border-color', 'transparent');
+    
+    // Выделяем выбранный цвет
+    $(this).addClass('selected').css('border-color', '#007bff');
+});
+
+// init color
+$(document).ready(function() {
+    var initialCategoryId = $('#product-category_id').val();
+    if (initialCategoryId) {
+        updateAvailableColors(initialCategoryId);
+    }
+});
 
 JS;
 $this->registerJs($script, yii\web\View::POS_READY);
@@ -85,6 +153,42 @@ if (!$model->isNewRecord) {
     }
     .property-field .form-control {
         background: #fff;
+    }
+    /* Стили для выбора цвета */
+    .color-selection {
+        margin-top: 15px;
+    }
+    .color-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .color-option {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+    }
+    .color-option:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .color-option.selected {
+        border-color: #007bff !important;
+        box-shadow: 0 0 15px rgba(0,123,255,0.4);
+        transform: scale(1.15);
+    }
+    .color-selection-label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        display: block;
+    }
+    .no-colors-message {
+        color: #6c757d;
+        font-style: italic;
     }
 </style>
 
@@ -227,6 +331,29 @@ if (!$model->isNewRecord) {
     
                     <?= $form->field($model, 'category_id')->dropDownList(ProductCategory::getDropdownGroups(), ['prompt' => '', 'class' => 'form-control form-select']) ?>
 
+<!-- Поле для выбора цвета (скрытое) -->
+                    <?= $form->field($model, 'color_id')->hiddenInput(['id' => 'product-color_id'])->label(false) ?>
+
+                    <!-- Контейнер для отображения цветов -->
+                    <div class="color-selection">
+                        <span class="color-selection-label"><?= Module::t('Select Color') ?></span>
+                        <div id="color-selection-container" class="color-options" style="display: none;">
+                            <?php if (!empty($availableColors)): ?>
+                                <?php foreach ($availableColors as $color): ?>
+                                    <div class="color-option <?= $model->color_id == $color->id ? 'selected' : '' ?>" 
+                                         data-color-id="<?= $color->id ?>" 
+                                         style="background-color: <?= $color->css_color ?>; border: 2px solid <?= $model->color_id == $color->id ? '#007bff' : 'transparent' ?>"
+                                         title="<?= Html::encode($color->name) ?>">
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="no-colors-message">
+                                    <?= Module::t('Select a category to see available colors') ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    
                     <?= $form->field($model, 'status')->dropDownList(
                         $model::getStatuses(), 
                         [
