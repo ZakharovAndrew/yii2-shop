@@ -7,6 +7,7 @@ use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductSearch;
 use ZakharovAndrew\shop\models\ProductProperty;
 use ZakharovAndrew\shop\models\ProductPropertyValue;
+use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\user\controllers\ParentController;
 use yii\web\NotFoundHttpException;
@@ -199,6 +200,40 @@ class ProductController extends ParentController
         return $this->render('stock-movements', [
             'model' => $model,
         ]);
+    }
+
+    public function actionGetColorsByCategory($category_id)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        $category = ProductCategory::findOne($category_id);
+        if (!$category) {
+            return ['success' => false, 'message' => 'Category not found'];
+        }
+        
+        $colors = $category->getCachedAvailableColors();
+        $colorsData = [];
+        
+        foreach ($colors as $color) {
+            $colorsData[] = [
+                'id' => $color->id,
+                'name' => $color->name,
+                'css_color' => $color->css_color
+            ];
+        }
+        
+        if (empty($colorsData)) {
+            return [
+                'success' => true,
+                'colors' => [],
+                'message' => 'No colors available for this category'
+            ];
+        }
+        
+        return [
+            'success' => true,
+            'colors' => $colorsData
+        ];
     }
 
     /**
