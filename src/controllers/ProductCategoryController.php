@@ -37,32 +37,55 @@ class ProductCategoryController extends ParentController
 
     /**
      * Displays products by category
-     * @param string $url link to category
+     * @param string $url category URL
+     * @param array $colors array of color IDs for filtering
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($url)
+    public function actionView($url, $colors = [])
     {
         $model = $this->findModelByUrl($url);
         
-        $query = Product::find()->where(['or', ['category_id' => $model->id], 'category_id IN (SELECT id FROM product_category WHERE parent_id = '.$model->id.')'])->andWhere(['status' => 1])->orderBy('position DESC');
+        // Ensure colors is an array and remove empty values
+        if (!is_array($colors)) {
+            $colors = [$colors];
+        }
+        $selectedColors = array_filter($colors);
+        
+        // Get available colors for this category
+        $availableColors = $model->getCachedAvailableColors();
+        
+        // Base products query
+        $query = Product::find()
+            ->where(['or', 
+                ['category_id' => $model->id], 
+                'category_id IN (SELECT id FROM product_category WHERE parent_id = '.$model->id.')'
+            ])
+            ->andWhere(['status' => 1]);
+        
+        // Apply color filter if colors are selected
+        if (!empty($selectedColors)) {
+            $query->andWhere(['color_id' => $selectedColors]);
+        }
+        
+        $query->orderBy('position DESC');
                 
-        // делаем копию выборки
+        // Create query copy
         $countQuery = clone $query;
-        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        // Initialize Pagination, show 48 items per page
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 48]);
-        // приводим параметры в ссылке к ЧПУ
+        // Make URL parameters SEO-friendly
         $pages->pageSizeParam = false;
         $products = $query->offset($pages->offset)
             ->limit($pages->limit)
-            //->orderBy(Product::getSortby($sortby))
-            //->orderBy('datetime_at desc')
             ->all();
         
         return $this->render('view', [
             'model' => $model,
             'products' => $products,
-            'pagination' => $pages
+            'pagination' => $pages,
+            'availableColors' => $availableColors,
+            'selectedColors' => $selectedColors
         ]);
     }
 

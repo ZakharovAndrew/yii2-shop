@@ -386,6 +386,11 @@ class Product extends \yii\db\ActiveRecord
             'colors' => $colorsData
         ];
     }
+
+    public function getColor()
+    {
+        return $this->hasOne(ProductColor::class, ['id' => 'color_id']);
+    }
     
     public function beforeSave($insert)
     {
