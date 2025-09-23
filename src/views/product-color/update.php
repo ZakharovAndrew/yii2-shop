@@ -6,7 +6,7 @@ use ZakharovAndrew\shop\Module;
 /* @var $this yii\web\View */
 /* @var $model ZakharovAndrew\shop\models\ProductColor */
 
-$this->title = Module::t('Create Product Color');
+$this->title = Module::t('Update Product Color');
 $this->params['breadcrumbs'][] = ['label' => Module::t('Product Colors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

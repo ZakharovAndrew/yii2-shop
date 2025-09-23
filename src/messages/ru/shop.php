@@ -275,6 +275,7 @@ return [
     
     
     'Create Product Color' => 'Создание цвета товара',
+    'Update Product Color' => 'Обновить цвет товара',
     'Back to List' => 'Назад к списку',
     'Color Preview' => 'Предпросмотр цвета',
     'Sample Text' => 'Пример текста',
@@ -282,7 +283,7 @@ return [
     'Text Color:' => 'Цвет текста:',
     'Tip:' => 'Подсказка:',
     
-        'Enter color name' => 'Введите название цвета',
+    'Enter color name' => 'Введите название цвета',
     'Auto-generated from name' => 'Автоматически генерируется из названия',
     'Enter HEX color without # (e.g., FF5733)' => 'Введите HEX цвет без # (например, FF5733)',
     'Auto-assigned' => 'Автоматически назначается',
