@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php foreach ($availableColors as $color): ?>
                     <?php
                     $isActive = in_array($color->id, $selectedColors);
-                    $urlParams = ['url' => $model->url];
+                    $urlParams = ['/shop/product-category/view', 'url' => $model->url];
                     
                     if ($isActive) {
                         // Удаляем цвет из фильтра
@@ -56,31 +56,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         $urlParams['colors'] = $newColors;
                     }
                     ?>
-                    
                     <a href="<?= Url::to($urlParams) ?>" 
                        class="color-filter-option <?= $isActive ? 'active' : '' ?>"
                        title="<?= Html::encode($color->name) ?>"
                        style="background-color: <?= $color->css_color ?>; border: 2px solid <?= $isActive ? '#007bff' : '#ddd' ?>">
                     </a>
+                    
                 <?php endforeach; ?>
-            </div>
-            
-            <!-- Информация о выбранных цветах -->
-            <?php if (!empty($selectedColors)): ?>
-                <div class="selected-colors-info mt-2">
+                
+                <?php if (!empty($selectedColors)): ?>
                     <small class="text-muted">
-                        <?= Module::t('Selected colors') ?>: 
-                        <?php foreach ($availableColors as $color): ?>
-                            <?php if (in_array($color->id, $selectedColors)): ?>
-                                <span class="badge bg-primary"><?= $color->name ?></span>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
                         <a href="<?= Url::to(['/shop/product-category/view', 'url' => $model->url]) ?>" class="text-danger ms-2">
                             <?= Module::t('Clear filter') ?>
                         </a>
                     </small>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
+            
         </div>
     <?php endif; ?>
     
@@ -108,8 +100,8 @@ $this->params['breadcrumbs'][] = $this->title;
 }
 .color-filter-option {
     display: inline-block;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;

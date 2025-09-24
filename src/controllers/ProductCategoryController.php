@@ -42,7 +42,7 @@ class ProductCategoryController extends ParentController
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($url, $colors = [])
+    public function actionView($url, array $colors = [])
     {
         $model = $this->findModelByUrl($url);
         

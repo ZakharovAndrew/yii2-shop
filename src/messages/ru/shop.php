@@ -294,6 +294,9 @@ return [
 
     'Select Color' => 'Выберите цвет',
     'Select a category to see available colors' => 'Выберите категорию чтобы увидеть доступные цвета',
+    'All Colors' => 'Все цвета',
+    'Clear filter' => 'Очистить фильтр',
+    'Filter by Color' => 'Фильтр по цвету',
 ];
 
 
