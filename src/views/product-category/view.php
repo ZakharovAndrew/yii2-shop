@@ -97,3 +97,39 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?php } ?>
 </div>
+
+<style>
+.color-filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+.color-filter-option {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+.color-filter-option:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.color-filter-option.active {
+    border-color: #007bff !important;
+    box-shadow: 0 0 15px rgba(0,123,255,0.4);
+    transform: scale(1.15);
+}
+.selected-colors-info {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+.badge {
+    margin-right: 5px;
+}
+</style>
