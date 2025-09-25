@@ -49,7 +49,7 @@ function updateAvailableColors(categoryId) {
         if (data.colors && data.colors.length > 0) {
             $.each(data.colors, function(index, color) {
                 var isSelected = ($('#product-color_id').val() == color.id);
-                var colorHtml = '<div class="color-option' + (isSelected ? ' selected' : '') + '" data-color-id="' + color.id + '" style="background-color: ' + color.css_color + '; border: 2px solid ' + (isSelected ? '#007bff' : 'transparent') + '" title="' + color.name + '"></div>';
+                var colorHtml = '<div class="color-option' + (isSelected ? ' selected' : '') + '" data-color-id="' + color.id + '" style="background-color: ' + color.css_color + '; ' + (isSelected ? 'box-shadow: 0 0 0 1px '+color.css_color : '') + '" title="' + color.name + '"></div>';
                 colorsContainer.append(colorHtml);
             });
             $('#color-selection-container').show();
@@ -78,10 +78,10 @@ $(document).on('click', '.color-option', function() {
     $('#product-color_id').val(colorId);
     
     // Снимаем выделение со всех цветов
-    $('.color-option').removeClass('selected').css('border-color', 'transparent');
+    $('.color-option').removeClass('selected').css('box-shadow', '0 0 0 1px #0000001a');
     
     // Выделяем выбранный цвет
-    $(this).addClass('selected').css('border-color', '#007bff');
+    $(this).addClass('selected').css('box-shadow', '0 0 0 1px #000');
 });
 
 // init color
@@ -170,16 +170,16 @@ if (!$model->isNewRecord) {
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.2s ease;
-        border: 2px solid transparent;
+        border: 4px solid #fff;
+        box-shadow: 0 0 0 1px #0000001a;
     }
     .color-option:hover {
         transform: scale(1.1);
         box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
     .color-option.selected {
-        border-color: #007bff !important;
-        box-shadow: 0 0 15px rgba(0,123,255,0.4);
-        transform: scale(1.15);
+        box-shadow: 0 0 0 1px #000;
+        /*transform: scale(1.15);*/
     }
     .color-selection-label {
         font-weight: 500;
@@ -342,7 +342,7 @@ if (!$model->isNewRecord) {
                                 <?php foreach ($availableColors as $color): ?>
                                     <div class="color-option <?= $model->color_id == $color->id ? 'selected' : '' ?>" 
                                          data-color-id="<?= $color->id ?>" 
-                                         style="background-color: <?= $color->css_color ?>; border: 2px solid <?= $model->color_id == $color->id ? '#007bff' : 'transparent' ?>"
+                                         style="background-color: <?= $color->css_color ?>;  <?= $model->color_id == $color->id ? 'box-shadow: 0 0 0 1px #000' : '' ?>"
                                          title="<?= Html::encode($color->name) ?>">
                                     </div>
                                 <?php endforeach; ?>
