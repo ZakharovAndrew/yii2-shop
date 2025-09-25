@@ -19,6 +19,11 @@ if (!empty($model->meta_keywords)) {
     $this->registerMetaTag(['name' => 'keywords', 'content' => $model->meta_keywords]);
 }
 $this->registerMetaTag(['name' => 'og:title', 'content' => $this->title]);
+$this->registerMetaTag(['name' => 'og:type', 'content' => 'product.group']);
+Yii::$app->view->registerLinkTag([
+    'rel' => 'canonical', 
+    'href' => Yii::$app->urlManager->createAbsoluteUrl(['/shop/product-category/view', 'url' => $model->url])
+]);
 
 // collecting a list of categories
 foreach (ProductCategory::getCategories($model->id) as $category) {
@@ -86,7 +91,8 @@ $this->params['breadcrumbs'][] = $model->title;
     
     <?= $this->render('../catalog/_product_list', [
         'products' => $products,
-        'pagination' => $pagination
+        'pagination' => $pagination,
+        'class' => (Yii::$app->getModule('shop')->mobileProductsPerRow == 2 ? 'col-md-4 col-6 shop-product' : 'col-md-4 col-12 shop-product')
     ]) ?>
         
     <div class="category-description_after"><?= $model->description_after ?></div>
