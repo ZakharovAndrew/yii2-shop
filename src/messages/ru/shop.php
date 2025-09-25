@@ -297,6 +297,23 @@ return [
     'All Colors' => 'Все цвета',
     'Clear filter' => 'Очистить фильтр',
     'Filter by Color' => 'Фильтр по цвету',
+    
+    'SEO Settings' => 'SEO Настройки',
+    'Open Graph Settings' => 'Настройки Open Graph',
+    'Recommended length: {length} characters' => 'Рекомендуемая длина: {length} символов',
+    'Recommended length: 50-60 characters' => 'Рекомендуемая длина: 50-60 символов',
+    'Recommended length: 150-160 characters' => 'Рекомендуемая длина: 150-160 символов',
+    'Keywords separated by commas' => 'Ключевые слова через запятую',
+    'Title for social media sharing' => 'Заголовок для публикации в социальных сетях',
+    'Description for social media sharing' => 'Описание для публикации в социальных сетях',
+    'URL to image for social media sharing' => 'URL изображения для публикации в социальных сетях',
+    
+    'Meta Title' => 'Мета-заголовок (SEO)',
+    'Meta Description' => 'Мета-описание (SEO)',
+    'Meta Keywords' => 'Ключевые слова (SEO)',
+    'OG Title' => 'Заголовок для соцсетей (OpenGraph)',
+    'OG Description' => 'Описание для соцсетей (OpenGraph)',
+    'OG Image' => 'Изображение для соцсетей (OpenGraph)',
 ];
 
 

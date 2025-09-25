@@ -8,8 +8,17 @@ use ZakharovAndrew\shop\Module;
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\ProductCategory $model */
 
-$this->title = $model->title;
+$this->title = !empty($model->meta_title) ? $model->meta_title : $model->title;
 $this->params['breadcrumbs'][] = ['label' => Module::t('Catalog'), 'url' => ['/shop/catalog/index']];
+
+//SEO
+if (!empty($model->meta_description)) {
+    $this->registerMetaTag(['name' => 'description', 'content' => $model->meta_description]);
+}
+if (!empty($model->meta_keywords)) {
+    $this->registerMetaTag(['name' => 'keywords', 'content' => $model->meta_keywords]);
+}
+$this->registerMetaTag(['name' => 'og:title', 'content' => $this->title]);
 
 // collecting a list of categories
 foreach (ProductCategory::getCategories($model->id) as $category) {
@@ -18,12 +27,12 @@ foreach (ProductCategory::getCategories($model->id) as $category) {
         $this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => ['/shop/product-category/view', 'url' => $category->url]];
     }
 }
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="product-category-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
     
     <div class="category-description"><?= $model->description ?></div>
 
@@ -32,13 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="color-filter mb-4">
             <h4><?= Module::t('Filter by Color') ?></h4>
             <div class="color-filter-options">
-                <!-- Кнопка "Все цвета" -->
                 <a href="<?= Url::to(['/shop/product-category/view', 'url' => $model->url]) ?>" 
                    class="btn btn-sm btn-outline-secondary <?= empty($selectedColors) ? 'active' : '' ?>">
                     <?= Module::t('All Colors') ?>
                 </a>
                 
-                <!-- Цветовые опции -->
+                <!-- Colors options  -->
                 <?php foreach ($availableColors as $color): ?>
                     <?php
                     $isActive = in_array($color->id, $selectedColors);

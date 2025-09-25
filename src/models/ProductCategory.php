@@ -15,6 +15,12 @@ use ZakharovAndrew\shop\Module;
  * @property int|null $parent_id
  * @property string|null $description
  * @property string|null $description_after
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property string|null $og_title
+ * @property string|null $og_description
+ * @property string|null $og_image
  * @property array $availableColorIds
  */
 class ProductCategory extends \yii\db\ActiveRecord
@@ -37,8 +43,9 @@ class ProductCategory extends \yii\db\ActiveRecord
         return [
             [['title', 'url'], 'required'],
             [['position', 'parent_id'], 'integer'],
-            [['description', 'description_after'], 'string'],
-            [['title', 'url'], 'string', 'max' => 255],
+            [['description', 'description_after', 'meta_description', 'meta_keywords', 'og_description'], 'string'],
+            [['title', 'url', 'meta_title', 'og_title'], 'string', 'max' => 255],
+            [['og_image'], 'string', 'max' => 500],
             [['availableColorIds'], 'safe'],
         ];
     }
@@ -56,6 +63,12 @@ class ProductCategory extends \yii\db\ActiveRecord
             'parent_id' => Module::t('Parent Category'),
             'description' => Module::t('Description'),
             'description_after' => Module::t('Description after goods'),
+            'meta_title' => Module::t('Meta Title'),
+            'meta_description' => Module::t('Meta Description'),
+            'meta_keywords' => Module::t('Meta Keywords'),
+            'og_title' => Module::t('OG Title'),
+            'og_description' => Module::t('OG Description'),
+            'og_image' => Module::t('OG Image'),
             'availableColorIds' => Module::t('Available Colors'),
         ];
     }

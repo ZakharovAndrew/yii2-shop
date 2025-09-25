@@ -8,7 +8,6 @@ use ZakharovAndrew\shop\models\ProductCategorySearch;
 use yii\data\Pagination;
 use ZakharovAndrew\user\controllers\ParentController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
