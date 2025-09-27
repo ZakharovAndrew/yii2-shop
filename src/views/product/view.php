@@ -18,13 +18,16 @@ foreach ($categories as $category) {
     $this->params['breadcrumbs'][] = ['label' => $category->title, 'url' => ['/shop/product-category/view', 'url' => $category->url]];
 }
 $last_category = end($categories);
+
+// Получаем свойства товара с их значениями
+$propertiesWithValues = $model->getPropertiesWithValues();
+
 //SEO
 $this->registerMetaTag(['name' => 'description', 'content' => ($last_category->title ?? '') . ' '. $model->name]);
 $this->registerMetaTag(['name' => 'og:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
 
-//$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -32,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
   <style>
       .swiper {
       width: 100%;
-      /*height: 100%;*/
     }
 
     .swiper-slide {
@@ -46,8 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     .swiper-slide img {
       display: block;
-      /*width: 100%;
-      height: 100%;*/
       object-fit: cover;
     }
     @media (min-width: 1200px) {
@@ -67,7 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
     .product-category a:hover {
         text-decoration: underline;
     }
-    
     
     .bulk-pricing-table {
     margin-top: 10px;
@@ -111,6 +110,123 @@ $this->params['breadcrumbs'][] = $this->title;
     height: -webkit-fill-available;
     width: -webkit-fill-available;
 }
+
+/* Стили для свойств товара */
+.product-properties {
+    margin-top: 30px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.product-properties-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.property-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s ease;
+}
+
+.property-item:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.property-item:last-child {
+    border-bottom: none;
+}
+
+.property-name {
+    font-weight: 600;
+    color: #495057;
+    flex: 0 0 40%;
+    padding-right: 15px;
+}
+
+.property-value {
+    flex: 0 0 60%;
+    text-align: right;
+    color: #333;
+    font-weight: 500;
+}
+
+.property-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.property-badge-yes {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.property-badge-no {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Адаптивность для свойств */
+@media (max-width: 768px) {
+    .property-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 0;
+    }
+    
+    .property-name {
+        flex: none;
+        width: 100%;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    
+    .property-value {
+        flex: none;
+        width: 100%;
+        text-align: left;
+        font-size: 14px;
+    }
+    
+    .product-properties {
+        padding: 15px;
+    }
+}
+
+/* Цвет бейдж для цвета товара */
+.color-value-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #dee2e6;
+}
+
+.color-name {
+    font-weight: 500;
+}
   </style>
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -135,8 +251,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php } ?>
     
     <div class="row">
-        
-    
         <div class="col-12 col-md-6">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
@@ -155,17 +269,36 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="swiper-pagination"></div>
                 <?php if (count($model->getImages()) > 1) { ?>
-                <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
                 <?php } ?>
             </div>
-            
         </div>
         <div class="col-12 col-md-6 product-description-block">
             <h1 class='product-h1'><?= Html::encode($this->title) ?></h1>
-            <?php if (isset($last_category)) {?><p class="product-category"><span><?= Module::t('Category')?></span> <?= Html::a($last_category->title, ['/shop/product-category/view', 'url' => $last_category->url]) ?></p><?php } ?>
+            
+            <!-- Цвет товара -->
+            <?php if ($model->color): ?>
+            <div class="property-item" style="border: none; padding: 5px 0;">
+                <div class="property-name"><?= Module::t('Color') ?>:</div>
+                <div class="property-value">
+                    <span class="color-value-badge">
+                        <span class="color-swatch" style="background-color: <?= $model->color->css_color ?>"></span>
+                        <span class="color-name"><?= Html::encode($model->color->name) ?></span>
+                    </span>
+                </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if (isset($last_category)) {?>
+            <p class="product-category">
+                <span><?= Module::t('Category')?></span> 
+                <?= Html::a($last_category->title, ['/shop/product-category/view', 'url' => $last_category->url]) ?>
+            </p>
+            <?php } ?>
+            
             <div class="product-price"><?= number_format($model->price ?? 0, 0, '', ' ' ) ?> ₽</div>
+            
             <!-- Блок оптовых цен -->
             <?php if ($model->bulk_price_quantity_1 || $model->bulk_price_quantity_2 || $model->bulk_price_quantity_3): ?>
             <div class="bulk-pricing">
@@ -186,7 +319,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['quantity' => $model->bulk_price_quantity_3, 'price' => $model->bulk_price_3]
                         ];
 
-                        // Сортируем по количеству (от меньшего к большему)
                         usort($bulkPrices, function($a, $b) {
                             return $a['quantity'] <=> $b['quantity'];
                         });
@@ -208,7 +340,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </table>
             </div>
             <?php endif; ?>
-            <!-- Конец блока оптовых цен -->
+            
             <?php if ($model->quantity == 0) { ?>
             <div class="out_of_stock"><?= Module::t('Out of stock') ?></div>
             <?php } else { ?>
@@ -216,9 +348,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <button><?= Module::t('Add to cart') ?></button>
             </div>
             <?php } ?>
+            
             <?php if ($model->quantity > 1 && $model->quantity <6) { ?>
             <div class="product_in_stock"><?= Module::t('Left') ?> <?= $model->quantity ?> шт.</div>
             <?php } ?>
+            
             <?php if ($model->composition): ?>
             <div class="product-composition">
                 <h3><?= Module::t('Composition') ?></h3>
@@ -227,20 +361,31 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endif; ?>
             
             <?= $model->description ?>
-            <div class="product-additional-params">
-                <?php
-                foreach (range(1,3) as $i) {
-                    if (isset($module->params[$i])) { ?>
-                
-                <div class="product-additional-params-<?= $i ?>">
-                    <div class="product-additional-param_title"><?= $module->params[$i]['title'][$appLanguage] ?></div>
-                    <?= $model->{'param'.$i} ?>
+            
+            <!-- Блок динамических свойств товара -->
+            <?php if (!empty($propertiesWithValues)): ?>
+            <div class="product-properties">
+                <h3 class="product-properties-title"><?= Module::t('Product Specifications') ?></h3>
+                <?php foreach ($propertiesWithValues as $item): 
+                    $property = $item['property'];
+                    $value = $item['value'];
+                    $formattedValue = $value->getFormattedValue();
+                ?>
+                <div class="property-item">
+                    <div class="property-name"><?= Html::encode($property->name) ?></div>
+                    <div class="property-value">
+                        <?php if ($property->isCheckboxType()): ?>
+                            <span class="property-badge property-badge-<?= $formattedValue === 'Да' ? 'yes' : 'no' ?>">
+                                <?= $formattedValue ?>
+                            </span>
+                        <?php else: ?>
+                            <?= Html::encode($formattedValue) ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                        
-                    <?php 
-                    }
-                } ?>
+                <?php endforeach; ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     

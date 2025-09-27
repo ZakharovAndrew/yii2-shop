@@ -139,6 +139,7 @@ return [
     'Stock Movements' => 'Движения запасов',
     'Product Stock Movements' => 'Движения запасов товара',
     'Failed to create user' => 'Неудалось создать пользователя',
+    'Product Specifications' => 'Характеристики товара',
     
     // shops
     'Store Name' => 'Название магазина',
@@ -253,6 +254,7 @@ return [
     /**
      * Colors
      */
+    'Color' => 'Цвет',
     'Position' => 'Позиция',
     'Sort Order' => 'Порядок сортировки',
     'CSS Color' => 'CSS цвет',

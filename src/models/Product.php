@@ -334,6 +334,40 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ProductPropertyValue::class, ['product_id' => 'id']);
     }
+    
+    /**
+     * Get all properties with their values for this product
+     * @return array
+     */
+    public function getPropertiesWithValues()
+    {
+        $properties = ProductProperty::getActiveProperties();
+        $result = [];
+
+        foreach ($properties as $property) {
+            $value = $this->getPropertyValue($property->id);
+            if ($value !== null && $value->getFormattedValue() !== null) {
+                $result[] = [
+                    'property' => $property,
+                    'value' => $value
+                ];
+            }
+        }
+
+        return $result;
+    }
+    
+    /**
+     * Get property value by property ID
+     * @param int $propertyId
+     * @return ProductPropertyValue|null
+     */
+    public function getPropertyValue($propertyId)
+    {
+        return ProductPropertyValue::find()
+            ->where(['product_id' => $this->id, 'property_id' => $propertyId])
+            ->one();
+    }
 
     /**
      * Get property value by property code
