@@ -167,8 +167,46 @@ class ProductCategory extends \yii\db\ActiveRecord
      */
     public function getAvailableColors()
     {
+        $categoryIds = $this->getAllChildCategoryIds();
+    
+        return ProductColor::find()
+        ->distinct()
+        ->innerJoin('category_colors', 'product_color.id = category_colors.color_id')
+        ->innerJoin('product_category', 'category_colors.category_id = product_category.id')
+        ->where(['in', 'product_category.id', $this->getAllChildCategoryIds()])
+        ->orderBy(['product_color.position' => SORT_ASC]);
+        
         return $this->hasMany(ProductColor::class, ['id' => 'color_id'])
+            //->viaTable('category_colors', ['category_id' => $categoryIds])
             ->viaTable('category_colors', ['category_id' => 'id']);
+    }
+    
+    /**
+     * Get all child category IDs including current category
+     */
+    public function getAllChildCategoryIds()
+    {
+        //return Yii::$app->cache->getOrSet('category_child_ids_' . $this->id, function () {
+            $categoryIds = [$this->id];
+            $this->getChildCategoryIdsRecursive($this->id, $categoryIds);
+            return $categoryIds;
+        //}, 3600);
+    }
+    
+    /**
+     * Recursive function to get all child category IDs
+     */
+    private function getChildCategoryIdsRecursive($parentId, &$categoryIds)
+    {
+        $childCategories = self::find()
+            ->select('id')
+            ->where(['parent_id' => $parentId])
+            ->column();
+
+        foreach ($childCategories as $childId) {
+            $categoryIds[] = $childId;
+            $this->getChildCategoryIdsRecursive($childId, $categoryIds);
+        }
     }
     
     /**
@@ -184,7 +222,7 @@ class ProductCategory extends \yii\db\ActiveRecord
      */
     public function getAvailableColorIds()
     {
-        return $this->getAvailableColors()->select('id')->column();
+        return $this->getAvailableColors()->select('product_color.id')->column();
     }
 
     /**
@@ -207,11 +245,21 @@ class ProductCategory extends \yii\db\ActiveRecord
     
     public function afterSave($insert, $changedAttributes)
     {
-        // Обновляем связанные цвета
+        // Clear child categories cache if structure changed
+        if (isset($changedAttributes['parent_id']) || $insert) {
+            Yii::$app->cache->delete('category_child_ids_' . $this->id);
+            // Clear parent category cache if exists
+            if ($this->parent_id) {
+                Yii::$app->cache->delete('category_child_ids_' . $this->parent_id);
+            }
+        }
+        
+        // Update related colors
         if (!$insert) {
             $this->updateAvailableColors();
         }
         
+        // Clear various caches
         Yii::$app->cache->delete('list_category_group2');
         Yii::$app->cache->delete('list_product_categories');
         Yii::$app->cache->delete('list_categories_dropdown');
