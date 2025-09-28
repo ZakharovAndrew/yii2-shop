@@ -168,17 +168,18 @@ class ProductCategory extends \yii\db\ActiveRecord
     public function getAvailableColors()
     {
         $categoryIds = $this->getAllChildCategoryIds();
-    
-        return ProductColor::find()
-        ->distinct()
-        ->innerJoin('category_colors', 'product_color.id = category_colors.color_id')
-        ->innerJoin('product_category', 'category_colors.category_id = product_category.id')
-        ->where(['in', 'product_category.id', $this->getAllChildCategoryIds()])
-        ->orderBy(['product_color.position' => SORT_ASC]);
-        
-        return $this->hasMany(ProductColor::class, ['id' => 'color_id'])
+        if (count($categoryIds) == 1) {
+            return $this->hasMany(ProductColor::class, ['id' => 'color_id'])
             //->viaTable('category_colors', ['category_id' => $categoryIds])
             ->viaTable('category_colors', ['category_id' => 'id']);
+        }
+    
+        return ProductColor::find()
+            ->distinct()
+            ->innerJoin('category_colors', 'product_color.id = category_colors.color_id')
+            ->innerJoin('product_category', 'category_colors.category_id = product_category.id')
+            ->where(['in', 'product_category.id', $categoryIds])
+            ->orderBy(['product_color.position' => SORT_ASC]);        
     }
     
     /**
@@ -186,11 +187,11 @@ class ProductCategory extends \yii\db\ActiveRecord
      */
     public function getAllChildCategoryIds()
     {
-        //return Yii::$app->cache->getOrSet('category_child_ids_' . $this->id, function () {
+        return Yii::$app->cache->getOrSet('category_child_ids_' . $this->id, function () {
             $categoryIds = [$this->id];
             $this->getChildCategoryIdsRecursive($this->id, $categoryIds);
             return $categoryIds;
-        //}, 3600);
+        }, 3600);
     }
     
     /**
@@ -314,7 +315,6 @@ class ProductCategory extends \yii\db\ActiveRecord
         return Yii::$app->cache->getOrSet('category_colors_' . $this->id, function () {
             return $this->getAvailableColors()
                 ->where(['is_active' => true])
-                ->orderBy(['position' => SORT_ASC])
                 ->all();
         }, 3600);
     }
