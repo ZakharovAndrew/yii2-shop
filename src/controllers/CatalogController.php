@@ -12,37 +12,19 @@ use yii\filters\VerbFilter;
  */
 class CatalogController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
 
-    /**
-     * Lists all Product models.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->searchCatalog($this->request->queryParams);
+        
+        $module = \Yii::$app->getModule('shop');
+        $productPerPage = $module->productPerPage ?? 20; // default 20
+        
+        $dataProvider = $searchModel->searchCatalog($this->request->queryParams, $productPerPage);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-    }    
+    }
 }

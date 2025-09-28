@@ -33,6 +33,9 @@ class Module extends \yii\base\Module
     public $bootstrapVersion = '';
     public $catalogTitle = 'Catalog Title';
     public $uploadWebDir = '';
+    
+    public $catalogPageID = null;
+    public $productPerPage = 100;
  
     public $useTranslite = false;
 
