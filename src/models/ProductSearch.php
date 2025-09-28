@@ -80,7 +80,7 @@ class ProductSearch extends Product
      *
      * @return ActiveDataProvider
      */
-    public function searchCatalog($params)
+    public function searchCatalog($params, $productPerPage = 20)
     {
         $query = Product::find();
         
@@ -88,6 +88,14 @@ class ProductSearch extends Product
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => $productPerPage, // Используем переданное значение
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
         ]);
 
         $this->load($params);
