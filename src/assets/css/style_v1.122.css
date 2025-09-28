@@ -1,0 +1,218 @@
+.cart-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    height: 4rem;
+    overflow: hidden;
+}
+.img-cart {
+    width: 4rem;
+    line-height: 4rem;
+}
+.count-buttons {
+    position: relative;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: #fff;
+    width: fit-content;
+}
+.count-buttons__wrapper {
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.count-buttons__button {
+    box-shadow: none;
+    color: #afafaf;
+    font-size: 18px;
+    font-weight: 400;
+    overflow: hidden;
+    padding: 0;
+    line-height: 1.5;
+    outline: none;
+    height: 100%;
+    width: 40px;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cart-product {
+    padding: 0 8px;
+}
+.cart-row {
+    border-top: 1px solid #dfe2e1;
+    padding-top: .75rem!important;
+    padding-bottom: .75rem!important;
+}
+.cart-product{
+    margin-left: .75rem !important;
+}
+.shop-product-img {
+    background: #f6f6f6;
+    position: relative;
+    aspect-ratio: 1 / 1.25;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+.shop-product-img img {
+    width:100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 9px 9px 0 0;
+}
+.product-price {
+    font-size:24px;
+    text-align: center;
+}
+.shop-product-item {
+    border: 1px solid #cccccc;
+    border-radius: 9px;
+    box-sizing: border-box;
+    margin-bottom:20px;
+    overflow: hidden;
+}
+
+.cost-without-discount, #products-cost-without-discount {
+    text-decoration:line-through;
+}
+
+/**
+ * Color filter
+ */
+
+.color-filter-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.color-filter-options {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 5px 0 15px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.color-filter-options::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.color-filter-options {
+    -webkit-overflow-scrolling: touch; /* Smooth scroll iOS */
+    scroll-behavior: smooth; /* Smooth scroll modern browsers */
+}
+
+.color-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 20px;
+    color: #495057;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.color-filter-btn:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+    color: #495057;
+}
+
+.color-filter-btn.active {
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.color-filter-option {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.color-filter-option:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.color-filter-option.active {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.3);
+    transform: scale(1.1);
+}
+
+.color-filter-clear {
+    text-align: center;
+}
+
+.clear-filter-link {
+    color: #dc3545;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid #dc3545;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.clear-filter-link:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .color-filter-options {
+        gap: 8px;
+        padding-bottom: 20px;
+    }
+    
+    .color-filter-option {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .color-filter-btn {
+        padding: 10px 18px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .color-filter-option {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .color-filter-btn {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+}
