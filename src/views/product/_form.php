@@ -92,6 +92,11 @@ $(document).ready(function() {
     }
 });
 
+  
+$("#product-url").on('change keyup', function () {
+    $("#product-url").val($("#product-url").val().replaceAll(' ','-'));
+});
+
 JS;
 $this->registerJs($script, yii\web\View::POS_READY);
 
