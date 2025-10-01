@@ -88,7 +88,7 @@ class ProductCategory extends \yii\db\ActiveRecord
             foreach ($model as $category) {
                 if (empty($category->parent_id)) {
                     //$result[$category->title] = [$category->id => $category->title];
-                } else {
+                } else if (isset($cat_title[$category->parent_id])) {
                     $result[$cat_title[$category->parent_id]][$category->id] = $category->title;
                 }
             }
