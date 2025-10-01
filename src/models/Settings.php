@@ -4,6 +4,7 @@ namespace ZakharovAndrew\shop\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use ZakharovAndrew\shop\Module;
 
 /**
  * Shop settings model
@@ -55,12 +56,12 @@ class Settings extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'key' => 'Key',
-            'name' => 'Name',
-            'value' => 'Value',
-            'type' => 'Type',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'key' => Module::t('Key'),
+            'name' => Module::t('Name'),
+            'value' => Module::t('Value'),
+            'type' => Module::t('Type'),
+            'created_at' => Module::t('Created At'),
+            'updated_at' => Module::t('Updated At'),
         ];
     }
 

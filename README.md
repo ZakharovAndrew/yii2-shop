@@ -179,6 +179,17 @@ Add this to your main configuration's urlManager array
         ],
 ```
 
+Register the component in config/web.php:
+
+```
+'components' => [
+    'shopSettings' => [
+        'class' => 'ZakharovAndrew\shop\components\ShopSettings',
+    ],
+    // ...
+],
+```
+
 ## 👥 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
