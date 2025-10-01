@@ -316,6 +316,22 @@ return [
     'OG Title' => 'Заголовок для соцсетей (OpenGraph)',
     'OG Description' => 'Описание для соцсетей (OpenGraph)',
     'OG Image' => 'Изображение для соцсетей (OpenGraph)',
+    
+    // Settings translations
+    'Products Per Page' => 'Товаров на странице',
+    'Catalog Title' => 'Заголовок каталога',
+    'Store Name' => 'Название магазина',
+    'Use Transliteration' => 'Использовать транслитерацию',
+    'Mobile Products Per Row' => 'Товаров в строке на мобильном',
+    'Multi-Store Support' => 'Поддержка мульти-магазина',
+    'Default Product Image' => 'Изображение товара по умолчанию',
+    'Catalog Page ID' => 'ID страницы каталога',
+    
+    // Common settings terms
+    'Settings' => 'Настройки',
+    'Key' => 'Ключ',
+    'Value' => 'Значение',
+    'Type' => 'Тип',
 ];
 
 

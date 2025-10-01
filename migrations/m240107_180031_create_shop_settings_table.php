@@ -1,6 +1,7 @@
 <?php
 
 use yii\db\Migration;
+use ZakharovAndrew\shop\Module;
 
 /**
  * Migration for creating shop settings table
@@ -29,8 +30,8 @@ class m240107_180031_create_shop_settings_table extends Migration
         $this->batchInsert('{{%shop_settings}}', 
             ['key', 'name', 'value', 'type'], 
             [
-                ['productPerPage', 'Products Per Page', '100', 'integer'],
-                ['catalogTitle', 'Catalog Title', 'Catalog Title', 'string'],
+                ['productPerPage', Module::t('Products Per Page'), '100', 'integer'],
+                ['catalogTitle', Module::t('Catalog Title'), Module::t('Catalog Title'), 'string'],
                 ['storeName', 'Store Name', 'My Store', 'string'],
                 ['useTranslite', 'Use Transliteration', '0', 'boolean'],
                 ['mobileProductsPerRow', 'Mobile Products Per Row', '1', 'integer'],
