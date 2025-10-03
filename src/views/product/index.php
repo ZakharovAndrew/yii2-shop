@@ -6,6 +6,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use ZakharovAndrew\shop\assets\ShopAssets;
+ShopAssets::register($this);
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\ProductSearch $searchModel */
