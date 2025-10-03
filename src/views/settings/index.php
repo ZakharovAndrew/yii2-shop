@@ -18,7 +18,7 @@ $allSettings = $shopSettings->getAll();
 ?>
 <div class="settings-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
 
     <div class="row mb-3">
         <div class="col-md-12">

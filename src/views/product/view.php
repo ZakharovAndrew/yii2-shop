@@ -23,7 +23,7 @@ $last_category = end($categories);
 $propertiesWithValues = $model->getPropertiesWithValues();
 
 //SEO
-$this->registerMetaTag(['name' => 'description', 'content' => ($last_category->title ?? '') . ' '. $model->name]);
+$this->registerMetaTag(['name' => 'description', 'content' => ($last_category->title ?? '') . ' '. $model->name. ($model->color ? ' '. Module::t('Color'). ' ' . $model->color->name : '')]);
 $this->registerMetaTag(['name' => 'og:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
@@ -277,7 +277,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-12 col-md-6 product-description-block">
             <h1 class='product-h1'><?= Html::encode($this->title) ?></h1>
             
-            <!-- Цвет товара -->
+            <!-- product color -->
             <?php if ($model->color): ?>
             <div class="property-item" style="border: none; padding: 5px 0;">
                 <div class="property-name"><?= Module::t('Color') ?>:</div>
@@ -392,10 +392,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if (isset($more_products)) { ?>
     <div class="more_products">
         <h3><?= Module::t('Similar products') ?></h3>
-    <?= $this->render('../catalog/_product_list', [
-        'products' => $more_products,
-        'class' => 'col-md-3 col-12'
-    ]);?>
+        <?= $this->render('../catalog/_product_list', [
+            'products' => $more_products,
+            'class' => 'col-md-3 col-12'
+        ]);?>
     </div>
     <?php } ?>    
 
