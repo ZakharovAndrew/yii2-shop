@@ -17,8 +17,7 @@ class CatalogController extends Controller
     {
         $searchModel = new ProductSearch();
         
-        $module = \Yii::$app->getModule('shop');
-        $productPerPage = $module->productPerPage ?? 20; // default 20
+        $productPerPage = \Yii::$app->shopSettings->get('productPerPage', 20);
         
         $dataProvider = $searchModel->searchCatalog($this->request->queryParams, $productPerPage);
 

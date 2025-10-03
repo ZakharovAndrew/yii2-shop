@@ -71,8 +71,7 @@ class ProductCategoryController extends ParentController
                 
         // Create query copy
         $countQuery = clone $query;
-        $module = \Yii::$app->getModule('shop');
-        $productPerPage = $module->productPerPage ?? 20; // default 20
+        $productPerPage = \Yii::$app->shopSettings->get('productPerPage', 20);
         // Initialize Pagination, show 48 items per page
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $productPerPage]);
         // Make URL parameters SEO-friendly
