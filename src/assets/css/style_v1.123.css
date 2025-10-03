@@ -86,6 +86,29 @@
 }
 
 /**
+ * Pagination
+ */
+.pagination li {margin:4px}
+.pagination li a{background-color:rgba(6, 106, 201, .1);border:transparent;border-radius:.325rem !important;color:#066ac9;font-size:16px;padding:4px 9px;text-decoration: none;}
+.pagination li.active a{
+    background-color: #066ac9;
+    border-color: #066ac9;
+    color: #fff;
+    cursor: default;
+    z-index: 3;
+}
+.pagination li.disabled span {
+    background-color: rgba(6, 106, 201, .04);
+    padding: 4px 9px;
+    border: transparent;
+    border-radius: .325rem !important;
+}
+.pagination li:hover a {
+    background-color: #066ac9;
+    border-color: #066ac9;color: #fff;
+}
+
+/**
  * Color filter
  */
 

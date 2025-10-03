@@ -6,6 +6,8 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\shop\assets\ShopAssets;
+ShopAssets::register($this);
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\ProductCategorySearch $searchModel */
@@ -14,6 +16,7 @@ use ZakharovAndrew\shop\Module;
 $this->title = Module::t('Product Categories');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="product-category-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
