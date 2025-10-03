@@ -18,7 +18,7 @@ $shopSettings = Yii::$app->shopSettings;
 ?>
 <div class="settings-admin">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
 
     <div class="row mb-3">
         <div class="col-md-12">
@@ -32,7 +32,7 @@ $shopSettings = Yii::$app->shopSettings;
 
     <div class="row">
         <!-- Create New Setting Form -->
-        <div class="col-md-4">
+        <div class="col-md-4" style="margin-bottom:15px">
             <div class="card">
                 <div class="card-header bg-success text-white">
                     <h5 class="card-title mb-0">
@@ -60,7 +60,7 @@ $shopSettings = Yii::$app->shopSettings;
                         Settings::TYPE_INTEGER => 'Integer',
                         Settings::TYPE_BOOLEAN => 'Boolean',
                         Settings::TYPE_JSON => 'JSON',
-                    ], ['prompt' => 'Select type...']) ?>
+                    ], ['prompt' => 'Select type...', 'class'=>'form-select form-control']) ?>
 
                     <?= $form->field($model, 'value')->textarea([
                         'rows' => 3,
@@ -151,31 +151,7 @@ $shopSettings = Yii::$app->shopSettings;
                             ],
                             [
                                 'class' => 'yii\grid\ActionColumn',
-                                'template' => '{view} {update} {delete}',
-                                'buttons' => [
-                                    'view' => function ($url, $model) {
-                                        return Html::a('<i class="fas fa-eye"></i>', $url, [
-                                            'title' => 'View',
-                                            'class' => 'btn btn-sm btn-outline-primary',
-                                        ]);
-                                    },
-                                    'update' => function ($url, $model) {
-                                        return Html::a('<i class="fas fa-edit"></i>', $url, [
-                                            'title' => 'Update',
-                                            'class' => 'btn btn-sm btn-outline-success',
-                                        ]);
-                                    },
-                                    'delete' => function ($url, $model) {
-                                        return Html::a('<i class="fas fa-trash"></i>', $url, [
-                                            'title' => 'Delete',
-                                            'class' => 'btn btn-sm btn-outline-danger',
-                                            'data' => [
-                                                'confirm' => 'Are you sure you want to delete this setting?',
-                                                'method' => 'post',
-                                            ],
-                                        ]);
-                                    },
-                                ],
+                                'template' => '{update} {delete}',
                             ],
                         ],
                     ]); ?>
