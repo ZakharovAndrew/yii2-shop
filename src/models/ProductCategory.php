@@ -161,6 +161,16 @@ class ProductCategory extends \yii\db\ActiveRecord
             return \yii\helpers\ArrayHelper::index($category, 'id');
         }, 600);
     }
+    
+    public function getSubCategories()
+    {
+        return Yii::$app->cache->getOrSet('list_subcategories_'.$this->id, function () {
+            return ProductCategory::find()
+                    ->where(['parent_id' => $this->id])
+                    ->orderBy('position')
+                    ->all();
+        }, 600);
+    }
 
     /**
      * Gets query for [[AvailableColors]].

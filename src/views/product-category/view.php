@@ -41,6 +41,19 @@ ShopAssets::register($this);
 
     <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
     
+    <?php if ($model->getSubCategories() != null) {?>
+    <div class="swiper links-swiper" style="background: #fff; border-radius: 10px; padding: 10px 15px;">
+        <div class="swiper-wrapper">
+        <?php foreach ($model->getSubCategories() as $subCategory) {?>
+            
+            <div class="swiper-slide">
+                <a href="<?= Url::to(['/shop/product-category', 'url' => $subCategory->url]) ?>"><?= $subCategory->title ?></a>
+            </div>
+        <?php } ?>
+        </div>
+    </div>
+    <?php } ?>
+    
     <div class="category-description"><?= $model->description ?></div>
 
     <!-- Фильтр по цветам -->
