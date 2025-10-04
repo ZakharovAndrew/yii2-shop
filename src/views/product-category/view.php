@@ -2,8 +2,11 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\shop\assets\ShopAssets;
+ShopAssets::register($this);
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\ProductCategory $model */
@@ -33,9 +36,6 @@ foreach (ProductCategory::getCategories($model->id) as $category) {
     }
 }
 $this->params['breadcrumbs'][] = $model->title;
-
-use ZakharovAndrew\shop\assets\ShopAssets;
-ShopAssets::register($this);
 ?>
 <div class="product-category-view">
 
@@ -47,11 +47,42 @@ ShopAssets::register($this);
         <?php foreach ($model->getSubCategories() as $subCategory) {?>
             
             <div class="swiper-slide">
-                <a href="<?= Url::to(['/shop/product-category', 'url' => $subCategory->url]) ?>"><?= $subCategory->title ?></a>
+                <a href="<?= Url::to(['/shop/product-category/view', 'url' => $subCategory->url]) ?>"><?= $subCategory->title ?></a>
             </div>
         <?php } ?>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {           
+        const linksSwiper = new Swiper('.links-swiper', {
+            direction: 'horizontal',
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            freeMode: true,
+            grabCursor: true,
+            mousewheel: {
+                forceToAxis: true,
+            },
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true,
+            },
+            breakpoints: {
+                320: {
+                    spaceBetween: 8,
+                },
+                768: {
+                    spaceBetween: 12,
+                },
+                1024: {
+                    spaceBetween: 15,
+                }
+            }
+        });
+    });
+    </script>
     <?php } ?>
     
     <div class="category-description"><?= $model->description ?></div>
@@ -105,6 +136,24 @@ ShopAssets::register($this);
         </div>
     <?php endif; ?>
     
+    <div class="products-header">
+        <div class="selected-filters"></div>
+        <?php $form = ActiveForm::begin([
+            'method' => 'get',
+            'action' => ['/shop/product-category/view', 'url' => $url, 'colors' => $colors], // явно укажите действие
+        ]); ?>
+            <?= Html::dropDownList(
+                'sorting',
+                $sorting,
+                ProductCategory::sortingLabels(),
+                [
+                    'class' => 'form-control form-select',
+                    'onchange' => 'this.form.submit()'
+                ]
+            ) ?>
+        <?php ActiveForm::end(); ?>
+    </div>
+    
     <?= $this->render('../catalog/_product_list', [
         'products' => $products,
         'pagination' => $pagination,
@@ -119,3 +168,20 @@ ShopAssets::register($this);
     </p>
     <?php } ?>
 </div>
+<style>
+    .products-header {
+        display:flex;
+        margin-bottom:15px;
+    }
+    .selected-filters {
+        width:100%;
+    }
+    .products-header select {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        white-space: nowrap;
+        color: #606972;
+        min-width:180px;
+    }
+</style>

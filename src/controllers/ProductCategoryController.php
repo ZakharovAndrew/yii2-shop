@@ -94,7 +94,12 @@ class ProductCategoryController extends ParentController
             'products' => $products,
             'pagination' => $pages,
             'availableColors' => $availableColors,
-            'selectedColors' => $selectedColors
+            'selectedColors' => $selectedColors,
+            
+            // for form
+            'url' => $url,
+            'colors' => $colors,
+            'sorting' => $sorting,
         ]);
     }
 

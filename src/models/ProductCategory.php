@@ -73,6 +73,17 @@ class ProductCategory extends \yii\db\ActiveRecord
         ];
     }
     
+    public static function sortingLabels()
+    {
+        return [
+            'default' => 'По дате добавления',
+            'name_asc' => 'По названию (А-Я)',
+            'name_desc' => 'По названию (Я-А)',
+            'price_desc' => 'Сначала дорогие',
+            'price_asc' => 'Сначала дешевые'
+        ];
+    }
+    
     public static function getDropdownGroups($exclude = null)
     {
         return Yii::$app->cache->getOrSet('list_categories_dropdown'.($exclude ?? ''), function () use ($exclude) {
