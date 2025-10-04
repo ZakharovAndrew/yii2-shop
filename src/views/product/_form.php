@@ -49,7 +49,7 @@ function updateAvailableColors(categoryId) {
         if (data.colors && data.colors.length > 0) {
             $.each(data.colors, function(index, color) {
                 var isSelected = ($('#product-color_id').val() == color.id);
-                var colorHtml = '<div class="color-option' + (isSelected ? ' selected' : '') + '" data-color-id="' + color.id + '" style="background-color: ' + color.css_color + '; ' + (isSelected ? 'box-shadow: 0 0 0 1px '+color.css_color : '') + '" title="' + color.name + '"></div>';
+                var colorHtml = '<div class="color-option' + (isSelected ? ' selected' : '') + '" data-color-id="' + color.id + '" style="background-color: ' + color.css_color + '; ' + (isSelected ? 'box-shadow: 0 0 0 1px #000' : '') + '" title="' + color.name + '"></div>';
                 colorsContainer.append(colorHtml);
             });
             $('#color-selection-container').show();
@@ -247,16 +247,21 @@ if (!$model->isNewRecord) {
                             
                             <?php if ($property->isSelectType()): ?>
                                 <!-- Выпадающий список -->
+                                <?php $selectParams = [
+                                    'class' => 'form-control form-select',
+                                    'id' => $fieldId,
+                                    'prompt' => Module::t('Select option'),
+                                ];
+                                
+                                if ($property->is_required) {
+                                    $params['required'] = true;    
+                                }
+                                ?>
                                 <?= Html::dropDownList(
                                     $fieldName,
                                     $value ? $value->option_id : null,
                                     $property->getOptionsList(),
-                                    [
-                                        'class' => 'form-control form-select',
-                                        'id' => $fieldId,
-                                        'prompt' => Module::t('Select option'),
-                                        'required' => $property->is_required
-                                    ]
+                                    $selectParams
                                 ) ?>
                                 
                             <?php elseif ($property->isCheckboxType()): ?>
@@ -336,7 +341,7 @@ if (!$model->isNewRecord) {
     
                     <?= $form->field($model, 'category_id')->dropDownList(ProductCategory::getDropdownGroups(), ['prompt' => '', 'class' => 'form-control form-select']) ?>
 
-<!-- Поле для выбора цвета (скрытое) -->
+                    <!-- Поле для выбора цвета (скрытое) -->
                     <?= $form->field($model, 'color_id')->hiddenInput(['id' => 'product-color_id'])->label(false) ?>
 
                     <!-- Контейнер для отображения цветов -->
