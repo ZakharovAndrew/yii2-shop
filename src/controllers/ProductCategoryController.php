@@ -18,6 +18,14 @@ class ProductCategoryController extends ParentController
     
     public $controller_id = 2002;
     
+    public $sorting = [
+        'default' => 'position DESC',
+        'name_asc' => 'name ASC',
+        'name_desc' => 'name DESC',
+        'price_desc' => 'price DESC',
+        'price_asc' => 'price ASC'
+    ];
+    
     /**
      * Lists all ProductCategory models.
      *
@@ -41,7 +49,7 @@ class ProductCategoryController extends ParentController
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($url, array $colors = [])
+    public function actionView($url, array $colors = [], $sorting = 'default')
     {
         $model = $this->findModelByUrl($url);
         
@@ -67,7 +75,8 @@ class ProductCategoryController extends ParentController
             $query->andWhere(['color_id' => $selectedColors]);
         }
         
-        $query->orderBy('position DESC');
+        // sorting
+        $query->orderBy($this->sorting[$sorting] ?? $this->sorting['default']);
                 
         // Create query copy
         $countQuery = clone $query;
