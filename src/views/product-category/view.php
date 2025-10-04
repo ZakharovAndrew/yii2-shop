@@ -105,7 +105,7 @@ $this->params['breadcrumbs'][] = $model->title;
                         <?php foreach ($availableColors as $color): ?>
                             <?php
                             $isActive = in_array($color->id, $selectedColors);
-                            $urlParams = ['/shop/product-category/view', 'url' => $model->url, 'sorting' => $sorting];
+                            $urlParams = ['/shop/product-category/view', 'url' => $model->url, 'sorting' => $sorting, 'filter' => $filter];
 
                             if ($isActive) {
                                 // Удаляем цвет из фильтра
@@ -142,31 +142,6 @@ $this->params['breadcrumbs'][] = $model->title;
                 'method' => 'get',
                 'action' => ['/shop/product-category/view', 'url' => $url, 'colors' => $colors, 'sorting' => $sorting], // явно укажите действие
             ]); ?>
-        <style>
-            .propety-header {
-                font-weight: bold;
-                font-size:16px;
-                font-family: Roboto;
-            }
-            .products-catalog .filter__item:not(:last-of-type) {
-                margin-bottom: 12px;
-            }
-            .propety-header {
-                padding-right: 16px;
-    font-size: 16px;
-    line-height: 1.25;
-    text-align: left;
-    -webkit-transition: opacity .1s 
-ease-in-out;
-    transition: opacity .1s 
-ease-in-out;
-    padding:5px 0
-            }
-            .products-catalog .filter__item label {
-                display:block;
-            }
-            
-        </style>
         <?php foreach ($properties as $property): ?>
         <div class="filter__item">
             <div class="propety-header"><?= $property->name ?></div>
@@ -193,7 +168,7 @@ ease-in-out;
             <div class="selected-filters"></div>
             <?php $form = ActiveForm::begin([
                 'method' => 'get',
-                'action' => ['/shop/product-category/view', 'url' => $url, 'colors' => $colors], // явно укажите действие
+                'action' => ['/shop/product-category/view', 'url' => $url, 'colors' => $colors, 'filter' => $filter],
             ]); ?>
                 <?= Html::dropDownList(
                     'sorting',
