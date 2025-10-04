@@ -5,6 +5,7 @@ namespace ZakharovAndrew\shop\controllers;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\models\ProductCategorySearch;
+use ZakharovAndrew\shop\models\ProductProperty;
 use yii\data\Pagination;
 use ZakharovAndrew\user\controllers\ParentController;
 use yii\web\NotFoundHttpException;
@@ -49,7 +50,7 @@ class ProductCategoryController extends ParentController
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($url, array $colors = [], $sorting = 'default')
+    public function actionView($url, array $colors = [], $sorting = 'default', array $filter = [])
     {
         $model = $this->findModelByUrl($url);
         
@@ -69,6 +70,29 @@ class ProductCategoryController extends ParentController
                 'category_id IN (SELECT id FROM product_category WHERE parent_id = '.$model->id.')'
             ])
             ->andWhere(['status' => 1]);
+        
+        $property_index = 0;
+        // apply filter
+        if (is_array($filter) && count($filter) > 0) {
+            // Получаем активные свойства товара
+            $properties = ProductProperty::getActiveProperties();
+            
+            $list = [];
+            foreach ($filter as $filterName => $filterValues) {
+                foreach ($properties as $property) {
+                    if ($filterName == $property->code) {
+                        // если select и значение среди допустимых
+                        if ($property->isSelectType()) {
+                            $q = (implode(' OR ', array_map(function($item) use ($property_index) {
+                                return "p{$property_index}.option_id = {$item}";
+                            }, $filterValues)));
+                            $query->innerJoin('product_property_value p'.$property_index, "p{$property_index}.product_id = product.id AND p{$property_index}.property_id = {$property->id} AND ($q)");
+                            $property_index++;
+                        }
+                    }
+                }
+            }
+        }
         
         // Apply color filter if colors are selected
         if (!empty($selectedColors)) {
@@ -100,6 +124,7 @@ class ProductCategoryController extends ParentController
             'url' => $url,
             'colors' => $colors,
             'sorting' => $sorting,
+            'filter' => $filter
         ]);
     }
 

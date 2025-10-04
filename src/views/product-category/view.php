@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use ZakharovAndrew\shop\models\ProductCategory;
+use ZakharovAndrew\shop\models\ProductProperty;
 use ZakharovAndrew\shop\Module;
 use ZakharovAndrew\shop\assets\ShopAssets;
 ShopAssets::register($this);
@@ -13,6 +14,9 @@ ShopAssets::register($this);
 
 $this->title = !empty($model->meta_title) ? $model->meta_title : $model->title;
 $this->params['breadcrumbs'][] = ['label' => Module::t('Catalog'), 'url' => ['/shop/catalog/index']];
+
+// Получаем активные свойства товара
+$properties = ProductProperty::getActiveProperties();
 
 //SEO
 if (!empty($model->meta_description)) {
@@ -90,6 +94,7 @@ $this->params['breadcrumbs'][] = $model->title;
 <div class="products-catalog">
     <div class="products-catalog__left">
         <!-- Фильтр по цветам -->
+        
         <?php if (!empty($availableColors)): ?>
             <div class="color-filter mb-4">
                 <h4><?= Module::t('Filter by Color') ?></h4>
@@ -100,7 +105,7 @@ $this->params['breadcrumbs'][] = $model->title;
                         <?php foreach ($availableColors as $color): ?>
                             <?php
                             $isActive = in_array($color->id, $selectedColors);
-                            $urlParams = ['/shop/product-category/view', 'url' => $model->url];
+                            $urlParams = ['/shop/product-category/view', 'url' => $model->url, 'sorting' => $sorting];
 
                             if ($isActive) {
                                 // Удаляем цвет из фильтра
@@ -131,6 +136,56 @@ $this->params['breadcrumbs'][] = $model->title;
 
                 </div>
             </div>
+        <?php endif; ?>
+        <?php if (!empty($properties)): ?>
+        <?php $form = ActiveForm::begin([
+                'method' => 'get',
+                'action' => ['/shop/product-category/view', 'url' => $url, 'colors' => $colors, 'sorting' => $sorting], // явно укажите действие
+            ]); ?>
+        <style>
+            .propety-header {
+                font-weight: bold;
+                font-size:16px;
+                font-family: Roboto;
+            }
+            .products-catalog .filter__item:not(:last-of-type) {
+                margin-bottom: 12px;
+            }
+            .propety-header {
+                padding-right: 16px;
+    font-size: 16px;
+    line-height: 1.25;
+    text-align: left;
+    -webkit-transition: opacity .1s 
+ease-in-out;
+    transition: opacity .1s 
+ease-in-out;
+    padding:5px 0
+            }
+            .products-catalog .filter__item label {
+                display:block;
+            }
+            
+        </style>
+        <?php foreach ($properties as $property): ?>
+        <div class="filter__item">
+            <div class="propety-header"><?= $property->name ?></div>
+            <div>
+                <?php if ($property->isSelectType()): ?>
+                <?= Html:: CheckboxList(
+                    'filter['.$property->code.']',
+                    $filter[$property->code] ?? null,
+                    $property->getOptionsList(),
+                    []
+                ) ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
+        <div class="form-group">
+            <?= Html::submitButton(Module::t('Filter'), ['class' => 'btn btn-success']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
         <?php endif; ?>
     </div>
     <div class="products-catalog__right">

@@ -180,6 +180,7 @@ return [
     // Common
     'Yes' => 'Да',
     'No' => 'Нет',
+    'Filter' => 'Фильтровать',
     
     // Controller messages
     'Options are available only for dropdown list properties' => 'Опции доступны только для свойств типа "Выпадающий список"',
