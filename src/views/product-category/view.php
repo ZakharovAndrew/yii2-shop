@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $model->title;
     <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
     
     <?php if ($model->getSubCategories() != null) {?>
-    <div class="swiper links-swiper" style="background: #fff; border-radius: 10px; padding: 10px 15px;">
+    <div class="swiper links-swiper">
         <div class="swiper-wrapper">
         <?php foreach ($model->getSubCategories() as $subCategory) {?>
             
@@ -96,11 +96,6 @@ $this->params['breadcrumbs'][] = $model->title;
 
                 <div class="color-filter-wrapper">
                     <div class="color-filter-options">
-                        <a href="<?= Url::to(['/shop/product-category/view', 'url' => $model->url]) ?>" 
-                           class="color-filter-btn <?= empty($selectedColors) ? 'active' : '' ?>">
-                            <?= Module::t('All Colors') ?>
-                        </a>
-
                         <!-- Colors options  -->
                         <?php foreach ($availableColors as $color): ?>
                             <?php
