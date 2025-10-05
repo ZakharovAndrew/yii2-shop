@@ -38,8 +38,8 @@ class Module extends \yii\base\Module
     public $productPerPage = 100;
  
     public $useTranslite = false;
-
-    public $mobileProductsPerRow = 1;
+   
+    public $searchTransformFunction = null;
 
     /**
      * @var boolean Multi-store support 
