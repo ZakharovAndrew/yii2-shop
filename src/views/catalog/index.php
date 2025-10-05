@@ -13,8 +13,6 @@ use yii\helpers\Html;
 $module = Yii::$app->getModule('shop');
 $products = $dataProvider->getModels();
 
-$this->title = $module->catalogTitle;
-$this->params['breadcrumbs'][] = $this->title;
 
 if (!empty($module->catalogPageID)) {
     $page = \ZakharovAndrew\pages\models\Pages::findOne($module->catalogPageID);
@@ -33,6 +31,9 @@ Yii::$app->view->registerLinkTag([
     'href' => Yii::$app->urlManager->createAbsoluteUrl(['/shop/catalog/index'])
 ]);
 
+$this->title = (!empty($page) ? $page->title : $module->catalogTitle);  
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="catalog-index">
 
@@ -40,7 +41,8 @@ Yii::$app->view->registerLinkTag([
     
     <?= $this->render('_product_list', [
         'products' => $products,
-        'pagination' => $dataProvider->pagination
+        'pagination' => $dataProvider->pagination,
+        'class' => (Yii::$app->shopSettings->get('mobileProductsPerRow') == 2 ? 'col-md-4 col-6 shop-product' : 'col-md-4 col-12 shop-product')
     ]) ?>
     
     <?php if (!empty($page)) {        
