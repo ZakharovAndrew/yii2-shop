@@ -8,15 +8,19 @@ use ZakharovAndrew\shop\models\ProductCategory;
 
 class Sitemap
 {
+    public $priority = [
+        'categories' => '0.8',
+        'products' => '0.9',
+        'shops' => '0.7'
+    ];
+    
     /**
      * Generate sitemap
      */
-    private function generateSitemap()
-    {
-        $data = [];
-        
-        // Products ategory
-        $data = array_merge($data, $this->getCategories());
+    public function generateSitemap()
+    {        
+        // Products category
+        $data = $this->getCategories();
         
         // Products
         $data = array_merge($data, $this->getProducts());
@@ -34,17 +38,19 @@ class Sitemap
     {
         $categories = ProductCategory::find()
             ->select(['url', 'updated_at'])
+            ->where(['status' => ProductCategory::STATUS_ACTIVE])
             ->asArray()
             ->all();
             
         $data = [];
         
         foreach ($categories as $category) {
+            $lastmod = !empty($shop['updated_at']) ? strtotime($shop['updated_at']) : time();
             $data[] = [
                 'loc' => Yii::$app->urlManager->createAbsoluteUrl(['/shop/product-category/view', 'url' => $category['url']]),
-                'lastmod' => date('c', $category['updated_at'] ?? time()),
+                'lastmod' => date('c', $lastmod),
                 'changefreq' => 'weekly',
-                'priority' => '0.8'
+                'priority' => $this->priority['categories']
             ];
         }
         
@@ -57,7 +63,8 @@ class Sitemap
     private function getProducts()
     {
         $products = Product::find()
-            ->select(['url', 'updated_at', 'created_at'])
+            //->select(['url', 'updated_at', 'created_at'])
+            ->select(['url', 'created_at'])
             ->where(['status' => Product::STATUS_ACTIVE])
             ->asArray()
             ->all();
@@ -65,11 +72,12 @@ class Sitemap
         $data = [];
         
         foreach ($products as $product) {
+            $lastmod = $product['updated_at'] ?? $product['created_at'] ?? null;
             $data[] = [
                 'loc' => Yii::$app->urlManager->createAbsoluteUrl(['/shop/product/view', 'url' => $product['url']]),
-                'lastmod' => date('c', $product['updated_at'] ?? $product['created_at'] ?? time()),
+                'lastmod' => date('c', !empty($lastmod) ? strtotime($lastmod) : time()),
                 'changefreq' => 'weekly',
-                'priority' => '0.9'
+                'priority' => $this->priority['products']
             ];
         }
         
@@ -89,11 +97,12 @@ class Sitemap
         $data = [];
         
         foreach ($shops as $shop) {
+            $lastmod = !empty($shop['updated_at']) ? strtotime($shop['updated_at']) : time();
             $data[] = [
                 'loc' => Yii::$app->urlManager->createAbsoluteUrl(['/shop/shop/view', 'url' => $shop['url']]),
-                'lastmod' => date('c', $shop['updated_at'] ?? time()),
+                'lastmod' => date('c', $lastmod),
                 'changefreq' => 'weekly',
-                'priority' => '0.7'
+                'priority' => $this->priority['shops']
             ];
         }
         
