@@ -185,7 +185,7 @@ $this->params['breadcrumbs'][] = $model->title;
         <?= $this->render('../catalog/_product_list', [
             'products' => $products,
             'pagination' => $pagination,
-            'class' => (Yii::$app->getModule('shop')->mobileProductsPerRow == 2 ? 'col-md-4 col-6 shop-product' : 'col-md-4 col-12 shop-product')
+            'class' => (Yii::$app->shopSettings->get('mobileProductsPerRow') == 2 ? 'col-md-4 col-6 shop-product' : 'col-md-4 col-12 shop-product')
         ]) ?>
         
         <div class="category-description_after"><?= $model->description_after ?></div>
