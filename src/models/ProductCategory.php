@@ -21,10 +21,15 @@ use ZakharovAndrew\shop\Module;
  * @property string|null $og_title
  * @property string|null $og_description
  * @property string|null $og_image
+ * @property string $created_at
+ * @property string $updated_at
  * @property array $availableColorIds
  */
 class ProductCategory extends \yii\db\ActiveRecord
 {
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    
     public $availableColorIds = []; // for selected colors
 
     /**
@@ -42,8 +47,9 @@ class ProductCategory extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'url'], 'required'],
-            [['position', 'parent_id'], 'integer'],
+            [['position', 'parent_id', 'status'], 'integer'],
             [['description', 'description_after', 'meta_description', 'meta_keywords', 'og_description'], 'string'],
+            [['created_at', 'updated_at'], 'safe'],
             [['title', 'url', 'meta_title', 'og_title'], 'string', 'max' => 255],
             [['og_image'], 'string', 'max' => 500],
             [['availableColorIds'], 'safe'],
@@ -69,6 +75,8 @@ class ProductCategory extends \yii\db\ActiveRecord
             'og_title' => Module::t('OG Title'),
             'og_description' => Module::t('OG Description'),
             'og_image' => Module::t('OG Image'),
+            'created_at' => Module::t('Created At'),
+            'updated_at' => Module::t('Updated At'),
             'availableColorIds' => Module::t('Available Colors'),
         ];
     }
@@ -82,6 +90,37 @@ class ProductCategory extends \yii\db\ActiveRecord
             'price_desc' => 'Сначала дорогие',
             'price_asc' => 'Сначала дешевые'
         ];
+    }
+    
+    /**
+     * Returns category status options
+     * @return array
+     */
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_INACTIVE => Module::t('Inactive'),
+            self::STATUS_ACTIVE => Module::t('Active'),
+        ];
+    }
+    
+    /**
+     * Gets status text representation
+     * @return string
+     */
+    public function getStatusText()
+    {
+        $statuses = self::getStatuses();
+        return $statuses[$this->status] ?? Module::t('Unknown status');
+    }
+    
+    /**
+     * Checks if category is active
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->status === self::STATUS_ACTIVE;
     }
     
     public static function getDropdownGroups($exclude = null)
