@@ -246,7 +246,6 @@ if (!$model->isNewRecord) {
                             </div>
                             
                             <?php if ($property->isSelectType()): ?>
-                                <!-- Выпадающий список -->
                                 <?php $selectParams = [
                                     'class' => 'form-control form-select',
                                     'id' => $fieldId,
@@ -265,7 +264,6 @@ if (!$model->isNewRecord) {
                                 ) ?>
                                 
                             <?php elseif ($property->isCheckboxType()): ?>
-                                <!-- Чекбокс -->
                                 <?= Html::checkbox(
                                     $fieldName,
                                     $value ? $value->value_bool : false,
@@ -308,7 +306,7 @@ if (!$model->isNewRecord) {
                                 ) ?>
                                 
                             <?php else: ?>
-                                <!-- Текстовое поле -->
+                                <!-- text input -->
                                 <?php $params = [
                                     'class' => 'form-control',
                                     'id' => $fieldId,
@@ -321,12 +319,7 @@ if (!$model->isNewRecord) {
                                 <?= Html::textInput(
                                     $fieldName,
                                     $value ? $value->value_text : '',
-                                    [
-                                        'class' => 'form-control',
-                                        'id' => $fieldId,
-                                        'placeholder' => Module::t('Enter value'),
-                                        'required' => $property->is_required
-                                    ]
+                                    $params
                                 ) ?>
                             <?php endif; ?>
                             
