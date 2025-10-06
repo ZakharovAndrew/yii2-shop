@@ -3,12 +3,12 @@
 namespace ZakharovAndrew\shop\controllers;
 
 use Yii;
-use yii\web\Controller;
+use ZakharovAndrew\user\controllers\ParentController;
 use yii\data\ActiveDataProvider;
 use ZakharovAndrew\shop\models\Order;
 use yii\web\NotFoundHttpException;
 
-class AdminOrderController extends Controller
+class AdminOrderController extends ParentController
 {
     /**
      * Список всех заказов
