@@ -221,6 +221,42 @@ class ProductPropertyController extends ParentController
         
         return ['success' => false];
     }
+    
+    /**
+     * Move color position up
+     */
+    public function actionMoveUp($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->moveUp()) {
+            Yii::$app->session->setFlash('success', Module::t('Position updated successfully'));
+        } else {
+            Yii::$app->session->setFlash('error', Module::t('Cannot move property up'));
+        }
+        
+        if (Yii::$app->request->isAjax) {
+            return $this->redirect(['index']);
+        }
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Move color position down
+     */
+    public function actionMoveDown($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->moveDown()) {
+            Yii::$app->session->setFlash('success', Module::t('Position updated successfully'));
+        } else {
+            Yii::$app->session->setFlash('error', Module::t('Cannot move property down'));
+        }
+        
+        if (Yii::$app->request->isAjax) {
+            return $this->redirect(['index']);
+        }
+        return $this->redirect(['index']);
+    }
 
     /**
      * Finds the ProductProperty model based on its primary key value.
