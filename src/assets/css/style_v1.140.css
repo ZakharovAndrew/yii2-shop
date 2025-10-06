@@ -288,6 +288,24 @@
 }
 
 /**
+ * Move up/down
+ */
+
+.btn.btn-move-up, .btn.btn-move-down {
+    padding: 4px 5px;
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 3px;
+    margin: 0 2px;
+    transition: all 0.2s ease;
+}
+
+.btn.btn-move-up:hover, .btn.btn-move-down:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/**
  * Product catlog
  */
 .products-catalog {
@@ -356,3 +374,4 @@
 .products-catalog .filter__item label {
     display:block;
 }
+

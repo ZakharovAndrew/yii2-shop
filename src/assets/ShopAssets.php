@@ -1,6 +1,6 @@
 <?php
 /**
- * @link https://github.com/ZakharovAndrew/yii2-user
+ * @link https://github.com/ZakharovAndrew/yii2-shop
  * @copyright Copyright (c) 2024 Zakharov Andrey
  */
 
@@ -13,7 +13,7 @@ class ShopAssets extends AssetBundle
     public $sourcePath = '@vendor/zakharov-andrew/yii2-shop/src/assets';
 
     public $css = [
-        'css/style_v1.136.css',
+        'css/style_v1.140.css',
     ];
 
     public $js = [

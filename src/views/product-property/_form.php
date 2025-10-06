@@ -144,9 +144,7 @@ use ZakharovAndrew\shop\Module;
                     ]
                 ) ?>
             </div>
-            <div class="col-md-4">
-                <?= $form->field($model, 'sort_order')->textInput(['type' => 'number']) ?>
-            </div>
+
             <div class="col-md-2">
                 <?= $form->field($model, 'is_required')->checkbox() ?>
             </div>

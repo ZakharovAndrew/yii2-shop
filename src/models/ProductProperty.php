@@ -106,7 +106,7 @@ class ProductProperty extends \yii\db\ActiveRecord
     public function getOptions()
     {
         return $this->hasMany(ProductPropertyOption::class, ['property_id' => 'id'])
-            ->orderBy(['position' => SORT_ASC]);
+            ->orderBy(['sort_order' => SORT_ASC]);
     }
 
     /**
@@ -338,6 +338,9 @@ class ProductProperty extends \yii\db\ActiveRecord
             $this->position = $previous->position;
             $previous->position = $tempPosition;
             
+            $this->changeOptions = false;
+            $previous->changeOptions = false;
+            
             return $this->save(false) && $previous->save(false);
         }
         
@@ -359,6 +362,9 @@ class ProductProperty extends \yii\db\ActiveRecord
             $tempPosition = $this->position;
             $this->position = $next->position;
             $next->position = $tempPosition;
+            
+            $this->changeOptions = false;
+            $next->changeOptions = false;
             
             return $this->save(false) && $next->save(false);
         }

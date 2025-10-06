@@ -5,6 +5,9 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use ZakharovAndrew\shop\models\ProductProperty;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\shop\assets\ShopAssets;
+ShopAssets::register($this);
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel ZakharovAndrew\shop\models\ProductPropertySearch */
@@ -13,6 +16,17 @@ use ZakharovAndrew\shop\Module;
 $this->title = Module::t('Product Properties');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+.btn-default {
+    background: #f8f9fa;
+    border-color: #ddd;
+}
+
+.btn-default:hover {
+    background: #e9ecef;
+    border-color: #ccc;
+}
+</style>
 <div class="product-property-index">
     
     <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
@@ -40,48 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => ProductProperty::getTypesList(),
             ],
             [
-                //'label' => 'Position',
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{up} {down}',
-                'buttons' => [
-                    'up' => function($url, $model, $key) {
-                        if ($model->position > 1) {
-                            return Html::a(
-                                '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 4L4 8M8 4L12 8M8 4V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-                                ['move-up', 'id' => $model->id],
-                                [
-                                    'title' => Module::t('Move up'),
-                                    'class' => 'btn btn-xs btn-default',
-                                    'data' => [
-                                        'method' => 'post',
-                                        'pjax' => 1,
-                                    ],
-                                ]
-                            );
-                        }
-                        return '';
-                    },
-                    'down' => function($url, $model, $key) {
-                        $maxPosition = \ZakharovAndrew\shop\models\ProductColor::find()->max('position');
-                        if ($model->position < $maxPosition) {
-                            return Html::a(
-                                '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 12L4 8M8 12L12 8M8 12V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-                                ['move-down', 'id' => $model->id],
-                                [
-                                    'title' => Module::t('Move down'),
-                                    'class' => 'btn btn-xs btn-default',
-                                    'data' => [
-                                        'method' => 'post',
-                                        'pjax' => 1,
-                                    ],
-                                ]
-                            );
-                        }
-                        return '';
-                    },
-                ],
-            ],
-            [
                 'attribute' => 'is_required',
                 'format' => 'boolean',
                 'filter' => [0 => Module::t('No'), 1 => Module::t('Yes')],
@@ -96,10 +68,50 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => [0 => Module::t('No'), 1 => Module::t('Yes')],
             ],
-
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {options} {toggle} {delete}',
+                'template' => '{up} {down}',
+                'buttons' => [
+                    'up' => function($url, $model, $key) {
+                        if ($model->position > 1) {
+                            return Html::a(
+                                '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 4L4 8M8 4L12 8M8 4V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                                ['move-up', 'id' => $model->id],
+                                [
+                                    'title' => Module::t('Move up'),
+                                    'class' => 'btn btn-move-down btn-default',
+                                    'data' => [
+                                        'method' => 'post',
+                                        'pjax' => 1,
+                                    ],
+                                ]
+                            );
+                        }
+                        return '';
+                    },
+                    'down' => function($url, $model, $key) {
+                        $maxPosition = \ZakharovAndrew\shop\models\ProductProperty::find()->max('position');
+                        if ($model->position < $maxPosition) {
+                            return Html::a(
+                                '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 12L4 8M8 12L12 8M8 12V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                                ['move-down', 'id' => $model->id],
+                                [
+                                    'title' => Module::t('Move down'),
+                                    'class' => 'btn btn-move-down btn-default',
+                                    'data' => [
+                                        'method' => 'post',
+                                        'pjax' => 1,
+                                    ],
+                                ]
+                            );
+                        }
+                        return '';
+                    },
+                ],
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {options} {toggle} {delete}',
                 'buttons' => [
                     'options' => function($url, $model) {
                         if ($model->isSelectType()) {
