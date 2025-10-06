@@ -321,4 +321,48 @@ class ProductProperty extends \yii\db\ActiveRecord
     {
         return self::TYPE_TEXT;
     }
+    
+    /**
+     * Move property position up
+     * @return bool
+     */
+    public function moveUp()
+    {
+        $previous = self::find()
+            ->where(['<', 'position', $this->position])
+            ->orderBy(['position' => SORT_DESC])
+            ->one();
+            
+        if ($previous) {
+            $tempPosition = $this->position;
+            $this->position = $previous->position;
+            $previous->position = $tempPosition;
+            
+            return $this->save(false) && $previous->save(false);
+        }
+        
+        return false;
+    }
+
+    /**
+     * Move property position down
+     * @return bool
+     */
+    public function moveDown()
+    {
+        $next = self::find()
+            ->where(['>', 'position', $this->position])
+            ->orderBy(['position' => SORT_ASC])
+            ->one();
+            
+        if ($next) {
+            $tempPosition = $this->position;
+            $this->position = $next->position;
+            $next->position = $tempPosition;
+            
+            return $this->save(false) && $next->save(false);
+        }
+        
+        return false;
+    }
 }
