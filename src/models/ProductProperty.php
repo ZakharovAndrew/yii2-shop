@@ -12,7 +12,7 @@ use ZakharovAndrew\shop\Module;
  * @property string $name
  * @property string $code
  * @property int $type
- * @property int $sort_order
+ * @property int $position
  * @property bool $is_required
  * @property bool $is_active
  * @property string $created_at
@@ -46,7 +46,7 @@ class ProductProperty extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'code', 'type'], 'required'],
-            [['type', 'sort_order'], 'integer'],
+            [['type', 'position'], 'integer'],
             [['is_required', 'is_active'], 'boolean'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
@@ -66,7 +66,7 @@ class ProductProperty extends \yii\db\ActiveRecord
             'name' => Module::t('Name'),
             'code' => Module::t('Code'),
             'type' => Module::t('Type'),
-            'sort_order' => Module::t('Sort Order'),
+            'position' => Module::t('Sort Order'),
             'is_required' => Module::t('Required'),
             'is_active' => Module::t('Active'),
             'created_at' => Module::t('Created At'),
@@ -106,7 +106,7 @@ class ProductProperty extends \yii\db\ActiveRecord
     public function getOptions()
     {
         return $this->hasMany(ProductPropertyOption::class, ['property_id' => 'id'])
-            ->orderBy(['sort_order' => SORT_ASC]);
+            ->orderBy(['position' => SORT_ASC]);
     }
 
     /**
@@ -126,7 +126,7 @@ class ProductProperty extends \yii\db\ActiveRecord
     {
         return self::find()
             ->where(['is_active' => true])
-            ->orderBy(['sort_order' => SORT_ASC])
+            ->orderBy(['position' => SORT_ASC])
             ->all();
     }
 
@@ -139,7 +139,7 @@ class ProductProperty extends \yii\db\ActiveRecord
     {
         return self::find()
             ->where(['type' => $type, 'is_active' => true])
-            ->orderBy(['sort_order' => SORT_ASC])
+            ->orderBy(['position' => SORT_ASC])
             ->all();
     }
 

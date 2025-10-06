@@ -17,7 +17,7 @@ class ProductPropertySearch extends ProductProperty
     public function rules()
     {
         return [
-            [['id', 'type', 'sort_order'], 'integer'],
+            [['id', 'type', 'position'], 'integer'],
             [['name', 'code', 'created_at', 'updated_at'], 'safe'],
             [['is_required', 'is_active'], 'boolean'],
         ];
@@ -48,7 +48,7 @@ class ProductPropertySearch extends ProductProperty
             'query' => $query,
             'sort' => [
                 'defaultOrder' => [
-                    'sort_order' => SORT_ASC,
+                    'position' => SORT_ASC,
                     'name' => SORT_ASC,
                 ]
             ],
@@ -69,7 +69,7 @@ class ProductPropertySearch extends ProductProperty
         $query->andFilterWhere([
             'id' => $this->id,
             'type' => $this->type,
-            'sort_order' => $this->sort_order,
+            'position' => $this->position,
             'is_required' => $this->is_required,
             'is_active' => $this->is_active,
         ]);
@@ -100,7 +100,7 @@ class ProductPropertySearch extends ProductProperty
             'name' => Module::t('Name'),
             'code' => Module::t('Code'),
             'type' => Module::t('Type'),
-            'sort_order' => Module::t('Sort Order'),
+            'position' => Module::t('Position'),
             'is_required' => Module::t('Required'),
             'is_active' => Module::t('Active'),
             'created_at' => Module::t('Created At'),
