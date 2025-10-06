@@ -155,6 +155,19 @@ class ProductProperty extends \yii\db\ActiveRecord
         }
         return $options;
     }
+    
+    public function getTextList()
+    {
+        $arr = \yii\helpers\ArrayHelper::getColumn(
+                $this->getValues()
+                ->select('value_text')
+                ->distinct()
+                ->asArray()
+                ->all(), 'value_text');
+        
+        return array_combine($arr, $arr);
+    }
+    
 
     /**
      * Check if property is select type

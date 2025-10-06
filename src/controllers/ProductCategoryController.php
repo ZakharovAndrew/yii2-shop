@@ -69,19 +69,67 @@ class ProductCategoryController extends ParentController
             // Получаем активные свойства товара
             $properties = ProductProperty::getActiveProperties();
             
-            $list = [];
+            // Создаем карту свойств для быстрого поиска
+            $propertyMap = [];
+            foreach ($properties as $property) {
+                $propertyMap[$property->code] = $property;
+            }
+            
             foreach ($filter as $filterName => $filterValues) {
-                foreach ($properties as $property) {
-                    if ($filterName == $property->code) {
-                        // если select и значение среди допустимых
-                        if ($property->isSelectType()) {
-                            $q = (implode(' OR ', array_map(function($item) use ($property_index) {
-                                return "p{$property_index}.option_id = {$item}";
-                            }, $filterValues)));
-                            $query->innerJoin('product_property_value p'.$property_index, "p{$property_index}.product_id = product.id AND p{$property_index}.property_id = {$property->id} AND ($q)");
-                            $property_index++;
-                        }
+                // Проверяем существование свойства в карте
+                if (!isset($propertyMap[$filterName])) {
+                    continue;
+                }
+
+                $property = $propertyMap[$filterName];
+                
+                // Валидируем filterValues
+                if (!is_array($filterValues) || empty($filterValues)) {
+                    continue;
+                }
+                // если select и значение среди допустимых
+                if ($property->isSelectType()) {
+                    // Защита от SQL-инъекций для числовых значений
+                    $validatedValues = array_filter(array_map('intval', $filterValues));
+                    if (empty($validatedValues)) {
+                        continue;
                     }
+                    $q = implode(',', $validatedValues);
+
+                    $query->innerJoin(
+                        'product_property_value p'.$property_index,
+                        "p{$property_index}.product_id = product.id AND p{$property_index}.property_id = {$property->id} AND p{$property_index}.option_id IN ({$q})"
+                    );
+                    $property_index++;
+                }
+                if ($property->isTextType()) {
+                    // Защита от SQL-инъекций для текстовых значений через параметры
+                    $conditions = [];
+                    $params = [];
+
+                    foreach ($filterValues as $index => $item) {
+                        if (!is_string($item) || $item === '') {
+                            continue;
+                        }
+
+                        $paramName = ":value_text_{$property_index}_{$index}";
+                        $conditions[] = "p{$property_index}.value_text = {$paramName}";
+                        $params[$paramName] = $item;
+                    }
+
+                    if (empty($conditions)) {
+                        continue;
+                    }
+
+                    $query->innerJoin(
+                        "product_property_value p{$property_index}", 
+                        "p{$property_index}.product_id = product.id AND p{$property_index}.property_id = :property_id_{$property_index} AND (" . implode(' OR ', $conditions) . ")"
+                    )->addParams(array_merge(
+                        [":property_id_{$property_index}" => $property->id],
+                        $params
+                    ));
+
+                    $property_index++;
                 }
             }
         }
