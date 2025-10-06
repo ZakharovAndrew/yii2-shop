@@ -240,6 +240,11 @@ class ProductProperty extends \yii\db\ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
         
+        if (empty($this->position)) {
+            $maxPosition = self::find()->max('position');
+            $this->position = $maxPosition ? $maxPosition + 1 : 1;
+        }
+            
         // Сохраняем опции для выпадающего списка
         if ($this->isSelectType()) {
             if ($this->changeOptions) {
