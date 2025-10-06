@@ -309,6 +309,15 @@ if (!$model->isNewRecord) {
                                 
                             <?php else: ?>
                                 <!-- Текстовое поле -->
+                                <?php $params = [
+                                    'class' => 'form-control',
+                                    'id' => $fieldId,
+                                    'placeholder' => Module::t('Enter value'),
+                                ];
+                                
+                                if ($property->is_required) {
+                                    $params['required'] = true;    
+                                }?>
                                 <?= Html::textInput(
                                     $fieldName,
                                     $value ? $value->value_text : '',
