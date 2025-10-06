@@ -30,6 +30,14 @@ class ProductCategory extends \yii\db\ActiveRecord
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
     
+    const SORTING = [
+        'default' => 'position DESC',
+        'name_asc' => 'name ASC',
+        'name_desc' => 'name DESC',
+        'price_desc' => 'price DESC',
+        'price_asc' => 'price ASC'
+    ];
+    
     public $availableColorIds = []; // for selected colors
 
     /**

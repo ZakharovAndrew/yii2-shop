@@ -18,15 +18,7 @@ class ProductCategoryController extends ParentController
     public $full_access_actions = ['view'];
     
     public $controller_id = 2002;
-    
-    public $sorting = [
-        'default' => 'position DESC',
-        'name_asc' => 'name ASC',
-        'name_desc' => 'name DESC',
-        'price_desc' => 'price DESC',
-        'price_asc' => 'price ASC'
-    ];
-    
+        
     /**
      * Lists all ProductCategory models.
      *
@@ -100,7 +92,7 @@ class ProductCategoryController extends ParentController
         }
         
         // sorting
-        $query->orderBy($this->sorting[$sorting] ?? $this->sorting['default']);
+        $query->orderBy(ProductCategory::SORTING[$sorting] ?? ProductCategory::SORTING['default']);
                 
         // Create query copy
         $countQuery = clone $query;
