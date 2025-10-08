@@ -14,36 +14,8 @@ use ZakharovAndrew\shop\models\SettingsSearch;
  */
 class SettingsController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'access' => [
-                    'class' => AccessControl::class,
-                    'rules' => [
-                        [
-                            'allow' => true,
-                            'roles' => ['@'],
-                            // Adjust roles as needed, e.g., ['admin']
-                        ],
-                    ],
-                ],
-                'verbs' => [
-                    'class' => VerbFilter::class,
-                    'actions' => [
-                        'delete' => ['POST'],
-                        'bulk-update' => ['POST'],
-                        'admin' => ['GET', 'POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
+    public $controller_id = 2005;
+    
     /**
      * Lists all settings with quick update form.
      *
