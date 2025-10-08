@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'pagination' => $pagination
     ]) ?>
     
-    <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('admin')) {?>
+    <?php if (!Yii::$app->user->isGuest && $model->canEdit) {?>
     <p>
         <?= Html::a(Module::t('Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Module::t('Add Product'), ['product/create', 'shop_id' => $model->id], ['class' => 'btn btn-success']) ?>

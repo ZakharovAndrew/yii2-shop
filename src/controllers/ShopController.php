@@ -2,6 +2,7 @@
 
 namespace ZakharovAndrew\shop\controllers;
 
+use Yii;
 use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\shop\models\ShopSearch;
@@ -26,6 +27,22 @@ class ShopController extends ParentController
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->identity->isAdmin()) {
+            if (!Yii::$app->user->identity->hasRole('shop_owner')) {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            } else {
+                // check store
+                $store = Yii::$app->user->identity->getRoleSubjectsArray("shop_owner");
+                
+                if (!isset($store[0])) {
+                    throw new NotFoundHttpException('The requested page does not exist.');
+                }
+                
+                $model = $this->findModel($store[0]);
+                
+                return $this->redirect(['view', 'url' => $model->url]);
+            }
+        }
         $searchModel = new ShopSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -98,6 +115,19 @@ class ShopController extends ParentController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        if (!Yii::$app->user->identity->isAdmin()) {
+            if (!Yii::$app->user->identity->hasRole('shop_owner')) {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            } else {
+                // check store
+                $store = Yii::$app->user->identity->getRoleSubjectsArray("shop_owner");
+                
+                if (!is_array($store) || !in_array($id, $store)) {
+                    throw new NotFoundHttpException('The requested page does not exist.');
+                }
+            }
+        }
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'url' => $model->url]);

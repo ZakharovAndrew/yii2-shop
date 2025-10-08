@@ -91,4 +91,38 @@ class Shop extends ActiveRecord
             return ArrayHelper::map(self::find()->select(['id', 'name'])->asArray()->all(), 'id', 'name');
         }, 60);
     }
+    
+    /**
+     * Check if current user can edit the shop
+     * 
+     * @param int $shopId Shop ID to check
+     * @return bool
+     */
+    public static function canEdit($shopId)
+    {
+        // Admin can edit any shop
+        if (Yii::$app->user->identity->isAdmin()) {
+            return true;
+        }
+        
+        // Shop owner can edit only their shops
+        if (Yii::$app->user->identity->hasRole('shop_owner')) {
+            $userShops = Yii::$app->user->identity->getRoleSubjectsArray("shop_owner");
+            if (is_array($userShops) && in_array($shopId, $userShops)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Check if current user can edit this shop instance
+     * 
+     * @return bool
+     */
+    public function getCanEdit()
+    {
+        return self::canEdit($this->id);
+    }
 }
