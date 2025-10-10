@@ -322,11 +322,11 @@ return [
     'Products Per Page' => 'Товаров на странице',
     'Catalog Title' => 'Заголовок каталога',
     'Store Name' => 'Название магазина',
-    'Use Transliteration' => 'Использовать транслитерацию',
     'Mobile Products Per Row' => 'Товаров в строке на мобильном',
     'Multi-Store Support' => 'Поддержка мульти-магазина',
     'Default Product Image' => 'Изображение товара по умолчанию',
     'Catalog Page ID' => 'ID страницы каталога',
+    'Show Wholesale Prices' => 'Отображать оптовые цены',
     
     // Common settings terms
     'Settings' => 'Настройки',

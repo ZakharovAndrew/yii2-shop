@@ -33,7 +33,7 @@ class m240107_180031_create_shop_settings_table extends Migration
                 ['productPerPage', Module::t('Products Per Page'), '100', 'integer'],
                 ['catalogTitle', Module::t('Catalog Title'), Module::t('Catalog Title'), 'string'],
                 ['storeName', 'Store Name', 'My Store', 'string'],
-                ['useTranslite', 'Use Transliteration', '0', 'boolean'],
+                ['showWholesalePrices', Module::t('Show Wholesale Prices'), '0', 'boolean'],
                 ['mobileProductsPerRow', 'Mobile Products Per Row', '1', 'integer'],
                 ['multiStore', 'Multi-Store Support', '0', 'boolean'],
                 ['defaultProductImage', 'Default Product Image', '/img/no-photo.jpg', 'string'],
