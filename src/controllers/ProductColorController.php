@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Shop: Product Color
+ *  
+ * @link https://github.com/ZakharovAndrew/yii2-shop/
+ * @copyright Copyright (c) 2023-2025 Zakharov Andrew
+ */
 namespace ZakharovAndrew\shop\controllers;
 
 use Yii;
@@ -14,6 +19,7 @@ use ZakharovAndrew\user\controllers\ParentController;
  */
 class ProductColorController extends ParentController
 {
+    public $controller_id = 2005;
 
     /**
      * Lists all ProductColor models.
@@ -28,19 +34,6 @@ class ProductColorController extends ParentController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single ProductColor model.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
     }
 
