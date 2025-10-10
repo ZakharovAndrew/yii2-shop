@@ -402,6 +402,7 @@ if (!$model->isNewRecord) {
                         <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
                     </div>
                 </div>
+                <?php if (Yii::$app->shopSettings->get('showWholesalePrices', true)) { ?>
                 <div class="card">
                     <h6 class="card-header"><?= Module::t('Bulk pricing') ?></h6>
                     <div class="card-body">
@@ -459,6 +460,7 @@ if (!$model->isNewRecord) {
                         <p class="text-muted small"><?= Module::t('Applies when quantity in cart meets or exceeds this value') ?></p>
                     </div>
                 </div>
+                <?php } ?>
             
                 <div class="card">
                     <h6 class=" card-header">Stock</h6>
