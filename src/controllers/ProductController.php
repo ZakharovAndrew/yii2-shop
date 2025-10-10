@@ -11,14 +11,13 @@ use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\user\controllers\ParentController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ProductController implements the CRUD actions for Product model.
  */
 class ProductController extends ParentController
 {
-    public $controller_id = 4001;
+    public $controller_id = 2004;
     
     public $full_access_actions = ['view'];
 
@@ -74,7 +73,14 @@ class ProductController extends ParentController
             if (Shop::findOne(['id' => $shop_id]) == null) {
                 throw new NotFoundHttpException('The requested page does not exist!');
             }
+            
+            if (!Shop::canEdit($shop_id)) {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+            
             $model->shop_id = $shop_id;
+        } else if (!Yii::$app->user->identity->isAdmin()) {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
 
         if ($this->request->isPost) {
@@ -104,6 +110,10 @@ class ProductController extends ParentController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        if (!Shop::canEdit($model->shop_id)) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             // saving properties
@@ -162,6 +172,10 @@ class ProductController extends ParentController
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+        
+        if (!Shop::canEdit($model->shop_id)) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
         
         $model->status = 0;
         
