@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\shop\models\ProductCategory;
 use ZakharovAndrew\shop\Module;
 
@@ -236,7 +237,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 <div class="product-view">
 
-    <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('admin')) {?>
+    <?php if (!Yii::$app->user->isGuest &&  Shop::canEdit($model->shop_id)) {?>
     <p>
         <?= Html::a(Module::t('Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a(Module::t('Delete'), ['delete', 'id' => $model->id], [
