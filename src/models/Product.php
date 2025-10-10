@@ -46,7 +46,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'url', 'images', 'price'], 'required'],
+            [['name', 'images', 'price'], 'required'],
             ['url', 'unique', 'message' => Module::t('This URL is already in use')],
             [['description', 'composition'], 'string'],
             [['weight'], 'number'],
