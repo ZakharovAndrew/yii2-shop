@@ -1,10 +1,7 @@
 <?php
 
-use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\Module;
 use yii\helpers\Html;
-
-
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\ProductSearch $searchModel */
@@ -34,15 +31,21 @@ Yii::$app->view->registerLinkTag([
 $this->title = (!empty($page) ? $page->title : $module->catalogTitle);  
 $this->params['breadcrumbs'][] = $this->title;
 
+$mobileProductsPerRowStyle = [
+    1 => 'col-md-4 col-12 shop-product',
+    2 => 'col-md-4 col-6 shop-product',
+    3 => 'col-md-4 col-4 shop-product',
+];
 ?>
-<div class="catalog-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="catalog-index">
+    
+    <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
     
     <?= $this->render('_product_list', [
         'products' => $products,
         'pagination' => $dataProvider->pagination,
-        'class' => (Yii::$app->shopSettings->get('mobileProductsPerRow') == 2 ? 'col-md-4 col-6 shop-product' : 'col-md-4 col-12 shop-product')
+        'class' => $mobileProductsPerRowStyle[Yii::$app->shopSettings->get('mobileProductsPerRow')] ?? $mobileProductsPerRowStyle[1]
     ]) ?>
     
     <?php if (!empty($page)) {        
@@ -52,6 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('admin')) {
             echo '<p>' . Html::a(Module::t('Edit'), ['/pages/default/update', 'id' => $page->id], ['class' => 'btn btn-success']) . '</p>';
         }
-    }?>
+    } ?>
 
 </div>
