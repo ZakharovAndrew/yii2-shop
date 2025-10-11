@@ -87,6 +87,9 @@ class ProductController extends ParentController
             if ($model->load($this->request->post()) && $model->save()) {
                 // saving properties
                 $this->saveProductProperties($model, Yii::$app->request->post('properties', []));
+                
+                // add to stock
+                $model->addToStock(1, Yii::$app->user->id, null);
             
                 return $this->redirect(['view', 'url' => $model->url]);
             }
