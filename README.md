@@ -190,6 +190,58 @@ Register the component in config/web.php:
 ],
 ```
 
+## 🎯 Product Swiper Widget
+
+The ProductSwiperWidget allows you to create beautiful product sliders with swiper functionality.
+
+### Basic Usage
+
+```php
+<?= \ZakharovAndrew\shop\widgets\ProductSwiperWidget::widget([
+    'title' => 'New Arrivals',
+    'categoryId' => 4,
+]) ?>
+```
+
+### Display Specific Products by IDs
+
+```php
+<?= \ZakharovAndrew\shop\widgets\ProductSwiperWidget::widget([
+    'title' => 'Featured Products',
+    'productIds' => [1, 5, 8, 12, 15, 20],
+    'id' => 'featured-products',
+    'swiperId' => 'swiper-featured',
+]) ?>
+```
+
+### Advanced Configuration
+
+```php
+<?= \ZakharovAndrew\shop\widgets\ProductSwiperWidget::widget([
+    'title' => 'Best Sellers',
+    'categoryId' => 4,
+    'productIds' => [], // Optional: specify exact product IDs
+    'limit' => 10,
+    'orderBy' => 'sales_count DESC',
+    'id' => 'bestsellers-slider',
+    'swiperId' => 'swiper-bestsellers',
+    'viewFile' => '@app/views/custom/_product', // Custom product view
+]) ?>
+```
+
+### Widget Parameters
+
+<table><thead><tr><th><span>Parameter</span></th><th><span>Type</span></th><th><span>Default</span></th><th><span>Description</span></th></tr></thead><tbody><tr><td><code>title</code></td><td><span>string</span></td><td><span>'New Arrivals'</span></td><td><span>Slider title</span></td></tr><tr><td><code>productIds</code></td><td><span>array</span></td><td><span>[]</span></td><td><span>Specific product IDs to display</span></td></tr><tr><td><code>categoryId</code></td><td><span>integer</span></td><td><span>null</span></td><td><span>Category ID to load products from</span></td></tr><tr><td><code>limit</code></td><td><span>integer</span></td><td><span>14</span></td><td><span>Number of products to show</span></td></tr><tr><td><code>orderBy</code></td><td><span>string</span></td><td><span>'created_at DESC'</span></td><td><span>Products sorting order</span></td></tr><tr><td><code>id</code></td><td><span>string</span></td><td><span>'product-swiper'</span></td><td><span>Main container ID</span></td></tr><tr><td><code>swiperId</code></td><td><span>string</span></td><td><span>'swiper-products'</span></td><td><span>Swiper container ID</span></td></tr><tr><td><code>viewFile</code></td><td><span>string</span></td><td><span>'@vendor/.../_product'</span></td><td><span>Product view template</span></td></tr></tbody></table>
+
+### Features
+
+- Automatic Swiper Initialization: Swiper library is automatically loaded and initialized
+- Single Library Load: Swiper assets are loaded only once even with multiple widgets
+- Flexible Product Selection: Choose products by IDs or category
+- Customizable Styling: Easy to customize with CSS classes
+- Responsive Design: Built-in responsive breakpoints
+- Accessibility: Proper ARIA labels and keyboard navigation
+
 ## 👥 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

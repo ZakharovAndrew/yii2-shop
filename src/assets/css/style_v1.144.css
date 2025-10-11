@@ -375,6 +375,23 @@
     display:block;
 }
 
+.product-list .product-title {
+    text-align: center;
+    padding: 0 5px;
+    font-size:20px;
+}
+.product-list .to-album {
+    margin:10px 0;
+    text-align: center;
+}
+.product-list .to-album button {
+    border-radius: 20px;
+    background-color: #FFC42E;
+    border:none;        
+    padding: 9px 25px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
 .product-category-view .category-description {margin: 30px 0}
 
 .products-header {
@@ -391,4 +408,13 @@
 }
 .products-header .selected-filters {
     width:100%;
+}
+
+/**
+ * Swiper
+ */
+.icon-arrow {
+    background-image: url("svg/icon-arrow.svg");
+    width: 16px;
+    height:16px;
 }
