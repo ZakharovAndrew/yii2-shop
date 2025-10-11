@@ -375,3 +375,20 @@
     display:block;
 }
 
+.product-category-view .category-description {margin: 30px 0}
+
+.products-header {
+    display:flex;
+    margin-bottom:15px;
+}
+.products-header select {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+    color: #606972;
+    min-width:180px;
+}
+.products-header .selected-filters {
+    width:100%;
+}
