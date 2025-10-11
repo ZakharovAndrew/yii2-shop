@@ -18,7 +18,7 @@ class m240107_180034_insert_shop_owner_role extends Migration
             'code' => 'shop_owner',
             'description' => Module::t('Shop owner role with full access rights'),
             'function_to_get_all_subjects' => 'ZakharovAndrew\shop\models\Shop::getShopsList',
-            'parameters' => '{"2001":"index,update,view"}'
+            'parameters' => '{"2001":"index,update,view", "2004":"create,update,get-colors-by-category"}'
         ]);
     }
 
