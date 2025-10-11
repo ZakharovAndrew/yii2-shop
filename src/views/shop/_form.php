@@ -32,6 +32,8 @@ $this->registerJs($script, yii\web\View::POS_READY);
     <?= $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
     
     <?= $form->field($model, 'whatsapp')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
