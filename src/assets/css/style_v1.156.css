@@ -349,6 +349,9 @@
     position: fixed;
     width: 100%;
 }
+.form-group-submit {
+    padding: 15px 0 0 0;
+}
 @media (max-width: 991px) {
     .products-catalog__left_opened {
         position: fixed;
@@ -364,13 +367,14 @@
     #product-catalog-filter {
         display: block;
     }
-    
     .filter-form-group {
         overflow-y: auto;
         overflow-x: hidden;
-        /*height: calc(100vh - 100px);*/
         padding: 20px;
         padding-top: 40px;
+    }
+    .form-group-submit {
+        padding: 0 15px 0 0;
     }
 }
 

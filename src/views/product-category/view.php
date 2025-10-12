@@ -174,7 +174,7 @@ $this->params['breadcrumbs'][] = $model->title;
             </div>
         <?php endforeach; ?>
         </div>
-        <div class="form-group" style="padding-left:15px;">
+        <div class="form-group form-group-submit">
             <?= Html::submitButton(Module::t('Filter'), ['class' => 'btn btn-success']) ?>
         </div>
         <?php ActiveForm::end(); ?>
