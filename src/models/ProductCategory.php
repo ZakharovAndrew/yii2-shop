@@ -229,6 +229,11 @@ class ProductCategory extends \yii\db\ActiveRecord
                     ->all();
         }, 600);
     }
+    
+    public function getSubCategoriesIds()
+    {
+        return \yii\helpers\ArrayHelper::getColumn($this->getSubCategories(), 'id');
+    }
 
     /**
      * Gets query for [[AvailableColors]].
@@ -333,6 +338,7 @@ class ProductCategory extends \yii\db\ActiveRecord
         Yii::$app->cache->delete('list_product_categories');
         Yii::$app->cache->delete('list_categories_dropdown');
         Yii::$app->cache->delete('category_colors_' . $this->id);
+        Yii::$app->cache->delete('list_subcategories_'.$this->id);
         
         return parent::afterSave($insert, $changedAttributes);
         

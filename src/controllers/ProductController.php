@@ -162,6 +162,12 @@ class ProductController extends ParentController
                     $propertyValue->delete();
                 }
             }
+            
+            $parentCategory = ProductCategory::find()->select('id')->where('id = (SELECT parent_id from product_category where id ='.(int)$product->category_id.')')->one();
+            
+            // Clear various caches
+            \Yii::$app->cache->delete('options_by_gategory_'.$propertyId.'_'.$product->category_id);
+            \Yii::$app->cache->delete('options_by_gategory_'.$propertyId.'_'.$parentCategory->id);
         }
     }
 

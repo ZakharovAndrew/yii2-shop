@@ -157,12 +157,12 @@ class ProductProperty extends \yii\db\ActiveRecord
         return $options;
     }
     
-    public function getOptionsByCategoryList($category_id)
+    public function getOptionsByCategoryList($category_id, $child_categories)
     {
-        return Yii::$app->cache->getOrSet('options_by_gategory_'.$category_id, function () use ($category_id) {
+        return Yii::$app->cache->getOrSet('options_by_gategory_'.$this->id.'_'.$category_id, function () use ($category_id, $child_categories) {
             $productIds = ArrayHelper::getColumn(Product::find()
                 ->select('id')
-                ->where(['category_id' => $category_id])
+                ->where(['category_id' => array_merge([$category_id], $child_categories)])
                 ->andWhere(['status' => Product::STATUS_ACTIVE])
                 ->all(), 'id');
 
@@ -180,7 +180,7 @@ class ProductProperty extends \yii\db\ActiveRecord
                 $options[$option->id] = $option->value;
             }
             return $options;
-        }, 600);
+        }, 300);
     }
     
     public function getTextList()
