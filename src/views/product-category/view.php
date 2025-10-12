@@ -94,7 +94,16 @@ $this->params['breadcrumbs'][] = $model->title;
 <div class="products-catalog">
     <div class="products-catalog__left">
         <!-- Фильтр по цветам -->
-        
+        <div id="close-filter">
+            <div class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14px" height="14px" viewBox="0 0 50 50" version="1.1">
+                    <g id="surface1">
+                    <path style=" stroke:none;fill-rule:nonzero;fill:rgb(33 150 243);fill-opacity:1;" d="M 2.722656 5.144531 L 5.152344 2.75 C 6.542969 1.328125 8.867188 1.328125 10.253906 2.75 L 25.003906 17.464844 L 39.753906 2.75 C 41.144531 1.328125 43.46875 1.328125 44.855469 2.75 L 47.25 5.144531 C 48.671875 6.53125 48.671875 8.859375 47.25 10.246094 L 32.535156 24.996094 L 47.25 39.746094 C 48.671875 41.132812 48.671875 43.457031 47.25 44.847656 L 44.855469 47.277344 C 43.46875 48.664062 41.144531 48.664062 39.753906 47.277344 L 25.003906 32.527344 L 10.253906 47.277344 C 8.867188 48.664062 6.542969 48.664062 5.152344 47.277344 L 2.722656 44.847656 C 1.335938 43.457031 1.335938 41.132812 2.722656 39.746094 L 17.472656 24.996094 L 2.722656 10.246094 C 1.335938 8.859375 1.335938 6.53125 2.722656 5.144531 Z M 2.722656 5.144531 "></path>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="filter-form-group">
         <?php if (!empty($availableColors)): ?>
             <div class="color-filter mb-4">
                 <h4><?= Module::t('Filter by Color') ?></h4>
@@ -143,28 +152,29 @@ $this->params['breadcrumbs'][] = $model->title;
                 'action' => ['/shop/product-category/view', 'url' => $url, 'colors' => $colors, 'sorting' => $sorting], // явно укажите действие
             ]); ?>
         <?php foreach ($properties as $property): ?>
-        <div class="filter__item">
-            <div class="propety-header"><?= $property->name ?></div>
-            <div>
-                <?php if ($property->isSelectType()): ?>
-                <?= Html:: CheckboxList(
-                    'filter['.$property->code.']',
-                    $filter[$property->code] ?? null,
-                    $property->getOptionsList(),
-                    []
-                ) ?>
-                <?php elseif ($property->isTextType()): ?>
-                 <?= Html:: CheckboxList(
-                    'filter['.$property->code.']',
-                    $filter[$property->code] ?? null,
-                    $property->getTextList(),
-                    []
-                ) ?> 
-                <?php endif; ?>
+            <div class="filter__item">
+                <div class="propety-header"><?= $property->name ?></div>
+                <div>
+                    <?php if ($property->isSelectType()): ?>
+                    <?= Html:: CheckboxList(
+                        'filter['.$property->code.']',
+                        $filter[$property->code] ?? null,
+                        $property->getOptionsList(),
+                        []
+                    ) ?>
+                    <?php elseif ($property->isTextType()): ?>
+                     <?= Html:: CheckboxList(
+                        'filter['.$property->code.']',
+                        $filter[$property->code] ?? null,
+                        $property->getTextList(),
+                        []
+                    ) ?> 
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
         <?php endforeach; ?>
-        <div class="form-group">
+        </div>
+        <div class="form-group" style="padding-left:15px;">
             <?= Html::submitButton(Module::t('Filter'), ['class' => 'btn btn-success']) ?>
         </div>
         <?php ActiveForm::end(); ?>
@@ -172,6 +182,7 @@ $this->params['breadcrumbs'][] = $model->title;
     </div>
     <div class="products-catalog__right">
         <div class="products-header">
+            <div><div class="btn bnt-sm" id="product-catalog-filter">Фильтр</div></div>
             <div class="selected-filters"></div>
             <?php $form = ActiveForm::begin([
                 'method' => 'get',
@@ -204,20 +215,17 @@ $this->params['breadcrumbs'][] = $model->title;
         <?php } ?>
     </div>
 </div>
-<style>
-    .products-header {
-        display:flex;
-        margin-bottom:15px;
-    }
-    .selected-filters {
-        width:100%;
-    }
-    .products-header select {
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1;
-        white-space: nowrap;
-        color: #606972;
-        min-width:180px;
-    }
-</style>
+
+<?php
+$script = <<< JS
+   
+$('#product-catalog-filter').on('click', function() {
+    $(".products-catalog__left").addClass("products-catalog__left_opened");
+});
+$('#close-filter').on('click', function() {
+    $(".products-catalog__left").removeClass("products-catalog__left_opened");
+});
+
+JS;
+$this->registerJs($script, yii\web\View::POS_READY);
+
