@@ -4,6 +4,7 @@ namespace ZakharovAndrew\shop\models;
 
 use Yii;
 use ZakharovAndrew\shop\Module;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "product_property".
@@ -154,6 +155,32 @@ class ProductProperty extends \yii\db\ActiveRecord
             $options[$option->id] = $option->value;
         }
         return $options;
+    }
+    
+    public function getOptionsByCategoryList($category_id)
+    {
+        return Yii::$app->cache->getOrSet('options_by_gategory_'.$category_id, function () use ($category_id) {
+            $productIds = ArrayHelper::getColumn(Product::find()
+                ->select('id')
+                ->where(['category_id' => $category_id])
+                ->andWhere(['status' => Product::STATUS_ACTIVE])
+                ->all(), 'id');
+
+            
+            $optionIds = ArrayHelper::getColumn(ProductPropertyValue::find()
+                ->select('option_id')
+                ->where(['property_id' => $this->id])
+                ->andWhere(['product_id' => $productIds])
+                ->all(), 'option_id');
+
+            $productOptions = ProductPropertyOption::find()->where(['id' => $optionIds])->all();
+
+            $options = [];
+            foreach ($productOptions as $option) {
+                $options[$option->id] = $option->value;
+            }
+            return $options;
+        }, 600);
     }
     
     public function getTextList()

@@ -436,4 +436,13 @@ class Product extends \yii\db\ActiveRecord
         }
         return false;
     }
+    
+    public function afterSave($insert, $changedAttributes)
+    {        
+        // Clear various caches
+        Yii::$app->cache->delete('options_by_gategory_' . $this->category_id);
+        
+        return parent::afterSave($insert, $changedAttributes);
+        
+    }
 }
