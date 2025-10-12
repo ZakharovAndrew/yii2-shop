@@ -159,7 +159,7 @@ $this->params['breadcrumbs'][] = $model->title;
                     <?= Html:: CheckboxList(
                         'filter['.$property->code.']',
                         $filter[$property->code] ?? null,
-                        $property->getOptionsList(),
+                        $property->getOptionsByCategoryList($model->id,  $model->getSubCategoriesIds()),
                         []
                     ) ?>
                     <?php elseif ($property->isTextType()): ?>
