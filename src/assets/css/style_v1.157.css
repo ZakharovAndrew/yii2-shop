@@ -330,10 +330,11 @@
     height: 100%;
 }
 #product-catalog-filter {
-    border: 1px solid #eeeff1;
+    border: 1px solid #03a9f4;
+    background: #03A9F4;
     padding: 2px 13px;
     font-size: 14px;
-    color: #606972;
+    color: #ffffff;
     display:none;
 }
 #product-catalog-filter:hover {
