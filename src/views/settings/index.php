@@ -1,9 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\GridView;
-use yii\widgets\Pjax;
+use ZakharovAndrew\shop\Module;
 use ZakharovAndrew\shop\models\Settings;
 
 /** @var yii\web\View $this */
@@ -23,7 +21,7 @@ $allSettings = $shopSettings->getAll();
     <div class="row mb-3">
         <div class="col-md-12">
             <?= Html::a('Admin Panel', ['admin'], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Clear Cache', ['clear-cache'], [
+            <?= Html::a(Module::t('Clear Cache'), ['clear-cache'], [
                 'class' => 'btn btn-warning',
                 'data' => [
                     'confirm' => 'Are you sure you want to clear settings cache?',
@@ -62,7 +60,7 @@ $allSettings = $shopSettings->getAll();
                                         <?= Html::dropDownList(
                                             "Settings[{$setting->key}]",
                                             $currentValue,
-                                            [0 => 'No', 1 => 'Yes'],
+                                            [0 => Module::t('No'), 1 => Module::t('Yes')],
                                             ['class' => 'form-control', 'id' => "setting-{$setting->key}"]
                                         ) ?>
                                     </div>
@@ -142,10 +140,10 @@ $allSettings = $shopSettings->getAll();
         </div>
     </div>
     <div class="form-group mt-4">
-        <?= Html::submitButton('<i class="fas fa-save"></i> Update All Settings', [
+        <?= Html::submitButton(Module::t('Update All Settings'), [
             'class' => 'btn btn-success btn-lg'
         ]) ?>
-        <?= Html::a('<i class="fas fa-times"></i> Cancel', ['index'], [
+        <?= Html::a(Module::t('Cancel'), ['index'], [
             'class' => 'btn btn-outline-danger'
         ]) ?>
     </div>
