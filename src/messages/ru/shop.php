@@ -152,6 +152,8 @@ return [
     'Description After Products' => 'Описание после товаров',
     'City' => 'Город',
     'URL can contain only Latin letters, numbers and hyphens' => 'URL может содержать только латинские буквы, цифры и дефисы',
+    'Contacts' => 'Контакты',
+    'About Shop' => 'О магазине',
     
     // Product Property translations
     'Name' => 'Название',
