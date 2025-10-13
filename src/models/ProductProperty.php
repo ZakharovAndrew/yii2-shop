@@ -195,6 +195,25 @@ class ProductProperty extends \yii\db\ActiveRecord
         return array_combine($arr, $arr);
     }
     
+    public function getTextByCategoryList($category_id, $child_categories)
+    {
+        return Yii::$app->cache->getOrSet('text_by_gategory_'.$this->id.'_'.$category_id, function () use ($category_id, $child_categories) {
+            $productIds = ArrayHelper::getColumn(Product::find()
+                ->select('id')
+                ->where(['category_id' => array_merge([$category_id], $child_categories)])
+                ->andWhere(['status' => Product::STATUS_ACTIVE])
+                ->all(), 'id');
+
+            
+            $arr = ArrayHelper::getColumn(ProductPropertyValue::find()
+                ->select('value_text')
+                ->where(['property_id' => $this->id])
+                ->andWhere(['product_id' => $productIds])
+                ->all(), 'value_text');
+
+            return array_combine($arr, $arr);
+        }, 300);
+    }
 
     /**
      * Check if property is select type
