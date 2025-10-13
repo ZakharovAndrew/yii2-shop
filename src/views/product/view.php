@@ -29,8 +29,13 @@ $this->registerMetaTag(['name' => 'og:image', 'content' => $model->getFirstImage
 $this->registerMetaTag(['name' => 'twitter:image', 'content' => $model->getFirstImage('big')]);
 $this->registerMetaTag(['name' => 'twitter:card', 'content' => 'summary_large_image']);
 
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$mobileProductsPerRowStyle = [
+    1 => 'col-md-4 col-12 shop-product',
+    2 => 'col-md-4 col-6 shop-product',
+    3 => 'col-md-4 col-4 shop-product',
+];
 ?>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <style>
@@ -361,8 +366,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?php endif; ?>
             
-            <?= $model->description ?>
-            
             <!-- Блок динамических свойств товара -->
             <?php if (!empty($propertiesWithValues)): ?>
             <div class="product-properties">
@@ -387,6 +390,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>
+            
+            <div class="product-description"><?= $model->description ?></div>
         </div>
     </div>
     
@@ -395,7 +400,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h3><?= Module::t('Similar products') ?></h3>
         <?= $this->render('../catalog/_product_list', [
             'products' => $more_products,
-            'class' => 'col-md-3 col-12'
+            'class' => $mobileProductsPerRowStyle[Yii::$app->shopSettings->get('mobileProductsPerRow')] ?? $mobileProductsPerRowStyle[1]
         ]);?>
     </div>
     <?php } ?>    
