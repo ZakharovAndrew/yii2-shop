@@ -146,6 +146,12 @@ return [
     'Create Store' => 'Создать магазин',
     'Stores' => 'Магазины',
     'Store' => 'Магазин',
+    'Avatar' => 'Аватарка',
+    'Created By' => 'Кем создан',
+    'Address' => 'Адрес',
+    'Description After Products' => 'Описание после товаров',
+    'City' => 'Город',
+    'URL can contain only Latin letters, numbers and hyphens' => 'URL может содержать только латинские буквы, цифры и дефисы',
     
     // Product Property translations
     'Name' => 'Название',

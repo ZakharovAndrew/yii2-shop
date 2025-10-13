@@ -25,6 +25,10 @@ use ZakharovAndrew\shop\Module;
  * @property string|null $avatar
  * @property int $created_at
  * @property int $updated_at
+ * @property int $created_by
+ * @property string|null $address
+ * @property string|null $telegram
+ * @property string|null $description_after_products
  */
 class Shop extends ActiveRecord
 {
@@ -43,10 +47,13 @@ class Shop extends ActiveRecord
     {
         return [
             [['name', 'url'], 'required'],
-            [['description'], 'string'],
-            [['name', 'url', 'avatar', 'whatsapp', 'city'], 'string', 'max' => 255],
+            [['description', 'description_after_products'], 'string'],
+            [['created_by', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'url', 'avatar', 'whatsapp', 'city', 'telegram'], 'string', 'max' => 255],
+            [['address'], 'string', 'max' => 500],
             [['url'], 'unique'],
-            [['url'], 'match', 'pattern' => '/^[a-z0-9\-]+$/', 'message' => 'URL может содержать только латинские буквы, цифры и дефисы'],
+            [['url'], 'match', 'pattern' => '/^[a-z0-9\-]+$/', 'message' => Module::t('URL can contain only Latin letters, numbers and hyphens')],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => \Yii::$app->user->identityClass, 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
     
@@ -55,24 +62,45 @@ class Shop extends ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
+       return [
             'id' => 'ID',
             'name' => Module::t('Store Name'),
             'description' => Module::t('Description'),
             'url' => 'URL',
-            'avatar' => 'Аватарка',
-            'created_at' => 'Дата создания',
-            'updated_at' => 'Дата обновления',
+            'avatar' => Module::t('Avatar'),
+            'created_at' => Module::t('Created At'),
+            'updated_at' => Module::t('Updated At'),
+            'created_by' => Module::t('Created By'),
+            'address' => Module::t('Address'),
+            'telegram' => 'Telegram',
+            'description_after_products' => Module::t('Description After Products'),
+            'city' => Module::t('City'),
+            'whatsapp' => 'WhatsApp',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreator()
+    {
+        return $this->hasOne(\Yii::$app->user->identityClass, ['id' => 'created_by']);
+    }
 
+    /**
+     * Get shop products
+     * 
+     * @return \yii\db\ActiveQuery
+     */
     public function getProducts()
     {
         return $this->hasMany(Product::class, ['shop_id' => 'id']);
     }
     
     /**
-     * Полный URL аватарки
+     * Get full avatar URL
+     * 
+     * @return string|null
      */
     public function getAvatarUrl()
     {
@@ -83,7 +111,9 @@ class Shop extends ActiveRecord
     }
     
     /**
-     * Get a list of shops 
+     * Get shops list for dropdown
+     * 
+     * @return array
      */
     public static function getShopsList()
     {
@@ -111,6 +141,12 @@ class Shop extends ActiveRecord
             if (is_array($userShops) && in_array($shopId, $userShops)) {
                 return true;
             }
+        }
+        
+        // Creator can edit their shop
+        $shop = self::findOne($shopId);
+        if ($shop && $shop->created_by == Yii::$app->user->id) {
+            return true;
         }
         
         return false;
