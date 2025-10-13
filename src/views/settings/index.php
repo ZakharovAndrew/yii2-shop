@@ -61,7 +61,7 @@ $allSettings = $shopSettings->getAll();
                                             "Settings[{$setting->key}]",
                                             $currentValue,
                                             [0 => Module::t('No'), 1 => Module::t('Yes')],
-                                            ['class' => 'form-control', 'id' => "setting-{$setting->key}"]
+                                            ['class' => 'form-control form-select', 'id' => "setting-{$setting->key}"]
                                         ) ?>
                                     </div>
                                 <?php elseif ($setting->type === Settings::TYPE_JSON): ?>
