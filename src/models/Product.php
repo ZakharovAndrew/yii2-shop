@@ -327,6 +327,14 @@ class Product extends \yii\db\ActiveRecord
         return $url;
     }
     
+     /**
+     * Gets query for [[PropertyValues]].
+     */
+    public function getShop()
+    {
+        return $this->hasOne(Shop::class, ['id' => 'shop_id']);
+    }
+    
     /**
      * Gets query for [[PropertyValues]].
      */
