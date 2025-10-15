@@ -478,3 +478,18 @@
     width: 16px;
     height:16px;
 }
+
+/**
+ * Store
+ */
+.shop-avatar-wrap__mini {
+    display:flex;margin-top:8px;margin-bottom:8px;gap:10px;
+}
+.shop-avatar-wrap__mini img {
+    width: 50px;
+    height: 50px;
+    margin-top: 0;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 50%
+}
