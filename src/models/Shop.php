@@ -48,7 +48,8 @@ class Shop extends ActiveRecord
         return [
             [['name', 'url'], 'required'],
             [['description', 'description_after_products'], 'string'],
-            [['created_by', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'safe'],
+            [['created_by'], 'integer'],
             [['name', 'url', 'avatar', 'whatsapp', 'city', 'telegram'], 'string', 'max' => 255],
             [['address'], 'string', 'max' => 500],
             [['url'], 'unique'],

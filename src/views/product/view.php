@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 use ZakharovAndrew\shop\models\Shop;
 use ZakharovAndrew\shop\models\ProductCategory;
@@ -365,6 +366,14 @@ $mobileProductsPerRowStyle = [
                 <p><?= nl2br(Html::encode($model->composition)) ?></p>
             </div>
             <?php endif; ?>
+            
+            <?php if (isset($model->shop->avatarUrl)) {?>
+            <div class="shop-avatar-wrap__mini">
+                <img src="<?= $model->shop->avatarUrl ?>" alt="<?= $model->shop->name ?>">
+                <div><a href="<?= Url::to(['/shop/shop/view', 'url' => $model->shop->url])?>"><?= $model->shop->name ?></a>
+                <div class="pavilion2"><?= $model->shop->city ?></div></div>
+            </div>
+            <?php } ?>
             
             <!-- Блок динамических свойств товара -->
             <?php if (!empty($propertiesWithValues)): ?>

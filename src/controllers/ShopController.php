@@ -129,8 +129,14 @@ class ShopController extends ParentController
             }
         }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'url' => $model->url]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            if ($model->save()) {
+        
+                Yii::$app->session->setFlash('success', 'Данные обновлены.');
+                return $this->redirect(['view', 'url' => $model->url]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Ошибка обновления'.var_export($model->getErrors(), true));
+            }
         }
 
         return $this->render('update', [
