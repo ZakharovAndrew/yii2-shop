@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
 
                 'content' => function ($model) {
-                    return (mb_substr(strip_tags($model->description), 0, 50)).'...';
+                    return (mb_substr(strip_tags($model->description ?? ''), 0, 50)).'...';
                 }
             ],
             [
