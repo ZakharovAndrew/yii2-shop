@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'up' => function($url, $model, $key) {
                         if ($model->position > 1) {
                             return Html::a(
-                                '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 4L4 8M8 4L12 8M8 4V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                                '<span class="icon-arrow-up"></span>',
                                 ['move-up', 'id' => $model->id],
                                 [
                                     'title' => Module::t('Move up'),
@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $maxPosition = \ZakharovAndrew\shop\models\ProductProperty::find()->max('position');
                         if ($model->position < $maxPosition) {
                             return Html::a(
-                                '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 12L4 8M8 12L12 8M8 12V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+                                '<span class="icon-arrow-down"></span>',
                                 ['move-down', 'id' => $model->id],
                                 [
                                     'title' => Module::t('Move down'),
