@@ -113,14 +113,19 @@ class ProductController extends ParentController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
+               
         if (!Shop::canEdit($model->shop_id)) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+        
+        $model->tag_list = $model->getTagIds();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             // saving properties
             $this->saveProductProperties($model, Yii::$app->request->post('properties', []));
+            
+            $model->setTags($model->tag_list);
+            //var_dump($model->tags);die();
             
             return $this->redirect(['view', 'url' => $model->url]);
         }

@@ -133,14 +133,6 @@ Add this to your main configuration's modules array
             'catalogTitle' => 'Catalog Title',
             'storeName' => 'My Store',
             'bootstrapVersion' => 5, // if use bootstrap 5
-            'params' => [
-                '1' => [
-                    'title' => [
-                        'en-US' => 'Weight',
-                        'ru' => 'Вес'
-                    ]
-                ]
-            ],
             'deliveryMethods' => [
                 1 => 'Courier delivery',
                 2 => 'Pickup from store',
@@ -169,6 +161,7 @@ Add this to your main configuration's urlManager array
                 'catalog/<url:[\w\-]+>' => 'shop/product-category/view',
                 'catalog' => 'shop/catalog/index',
                 'product/<url:[\w\d\-]+>' => 'shop/product/view',
+                'tag/<url:[\w\d\-]+>' => 'product-tag/view',
                 'cart' => 'shop/cart/index',
                 'checkout' => 'shop/checkout/index',
                 'admin/orders' => 'shop/admin-order/index',

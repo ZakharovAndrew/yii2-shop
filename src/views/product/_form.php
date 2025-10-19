@@ -15,7 +15,23 @@ use ZakharovAndrew\shop\models\ProductProperty;
 $module = Yii::$app->getModule('shop');
 // current language
 $appLanguage = Yii::$app->language;
+
 $this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js');
+
+// CSS/JS Select2
+$this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css');
+//$this->registerCssFile('https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css');
+$this->registerCssFile('https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css');
+$this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+// init Select2
+$this->registerJs(<<<JS
+    $('.select2').select2({
+        placeholder: "Выберите...",
+        allowClear: true,
+        multiple: true,
+    });
+JS
+);
 
 // Получаем доступные цвета для выбранной категории
 $availableColors = [];
@@ -480,6 +496,20 @@ if (!$model->isNewRecord) {
                         <?php } ?>
                     </div>
                 </div>
+                
+                <div class="card">
+                    <h6 class=" card-header">Tags</h6>
+                    <div class="card-body">
+                    <?= $form->field($model, 'tag_list')->dropDownList(
+                        \yii\helpers\ArrayHelper::map(ZakharovAndrew\shop\models\ProductTag::getAvailableTags(), 'id', 'name'),
+                        [   /*'prompt'=>'',*/
+                            'prompt' => '', // Обязательно
+                            'multiple' => true, // Обязательно
+                            'class' => 'form-control form-select select2',
+                        ]
+                    )->label(false) ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -493,3 +523,5 @@ if (!$model->isNewRecord) {
     <?= ImageUploadWidget::afterForm() ?>
 
 </div>
+
+

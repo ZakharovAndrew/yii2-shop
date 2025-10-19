@@ -5,6 +5,7 @@ namespace ZakharovAndrew\shop\models;
 use Yii;
 use ZakharovAndrew\shop\Module;
 use yii\helpers\Inflector;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "product".
@@ -32,6 +33,8 @@ class Product extends \yii\db\ActiveRecord
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
     
+    public $tag_list;
+        
     /**
      * {@inheritdoc}
      */
@@ -58,7 +61,7 @@ class Product extends \yii\db\ActiveRecord
               'bulk_price_quantity_1', 'bulk_price_1', 
               'bulk_price_quantity_2', 'bulk_price_2', 
               'bulk_price_quantity_3', 'bulk_price_3'], 'integer'],
-            [['created_at'], 'safe'],
+            [['created_at', 'tag_list'], 'safe'],
             ['quantity', 'integer'],
             [['name', 'url', 'images', 'param1', 'param2', 'param3', 'video'], 'string', 'max' => 255],
         ];
@@ -432,6 +435,58 @@ class Product extends \yii\db\ActiveRecord
     public function getColor()
     {
         return $this->hasOne(ProductColor::class, ['id' => 'color_id']);
+    }
+
+    /**
+     * Gets query for [[ProductTagAssignments]].
+     */
+    public function getProductTagAssignments()
+    {
+        return $this->hasMany(ProductTagAssignment::class, ['product_id' => 'id']);
+    }
+    
+    /**
+     * Gets query for [[Tags]].
+     */
+    public function getTags()
+    {
+        return $this->hasMany(ProductTag::class, ['id' => 'tag_id'])
+            ->via('productTagAssignments')
+            ->orderBy(['position' => SORT_ASC]);
+    }
+    
+    /**
+     * Get tag IDs for this product
+     * @return array
+     */
+    public function getTagIds()
+    {
+        return ArrayHelper::getColumn($this->tags, 'id');
+    }
+
+    /**
+     * Set tags for product
+     * @param array $tagIds
+     */
+    public function setTags($tagIds)
+    {
+        $currentTagIds = $this->getTagIds();
+        $toAdd = array_diff($tagIds, $currentTagIds);
+        $toRemove = array_diff($currentTagIds, $tagIds);
+
+        // Remove old tags
+        foreach ($toRemove as $tagId) {
+            ProductTagAssignment::deleteAll(['product_id' => $this->id, 'tag_id' => $tagId]);
+        }
+
+        // Add new tags
+        foreach ($toAdd as $tagId) {
+            $assignment = new ProductTagAssignment([
+                'product_id' => $this->id,
+                'tag_id' => $tagId,
+            ]);
+            $assignment->save();
+        }
     }
     
     public function beforeSave($insert)

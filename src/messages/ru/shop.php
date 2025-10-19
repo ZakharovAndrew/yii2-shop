@@ -347,6 +347,20 @@ return [
     // Роль для владельца магазина
     'Shop Owner' => 'Владелец магазина',
     'Shop owner role with full access rights' => 'Роль владельца магазина с полными правами доступа',
+    
+    //Tags
+    'Background Color' => 'Цвет фона',
+    'Text Color' => 'Цвет текста',
+    'Allowed Roles' => 'Доступные роли',
+    'This URL is already in use' => 'Этот URL уже используется',
+    'URL' => 'URL',
+    'Product Tags' => 'Теги товаров',
+    'Create Product Tag' => 'Создать тег товара',
+    'Update Product Tag' => 'Редактировать тег товара',
+    'Bulk Delete' => 'Массовое удаление',
+    'Leave empty to make tag available for all roles' => 'Оставьте пустым, чтобы тег был доступен всем ролям',
+    'All roles' => 'Все роли',
+    'Leave empty to auto-generate from name' => 'Оставьте пустым для автоматической генерации из названия',
 ];
 
 
