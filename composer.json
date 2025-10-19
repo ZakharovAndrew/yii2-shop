@@ -2,7 +2,7 @@
     "name": "zakharov-andrew/yii2-shop",
     "description": "Yii2 Shop",
     "type": "yii2-extension",
-    "keywords": ["yii2", "extension", "module", "shop", "admin", "yii 2", "cart"],
+    "keywords": ["yii2", "extension", "module", "shop", "admin", "yii 2", "cart", "store", "multi-store"],
     "license": "MIT",
     "authors": [
         {
