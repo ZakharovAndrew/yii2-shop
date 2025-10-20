@@ -470,8 +470,12 @@ class Product extends \yii\db\ActiveRecord
      */
     public function setTags($tagIds)
     {
+        if (empty($tagIds)) {
+            $tagIds = [];
+        }
         $currentTagIds = $this->getTagIds();
-        $toAdd = array_diff($tagIds, $currentTagIds);
+
+        $toAdd = array_diff($tagIds, $currentTagIds ?? []);
         $toRemove = array_diff($currentTagIds, $tagIds);
 
         // Remove old tags
