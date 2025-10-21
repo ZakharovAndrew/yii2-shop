@@ -172,6 +172,9 @@ return [
     'Date' => 'Дата',
     'Checkbox' => 'Чекбокс',
     'Unknown Type' => 'Неизвестный тип',
+    'Integer' => 'Целое число',
+    'String' => 'Строка',
+    'Select type...' => 'Выберите тип...',
     
     // Property Option translations
     'Property' => 'Свойство',

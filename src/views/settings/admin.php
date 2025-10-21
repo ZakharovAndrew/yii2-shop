@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use ZakharovAndrew\shop\models\Settings;
+use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
 /** @var ZakharovAndrew\shop\models\SettingsSearch $searchModel */
@@ -56,11 +57,11 @@ $shopSettings = Yii::$app->shopSettings;
                     ]) ?>
 
                     <?= $form->field($model, 'type')->dropDownList([
-                        Settings::TYPE_STRING => 'String',
-                        Settings::TYPE_INTEGER => 'Integer',
+                        Settings::TYPE_STRING => Module::t('String'),
+                        Settings::TYPE_INTEGER => Module::t('Integer'),
                         Settings::TYPE_BOOLEAN => 'Boolean',
                         Settings::TYPE_JSON => 'JSON',
-                    ], ['prompt' => 'Select type...', 'class'=>'form-select form-control']) ?>
+                    ], ['prompt' => Module::t('Select type...'), 'class'=>'form-select form-control']) ?>
 
                     <?= $form->field($model, 'value')->textarea([
                         'rows' => 3,
