@@ -65,7 +65,7 @@ class ProductController extends ParentController
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionCreate($shop_id = null)
+    public function actionCreate($shop_id = null, $category_id = null)
     {
         $model = new Product();
         
@@ -82,6 +82,8 @@ class ProductController extends ParentController
         } else if (!Yii::$app->user->identity->isAdmin()) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+        
+        $model->category_id = $category_id;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -124,7 +126,7 @@ class ProductController extends ParentController
             // saving properties
             $this->saveProductProperties($model, Yii::$app->request->post('properties', []));
             
-            $model->setTags($model->tag_list);
+            $model->setTags($model->tag_list ?? []);
             //var_dump($model->tags);die();
             
             return $this->redirect(['view', 'url' => $model->url]);

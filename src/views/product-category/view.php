@@ -208,9 +208,10 @@ $this->params['breadcrumbs'][] = $model->title;
         
         <div class="category-description_after"><?= $model->description_after ?></div>
     
-        <?php if (!Yii::$app->user->isGuest) {?>
+        <?php if (!Yii::$app->user->isGuest || Yii::$app->user->identity->hasRole('admin')) {?>
         <p>
             <?= Html::a(Module::t('Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Module::t('Add Product'), ['/shop/product/create', 'category_id' => $model->id], ['class' => 'btn btn-success']) ?>
         </p>
         <?php } ?>
     </div>
