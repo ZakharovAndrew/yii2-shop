@@ -1,21 +1,18 @@
 <?php
 
 use yii\db\Migration;
-use ZakharovAndrew\shop\Module;
 
 /**
- * Add timestamps and status to product_category table
+ * Add timestamps to product table
  */
-class m240107_180032_add_timestamps_and_status_to_product_category extends Migration
+class m240107_180036_add_updated_at_to_product_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {                
-        $this->addColumn('product_category', 'status', $this->integer()->defaultValue(1)->comment('Status'));
-        $this->addColumn('product_category', 'created_at', $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'));
-        $this->addColumn('product_category', 'updated_at', $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+        $this->addColumn('product', 'updated_at', $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     }
 
     /**
@@ -23,8 +20,6 @@ class m240107_180032_add_timestamps_and_status_to_product_category extends Migra
      */
     public function safeDown()
     {
-        $this->dropColumn('product_category', 'status');
-        $this->dropColumn('product_category', 'created_at');
-        $this->dropColumn('product_category', 'updated_at');
+        $this->dropColumn('product', 'updated_at');
     }
 }

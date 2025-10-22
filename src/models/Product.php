@@ -61,7 +61,7 @@ class Product extends \yii\db\ActiveRecord
               'bulk_price_quantity_1', 'bulk_price_1', 
               'bulk_price_quantity_2', 'bulk_price_2', 
               'bulk_price_quantity_3', 'bulk_price_3'], 'integer'],
-            [['created_at', 'tag_list'], 'safe'],
+            [['created_at', 'updated_at', 'tag_list'], 'safe'],
             ['quantity', 'integer'],
             [['name', 'url', 'images', 'param1', 'param2', 'param3', 'video'], 'string', 'max' => 255],
         ];
