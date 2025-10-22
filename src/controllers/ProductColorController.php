@@ -19,7 +19,7 @@ use ZakharovAndrew\user\controllers\ParentController;
  */
 class ProductColorController extends ParentController
 {
-    public $controller_id = 2005;
+    public $controller_id = 2006;
 
     /**
      * Lists all ProductColor models.
