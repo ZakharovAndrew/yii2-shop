@@ -571,3 +571,111 @@
 .w-full {
     width: 100%;
 }
+
+/* favorite */
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn:hover {
+    background-color: rgba(255, 71, 87, 0.1);
+}
+
+.favorite-btn .heart-icon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #666;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+
+.fav-active .heart-icon {
+    fill: #ff4757;
+    stroke: #ff4757;
+    transform: scale(1.1);
+}
+
+.heart-icon path {
+    transition: all 0.3s ease;
+}
+
+.favorite-btn .heart-svg {
+    width: 22px;
+    height: 22px;
+    overflow: visible;
+}
+
+.favorite-btn .heart-path {
+    fill: none;
+    stroke: #495057;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: center;
+}
+
+/* Анимация пульсации при добавлении */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.fav-active .heart-path {
+    animation: pulse 0.4s ease;
+}
+
+.favorite-btn .heart {
+    width: 24px;
+    height: 24px;
+    background-color: #ccc;
+    position: relative;
+    transform: rotate(-45deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn .heart::before,
+.favorite-btn .heart::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 50%;
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+.favorite-btn .heart::before {
+    top: -12px;left:0;
+}
+
+.favorite-btn .heart::after {
+    top:0;left:12px;
+}
+
+.favorite-btn .heart.active {
+    background-color: #ff4757;
+    transform: rotate(-45deg) scale(1.1);
+}
+
+.favorite-btn .heart.active::before,
+.favorite-btn .heart.active::after {
+    background-color: #ff4757;
+}
+
+.favorite-btn .heart:hover {
+    transform: rotate(-45deg) scale(1.1);
+}
+
+.fav-active .heart-path {
+    stroke: red;
+    transform: scale(1.1);
+}
