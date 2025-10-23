@@ -492,6 +492,168 @@ class Product extends \yii\db\ActiveRecord
             $assignment->save();
         }
     }
+
+    /**
+     * Gets query for [[ProductFavorites]].
+     */
+    public function getProductFavorites()
+    {
+        return $this->hasMany(ProductFavorite::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * Check if product is in user's favorites
+     * @param int|null $userId
+     * @return bool
+     */
+    public function isInFavorites($userId = null)
+    {
+        if ($userId === null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        if (!$userId) {
+            return false;
+        }
+
+        return ProductFavorite::find()
+            ->where(['user_id' => $userId, 'product_id' => $this->id])
+            ->exists();
+    }
+
+    /**
+     * Add to favorites
+     * @param int|null $userId
+     * @return bool
+     */
+    public function addToFavorites($userId = null)
+    {
+        if ($userId === null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        if (!$userId) {
+            return false;
+        }
+
+        if ($this->isInFavorites($userId)) {
+            return true; // Already in favorites
+        }
+
+        $favorite = new ProductFavorite([
+            'user_id' => $userId,
+            'product_id' => $this->id,
+        ]);
+
+        return $favorite->save();
+    }
+
+    /**
+     * Remove from favorites
+     * @param int|null $userId
+     * @return bool
+     */
+    public function removeFromFavorites($userId = null)
+    {
+        if ($userId === null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        if (!$userId) {
+            return false;
+        }
+
+        return ProductFavorite::deleteAll([
+            'user_id' => $userId,
+            'product_id' => $this->id,
+        ]) > 0;
+    }
+
+    /**
+     * Toggle favorite status
+     * @param int|null $userId
+     * @return bool new status (true - added, false - removed)
+     */
+    public function toggleFavorite($userId = null)
+    {
+        if ($userId === null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        if (!$userId) {
+            return false;
+        }
+
+        if ($this->isInFavorites($userId)) {
+            $this->removeFromFavorites($userId);
+            return false;
+        } else {
+            $this->addToFavorites($userId);
+            return true;
+        }
+    }
+
+    /**
+     * Get user's favorite products
+     * @param int|null $userId
+     * @return Product[]
+     */
+    public static function getUserFavorites($userId = null)
+    {
+        if ($userId === null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        if (!$userId) {
+            return [];
+        }
+
+        return self::find()
+            ->alias('p')
+            ->innerJoin(['pf' => ProductFavorite::tableName()], 'pf.product_id = p.id')
+            ->where(['pf.user_id' => $userId])
+            ->andWhere(['p.status' => self::STATUS_ACTIVE])
+            ->orderBy(['pf.created_at' => SORT_DESC])
+            ->all();
+    }
+
+    /**
+     * Get user's favorite products query
+     * @param int|null $userId
+     * @return \yii\db\ActiveQuery
+     */
+    public static function getUserFavoritesQuery($userId = null)
+    {
+        if ($userId === null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        return self::find()
+            ->alias('p')
+            ->innerJoin(['pf' => ProductFavorite::tableName()], 'pf.product_id = p.id')
+            ->where(['pf.user_id' => $userId])
+            ->andWhere(['p.status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * Get favorite products count for user
+     * @param int|null $userId
+     * @return int
+     */
+    public static function getFavoritesCount($userId = null)
+    {
+        if ($userId === null) {
+            $userId = Yii::$app->user->id;
+        }
+
+        if (!$userId) {
+            return 0;
+        }
+
+        return ProductFavorite::find()
+            ->where(['user_id' => $userId])
+            ->count();
+    }
     
     public function beforeSave($insert)
     {
