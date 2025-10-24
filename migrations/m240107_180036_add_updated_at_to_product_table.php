@@ -12,7 +12,7 @@ class m240107_180036_add_updated_at_to_product_table extends Migration
      */
     public function safeUp()
     {                
-        $this->addColumn('product', 'updated_at', $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+        $this->addColumn('product', 'updated_at', $this->timestamp());
     }
 
     /**
