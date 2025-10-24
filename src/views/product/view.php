@@ -348,13 +348,23 @@ $mobileProductsPerRowStyle = [
             </div>
             <?php endif; ?>
             
-            <?php if ($model->quantity == 0) { ?>
-            <div class="out_of_stock"><?= Module::t('Out of stock') ?></div>
-            <?php } else { ?>
-            <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
-                <button><?= Module::t('Add to cart') ?></button>
+            <div style="display: flex">
+                <?php $isFavorite = $model->isInFavorites(); ?>
+                <?php if ($model->quantity == 0) { ?>
+                <div class="out_of_stock"><?= Module::t('Out of stock') ?></div>
+                <?php } else { ?>
+                <div class="to-album add-to-cart" data-id="<?= $model->id ?>">
+                    <button><?= Module::t('Add to cart') ?></button>
+                </div>
+                <?php } ?>
+                <button class="favorite-btn favorite-toggle<?= $isFavorite ? ' fav-active' : '' ?>"
+                data-product-id="<?= $model->id ?>"
+                data-is-favorite="<?= $isFavorite ? '1' : '0' ?>" title="<?= $isFavorite ? Module::t('In Favorites') : Module::t('Add to Favorites') ?>">
+                    <svg class="heart-svg" viewBox="0 0 24 24">
+                        <path class="heart-path" d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
             </div>
-            <?php } ?>
             
             <?php if ($model->quantity > 1 && $model->quantity <6) { ?>
             <div class="product_in_stock"><?= Module::t('Left') ?> <?= $model->quantity ?> шт.</div>

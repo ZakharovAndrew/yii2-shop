@@ -49,6 +49,7 @@ class ProductController extends ParentController
         
         // increase the number of views
         $model->count_views++;
+        $model->change_updated_at = false;
         $model->save();
 
         return $this->render('view', [
