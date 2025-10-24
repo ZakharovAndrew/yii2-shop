@@ -364,6 +364,18 @@ return [
     'Leave empty to make tag available for all roles' => 'Оставьте пустым, чтобы тег был доступен всем ролям',
     'All roles' => 'Все роли',
     'Leave empty to auto-generate from name' => 'Оставьте пустым для автоматической генерации из названия',
+    
+    'Dashboard' => 'Дашборды',
+    
+    // favorite
+    'My Favorites' => 'Мои избранные товары',
+    'Add to Favorites' => 'В избранное',
+    'Remove from Favorites' => 'Удалить из избранного',
+    'In Favorites' => 'В избранном',
+    'You have no favorite products yet.' => 'У вас пока нет избранных товаров.',
+    'Product added to favorites' => 'Товар добавлен в избранное',
+    'Product removed from favorites' => 'Товар удален из избранного',
+    'Login to add to favorites' => 'Войдите, чтобы добавить в избранное',
 ];
 
 

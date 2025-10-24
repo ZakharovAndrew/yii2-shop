@@ -123,4 +123,54 @@ class ProductSearch extends Product
 
         return $dataProvider;
     }
+    
+    public function searchFavorite($params, $productPerPage = 20)
+    {
+        $query = Product::find()
+            ->alias('p')
+            ->innerJoin(['pf' => ProductFavorite::tableName()], 'pf.product_id = p.id')
+            ->where(['pf.user_id' => \Yii::$app->user->id])
+            ->andWhere(['p.status' => self::STATUS_ACTIVE])
+                ->orderBy(['pf.created_at' => SORT_DESC]);
+            
+            
+         // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => $productPerPage, // Используем переданное значение
+            ],
+            /*'sort' => [
+                'defaultOrder' => [
+                    'pf.created_at' => SORT_DESC,
+                ]
+            ],*/
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'status' => 1,
+            /*'category_id' => $this->category_id,
+            'user_id' => $this->user_id,
+            'count_views' => $this->count_views,
+            'created_at' => $this->created_at,*/
+        ]);
+
+        /*$query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'url', $this->url])
+            ->andFilterWhere(['like', 'images', $this->images]);*/
+
+        return $dataProvider;
+    }
 }

@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Response;
 use ZakharovAndrew\user\controllers\ParentController;
 use ZakharovAndrew\shop\models\Product;
+use ZakharovAndrew\shop\models\ProductSearch;
 
 class FavoriteController extends ParentController
 {
@@ -88,10 +89,15 @@ class FavoriteController extends ParentController
      */
     public function actionList()
     {
-        $favorites = Product::getUserFavorites();
+        $searchModel = new ProductSearch();
         
+        $productPerPage = \Yii::$app->shopSettings->get('productPerPage', 20);
+        
+        $dataProvider = $searchModel->searchFavorite($this->request->queryParams, $productPerPage);
+
         return $this->render('list', [
-            'favorites' => $favorites,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

@@ -4,6 +4,8 @@ use yii\web\View;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use ZakharovAndrew\shop\Module;
+use ZakharovAndrew\shop\assets\ShopAssets;
+ShopAssets::register($this);
 
 /** @var $this View */
 /** @var $favorites \ZakharovAndrew\shop\models\Product[] */
@@ -11,47 +13,28 @@ use ZakharovAndrew\shop\Module;
 $this->title = Module::t('My Favorites');
 $this->params['breadcrumbs'][] = $this->title;
 
+$module = Yii::$app->getModule('shop');
+$products = $dataProvider->getModels();
+
+$mobileProductsPerRowStyle = [
+    1 => 'col-md-4 col-12 shop-product',
+    2 => 'col-md-4 col-6 shop-product',
+    3 => 'col-md-4 col-4 shop-product',
+];
 ?>
 <div class="favorite-list">
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <?php if (empty($favorites)): ?>
+    <?php if (empty($products)): ?>
         <div class="alert alert-info">
             <?= Module::t('You have no favorite products yet.') ?>
         </div>
     <?php else: ?>
-        <div class="row">
-            <?php foreach ($favorites as $product): ?>
-                <div class="col-md-4 col-sm-6 product-item">
-                    <div class="card">
-                        <img src="<?= $product->getFirstImage('small') ?>" 
-                             class="card-img-top" 
-                             alt="<?= Html::encode($product->name) ?>">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="<?= Url::to(['/shop/product/view', 'url' => $product->url]) ?>">
-                                    <?= Html::encode($product->name) ?>
-                                </a>
-                            </h5>
-                            <p class="card-text product-price">
-                                <?= Yii::$app->formatter->asCurrency($product->price) ?>
-                            </p>
-                            <div class="product-actions">
-                                <button class="btn btn-danger btn-sm remove-favorite" 
-                                        data-product-id="<?= $product->id ?>">
-                                    <i class="fas fa-heart-broken"></i>
-                                    <?= Module::t('Remove') ?>
-                                </button>
-                                <a href="<?= Url::to(['/shop/cart/add', 'id' => $product->id]) ?>" 
-                                   class="btn btn-primary btn-sm">
-                                    <?= Module::t('Add to Cart') ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+        <?= $this->render('../catalog/_product_list', [
+        'products' => $products,
+        'pagination' => $dataProvider->pagination,
+        'class' => $mobileProductsPerRowStyle[Yii::$app->shopSettings->get('mobileProductsPerRow')] ?? $mobileProductsPerRowStyle[1]
+    ]) ?>
     <?php endif; ?>
 </div>
 
