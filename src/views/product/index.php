@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 <div class="product-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (Yii::$app->getModule('shop')->showTitle) {?><h1><?= Html::encode($this->title) ?></h1><?php } ?>
 
     <p>
         <?= Html::a(Module::t('Add Product'), ['create'], ['class' => 'btn btn-success']) ?>

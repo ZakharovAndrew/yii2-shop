@@ -34,6 +34,8 @@ class Product extends \yii\db\ActiveRecord
     const STATUS_ACTIVE = 1;
     
     public $tag_list;
+    
+    public $change_updated_at = true;
         
     /**
      * {@inheritdoc}
@@ -88,7 +90,7 @@ class Product extends \yii\db\ActiveRecord
             'status' => Module::t('Status'),
             'rating' => Module::t('Rating'),
             'position' => Module::t('Position'),
-            'created_at' => 'Created At',
+            'created_at' => Module::t('Created At'),
             'bulk_price_quantity_1' => Module::t('Bulk quantity 1'),
             'bulk_price_1' => Module::t('Bulk price 1'),
             'bulk_price_quantity_2' => Module::t('Bulk quantity 2'),
@@ -661,6 +663,11 @@ class Product extends \yii\db\ActiveRecord
             if (empty($this->url)) {
                 $this->url = $this->generateUniqueUrl();
             }
+            
+            if ($this->change_updated_at) {
+                $this->updated_at = date('Y-m-d H:i:s');
+            }
+            
             return true;
         }
         return false;
