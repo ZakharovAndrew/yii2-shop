@@ -1,3 +1,38 @@
+$(".add-to-cart").on('click', function () {
+    let id = $(this).data('id');
+    shop.addCart(id)  
+});
+// Favorite functionality
+$(document).on('click', '.favorite-toggle', function() {
+    var button = $(this);
+    var productId = button.data('product-id');
+    var isFavorite = button.data('is-favorite');
+    
+    $.get('/shop/favorite/toggle', {id: productId}, function(response) {
+        if (response.success) {
+            button.data('is-favorite', response.isFavorite ? 1 : 0);
+            
+            if (response.isFavorite) {
+                button.addClass('fav-active');
+                button.attr('title', 'In Favorites');
+                
+            } else {
+                button.removeClass('fav-active');
+                button.attr('title', 'Add to Favorites');
+            }
+            
+            // Show notification
+            showNotification(response.message, 'success');
+        } else {
+            showNotification(response.message, 'error');
+        }
+    });
+});
+
+function showNotification(message, type) {
+    console.log(type + ': ' + message);
+}
+
 class ZaanShop {
     constructor() {
         console.log('START SHOP');

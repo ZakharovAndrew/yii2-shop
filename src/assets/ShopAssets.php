@@ -17,7 +17,7 @@ class ShopAssets extends AssetBundle
     ];
 
     public $js = [
-        'js/shop.js',
+        'js/shop_v0.1.js',
     ];
 
     public $depends = [
