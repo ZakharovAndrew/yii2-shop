@@ -63,8 +63,7 @@ class Sitemap
     private function getProducts()
     {
         $products = Product::find()
-            //->select(['url', 'updated_at', 'created_at'])
-            ->select(['url', 'created_at'])
+            ->select(['url', 'updated_at', 'created_at'])
             ->where(['status' => Product::STATUS_ACTIVE])
             ->asArray()
             ->all();
