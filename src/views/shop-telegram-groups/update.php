@@ -4,14 +4,13 @@ use yii\helpers\Html;
 use ZakharovAndrew\shop\Module;
 
 /** @var yii\web\View $this */
-/** @var ZakharovAndrew\shop\models\ProductCategory $model */
+/** @var ZakharovAndrew\shop\models\ShopTelegramGroups $model */
 
-$this->title = Module::t('Update Product Category') . ': ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Module::t('Product Categories'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'url' => $model->url]];
+$this->title = Module::t('Update Telegram Group') . ': ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => Module::t('Telegram Groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = Module::t('Update');
 ?>
-<div class="product-category-update">
+<div class="shop-telegram-groups-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
