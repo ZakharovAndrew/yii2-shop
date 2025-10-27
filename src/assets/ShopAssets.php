@@ -13,7 +13,7 @@ class ShopAssets extends AssetBundle
     public $sourcePath = '@vendor/zakharov-andrew/yii2-shop/src/assets';
 
     public $css = [
-        'css/style_v1.182.css',
+        'css/style_v1.183.css',
     ];
 
     public $js = [
