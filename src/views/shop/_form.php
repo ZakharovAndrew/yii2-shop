@@ -111,7 +111,7 @@ $this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckedito
                        placeholder="<?= Module::t('Search by title or URL...') ?>">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="search-telegram-groups">
-                        <i class="fas fa-search"></i>
+                        <?= Module::t('Find') ?>
                     </button>
                 </div>
             </div>

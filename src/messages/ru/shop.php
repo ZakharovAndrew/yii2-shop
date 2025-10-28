@@ -461,6 +461,7 @@ return [
     'No available Telegram groups found.' => 'Доступные Telegram группы не найдены.',
     'Open in Telegram' => 'Открыть в Telegram',
     'Save the shop first to be able to link Telegram groups.' => 'Сначала сохраните магазин, чтобы иметь возможность привязывать Telegram группы.',
+    'Find' => 'Найти',
 ];
 
 
