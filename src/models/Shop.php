@@ -162,4 +162,99 @@ class Shop extends ActiveRecord
     {
         return self::canEdit($this->id);
     }
+    
+        /**
+     * Get Telegram group links for this shop
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTelegramGroupLinks()
+    {
+        return $this->hasMany(ShopToTelegramGroups::class, ['shop_id' => 'id']);
+    }
+
+    /**
+     * Get Telegram groups for this shop
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTelegramGroups()
+    {
+        return $this->hasMany(ShopTelegramGroups::class, ['id' => 'telegram_group_id'])
+            ->via('telegramGroupLinks');
+    }
+
+    /**
+     * Get active Telegram groups for this shop
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActiveTelegramGroups()
+    {
+        return $this->hasMany(ShopTelegramGroups::class, ['id' => 'telegram_group_id'])
+            ->via('telegramGroupLinks')
+            ->where(['is_active' => true]);
+    }
+
+    /**
+     * Add Telegram group to shop
+     * 
+     * @param int $telegramGroupId
+     * @return bool
+     */
+    public function addTelegramGroup($telegramGroupId)
+    {
+        if ($this->hasTelegramGroup($telegramGroupId)) {
+            return true; // already exists
+        }
+
+        $link = new ShopToTelegramGroups([
+            'shop_id' => $this->id,
+            'telegram_group_id' => $telegramGroupId,
+        ]);
+
+        return $link->save();
+    }
+
+    /**
+     * Remove Telegram group from shop
+     * 
+     * @param int $telegramGroupId
+     * @return bool
+     */
+    public function removeTelegramGroup($telegramGroupId)
+    {
+        $link = ShopToTelegramGroups::find()
+            ->where(['shop_id' => $this->id, 'telegram_group_id' => $telegramGroupId])
+            ->one();
+
+        if ($link) {
+            return $link->delete();
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if shop has specific Telegram group
+     * 
+     * @param int $telegramGroupId
+     * @return bool
+     */
+    public function hasTelegramGroup($telegramGroupId)
+    {
+        return ShopToTelegramGroups::find()
+            ->where(['shop_id' => $this->id, 'telegram_group_id' => $telegramGroupId])
+            ->exists();
+    }
+
+    /**
+     * Get array of Telegram group IDs for this shop
+     * 
+     * @return array
+     */
+    public function getTelegramGroupIds()
+    {
+        return ArrayHelper::getColumn($this->telegramGroupLinks, 'telegram_group_id');
+    }
 }

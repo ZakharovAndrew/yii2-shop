@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use ZakharovAndrew\shop\Module;
 
 /** @var ZakharovAndrew\shop\models\Shop $model */
 ?>
@@ -24,7 +25,7 @@ use yii\helpers\Url;
                         <span class="badge badge-secondary mr-2"><?= Yii::t('app', 'Inactive') ?></span>
                     <?php endif; ?>
                     <button type="button" class="btn btn-sm btn-outline-danger unlink-telegram-group" 
-                            data-group-id="<?= $group->id ?>" title="<?= Yii::t('app', 'Unlink group') ?>">
+                            data-group-id="<?= $group->id ?>" title="<?= Module::t('Unlink group') ?>">
                         <i class="fas fa-unlink"></i>
                     </button>
                 </div>
@@ -34,6 +35,6 @@ use yii\helpers\Url;
 <?php else: ?>
     <div class="alert alert-warning">
         <i class="fas fa-info-circle"></i>
-        <?= Yii::t('app', 'No Telegram groups linked to this shop.') ?>
+        <?= Module::t('No Telegram groups linked to this shop.') ?>
     </div>
 <?php endif; ?>

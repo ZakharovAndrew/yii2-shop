@@ -1,27 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use ZakharovAndrew\shop\Module;
 
 /** @var ShopTelegramGroups[] $groups */
 /** @var Shop $shop */
 ?>
 
 <style>
-    .btn-social {
-    display: block;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    font-size: 0;
-    background-position: center;
-    background-size: auto;
-    background-repeat: no-repeat;
-    background-color: rgb(0 0 0 / 40%);
-    margin-right: 5px;
-    }
-    .icon-telegram:hover, .soc-icon-top .icon-telegram:hover {
-        background-color: #40b3e0 !important;
-    }
     .telegram-group-checkbox {
         margin: 1em 1em 1em 0;
     }
@@ -36,7 +22,7 @@ use yii\helpers\Html;
 <?php if (empty($groups)): ?>
     <div class="alert alert-info">
         <i class="fas fa-info-circle"></i>
-        <?= Yii::t('app', 'No available Telegram groups found.') ?>
+        <?= Module::t('No available Telegram groups found.') ?>
     </div>
 <?php else: ?>
     <div class="list-group">
@@ -56,7 +42,7 @@ use yii\helpers\Html;
                     <?= Html::a('', $group->telegram_url, [
                         'target' => '_blank',
                         'class' => 'btn-social icon-telegram',
-                        'title' => Yii::t('app', 'Open in Telegram')
+                        'title' => Module::t('Open in Telegram')
                     ]) ?>
                 </div>
             </label>

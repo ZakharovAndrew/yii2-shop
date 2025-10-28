@@ -206,4 +206,12 @@ class ShopTelegramGroups extends ActiveRecord
             $this->telegram_chat_id = (string)$data['id'];
         }
     }
+    
+    public function sendPost($message)
+    {
+        $token = Yii::$app->getModule('user')->telegramToken;
+        $telegram = new \ZakharovAndrew\user\models\Telegram($token);
+        
+        $telegram->sendMessage($this->telegram_chat_id, $message);
+    }
 }

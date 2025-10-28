@@ -668,6 +668,13 @@ class Product extends \yii\db\ActiveRecord
                 $this->updated_at = date('Y-m-d H:i:s');
             }
             
+            $telegram_groups = $this->shop->getActiveTelegramGroups()->all();
+            if (count($telegram_groups)>0) {
+                foreach ($telegram_groups as $group) {
+                    $group->sendPost($this->name. ' '.$this->price);
+                }
+            }
+            
             return true;
         }
         return false;
