@@ -668,15 +668,74 @@ class Product extends \yii\db\ActiveRecord
                 $this->updated_at = date('Y-m-d H:i:s');
             }
             
-            $telegram_groups = $this->shop->getActiveTelegramGroups()->all();
-            if (count($telegram_groups)>0) {
-                foreach ($telegram_groups as $group) {
-                    $group->sendPost($this->name. ' '.$this->price);
-                }
-            }
-            
             return true;
         }
         return false;
+    }
+    
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        // Добавляем товар в очередь для постинга в Telegram при создании
+        if ($insert/* && $this->status === self::STATUS_ACTIVE*/) {
+            $this->addToTelegramQueue();
+        }
+    }
+    
+    /**
+     * Add product to telegram queue for posting
+     * 
+     * @return bool
+     */
+    public function addToTelegramQueue()
+    {
+        if (!$this->shop) {
+            return false;
+        }
+        
+        return ProductTelegramQueue::addToQueue($this->id);
+    }
+    
+    /**
+     * Get telegram queue items for this product
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTelegramQueueItems()
+    {
+        return $this->hasMany(ProductTelegramQueue::class, ['product_id' => 'id']);
+    }
+    
+    /**
+     * Get pending telegram queue items for this product
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPendingTelegramQueueItems()
+    {
+        return $this->hasMany(ProductTelegramQueue::class, ['product_id' => 'id'])
+            ->where(['status' => ProductTelegramQueue::STATUS_PENDING]);
+    }
+    
+    /**
+     * Check if product has pending telegram posts
+     * 
+     * @return bool
+     */
+    public function hasPendingTelegramPosts()
+    {
+        return $this->getPendingTelegramQueueItems()->exists();
+    }
+    
+    /**
+     * Get posted telegram queue items for this product
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPostedTelegramQueueItems()
+    {
+        return $this->hasMany(ProductTelegramQueue::class, ['product_id' => 'id'])
+            ->where(['status' => ProductTelegramQueue::STATUS_POSTED]);
     }
 }
