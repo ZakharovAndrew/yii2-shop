@@ -3,11 +3,13 @@
 namespace ZakharovAndrew\shop\controllers;
 
 use Yii;
+use ZakharovAndrew\shop\models\Product;
 use ZakharovAndrew\shop\models\ProductTag;
 use ZakharovAndrew\shop\models\ProductTagSearch;
 use yii\web\NotFoundHttpException;
 use ZakharovAndrew\user\controllers\ParentController;
 use ZakharovAndrew\shop\Module;
+use yii\data\Pagination;
 
 /**
  * ProductTagController implements the CRUD actions for ProductTag model.
@@ -45,8 +47,26 @@ class ProductTagController extends ParentController
             throw new NotFoundHttpException('The requested tag does not exist.');
         }
 
+        // Base products query
+        $query = Product::find()
+            ->where('id IN (SELECT product_id FROM product_tag_assignment WHERE tag_id = '.$model->id.')')
+            ->andWhere(['status' => 1]);
+        
+        // Create query copy
+        $countQuery = clone $query;
+        $productPerPage = \Yii::$app->shopSettings->get('productPerPage', 20);
+        // Initialize Pagination, show 48 items per page
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $productPerPage]);
+        // Make URL parameters SEO-friendly
+        $pages->pageSizeParam = false;
+        $products = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        
         return $this->render('view', [
             'model' => $model,
+            'products' => $products,
+            'pagination' => $pages,
         ]);
     }
 
