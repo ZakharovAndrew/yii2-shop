@@ -117,11 +117,10 @@ $this->registerJsFile('https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckedito
             </div>
         </div>
 
-        <!-- Список доступных групп -->
         <div id="telegram-groups-container">
             <div class="text-center py-3">
                 <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only"><?= Yii::t('app', 'Loading...') ?></span>
+                    <span class="sr-only"><?= Module::t('Loading...') ?></span>
                 </div>
             </div>
         </div>
