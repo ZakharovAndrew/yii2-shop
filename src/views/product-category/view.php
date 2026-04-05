@@ -173,12 +173,12 @@ $this->params['breadcrumbs'][] = $model->title;
                 </div>
             </div>
         <?php endforeach; ?>
-        </div>
         <div class="form-group form-group-submit">
             <?= Html::submitButton(Module::t('Filter'), ['class' => 'btn btn-success']) ?>
         </div>
         <?php ActiveForm::end(); ?>
         <?php endif; ?>
+        </div>
     </div>
     <div class="products-catalog__right">
         <div class="products-header">
